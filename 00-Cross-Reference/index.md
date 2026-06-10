@@ -55,22 +55,22 @@
 
 | 笔记章节 | 相关题目 | 对应答案 |
 |----------|----------|----------|
-| §3 Galerkin 法 | HW3 Q2 (试函数合法性) | [`2026w/HW3-Solution`](../04-Homework-Solutions/2026w/HW3-Solution.md) §2 |
-| §3 Galerkin 法 | HW3 Q3 (弹性地基梁) | [`2026w/HW3-Solution`](../04-Homework-Solutions/2026w/HW3-Solution.md) §3 |
+| §4.3 Galerkin 法 | HW3 Q2 (试函数合法性) | [`2026w/HW3-Solution`](../04-Homework-Solutions/2026w/HW3-Solution.md) §2 |
+| §4.3 Galerkin 法 | HW3 Q3 (弹性地基梁) | [`2026w/HW3-Solution`](../04-Homework-Solutions/2026w/HW3-Solution.md) §3 |
 | 往年题 | [`past/HW3/Homework3`](../04-Homework-Solutions/past/HW3/Homework3.md) | [`past/HW3/Ans to HM3_LIU Sai_handed in`](../04-Homework-Solutions/past/HW3/Ans%20to%20HM3_LIU%20Sai_handed%20in.md) |
 
 ### 1-5 FEM 公式推导（配合 HW3）
 
 | 笔记章节 | 相关题目 | 对应答案 |
 |----------|----------|----------|
-| §4.6 单元刚度矩阵 | — | 参见 §2.7 数值算例 |
+| §6.1 单元构造概述（形函数影响因素） | — | 参见 §2.7 数值算例 |
 | §7 杆单元 + 组装 | 往年杆系题 | — |
 
 ### 1-6 单元构造（配合 HW3）
 
 | 笔记章节 | 相关题目 | 对应答案 |
 |----------|----------|----------|
-| §3-4 形函数 | HW3 Q4 (梁单元 Hermite) | [`2026w/HW3-Solution`](../04-Homework-Solutions/2026w/HW3-Solution.md) §4 |
+| §6.2-6.4 形函数（二维） | HW3 Q4 (梁单元 Hermite) | [`2026w/HW3-Solution`](../04-Homework-Solutions/2026w/HW3-Solution.md) §4 |
 
 ---
 

@@ -51,7 +51,7 @@
 ⑦ 代入边界条件求解
 ```
 
-**参考**：ch03_variational_methods.md → 5. Euler 方程
+**参考**：[1-3 变分法](../01-Lecture-Notes/1-3-Variational-Methods.md) → §3.4 Euler 方程
 
 ### 2.2 形函数构造题
 
@@ -66,7 +66,7 @@
 ⑤ 对三角形: 面积坐标法最简便
 ```
 
-**参考**：ch06_element_construction.md → 2-4
+**参考**：[1-6 单元构造](../01-Lecture-Notes/1-6-Element-Construction.md) → §6.2 二维情况
 
 ### 2.3 三角形单元刚度矩阵计算
 
@@ -94,7 +94,7 @@ Step 4: 确定弹性矩阵 [D]
 Step 5: 计算 [k]_e = t·Δ·[B]^T[D][B]
 ```
 
-**参考**：ch05_fem_formulation.md → 4
+**参考**：[1-5 FEM 公式推导](../01-Lecture-Notes/1-5-FEM-Formulation.md) → §5.4 弹性力学平面问题
 
 ### 2.4 总体矩阵组装题
 
@@ -127,7 +127,7 @@ Step 5: 计算 [k]_e = t·Δ·[B]^T[D][B]
    - e_ijk e_ist = δ_js δ_kt - δ_jt δ_ks
 ```
 
-**参考**：ch02_tensor_elasticity.md → 1, 3
+**参考**：[1-2 张量分析](../01-Lecture-Notes/1-2-Tensor-Elasticity.md) → §2.2 张量引论
 
 ---
 
@@ -135,15 +135,15 @@ Step 5: 计算 [k]_e = t·Δ·[B]^T[D][B]
 
 | 场景 | 公式 | 参考章节 |
 |------|------|----------|
-| Euler 方程 | $\frac{\partial F}{\partial y} - \frac{d}{dx}(\frac{\partial F}{\partial y'}) = 0$ | ch03 |
-| 形函数-CST | $N_i = \frac{1}{2\Delta}(a_i + b_i x + c_i y)$ | ch05 |
-| 单元刚阵 | $[k]_e = \iint [B]^T[D][B]\,t\,dxdy$ | ch05 |
-| 总刚组装 | $[K] = \sum [k]_e$ | ch05 |
-| B 矩阵 CST | $[B] = \frac{1}{2\Delta}[b_i\text{ 矩阵}]$ | ch05 |
-| D 矩阵-平面应力 | $\frac{E}{1-\nu^2}\begin{pmatrix}1&\nu&0\\\nu&1&0\\0&0&\frac{1-\nu}{2}\end{pmatrix}$ | ch05 |
-| D 矩阵-平面应变 | $\frac{E(1-\nu)}{(1+\nu)(1-2\nu)}\begin{pmatrix}1&\frac{\nu}{1-\nu}&0\\\frac{\nu}{1-\nu}&1&0\\0&0&\frac{1-2\nu}{2(1-\nu)}\end{pmatrix}$ | ch05 |
-| 等参形函数 Q4 | $N_i = \frac{1}{4}(1+\xi\xi_i)(1+\eta\eta_i)$ | ch06 |
-| Gauss 积分 2点 | $\int_{-1}^1 f(\xi)d\xi \approx f(-1/\sqrt{3}) + f(1/\sqrt{3})$ | ch06 |
+| Euler 方程 | $\frac{\partial F}{\partial y} - \frac{d}{dx}(\frac{\partial F}{\partial y'}) = 0$ | [1-3 §3.4](../01-Lecture-Notes/1-3-Variational-Methods.md) |
+| 形函数-CST | $N_i = \frac{1}{2\Delta}(a_i + b_i x + c_i y)$ | [1-5 §5.4](../01-Lecture-Notes/1-5-FEM-Formulation.md) |
+| 单元刚阵 | $[k]_e = \iint [B]^T[D][B]\,t\,dxdy$ | [1-5 §5.4](../01-Lecture-Notes/1-5-FEM-Formulation.md) |
+| 总刚组装 | $[K] = \sum [k]_e$ | [1-5 §5.3](../01-Lecture-Notes/1-5-FEM-Formulation.md) |
+| B 矩阵 CST | $[B] = \frac{1}{2\Delta}[b_i\text{ 矩阵}]$ | [1-5 §5.4](../01-Lecture-Notes/1-5-FEM-Formulation.md) |
+| D 矩阵-平面应力 | $\frac{E}{1-\nu^2}\begin{pmatrix}1&\nu&0\\\nu&1&0\\0&0&\frac{1-\nu}{2}\end{pmatrix}$ | [1-5 §5.4](../01-Lecture-Notes/1-5-FEM-Formulation.md) |
+| D 矩阵-平面应变 | $\frac{E(1-\nu)}{(1+\nu)(1-2\nu)}\begin{pmatrix}1&\frac{\nu}{1-\nu}&0\\\frac{\nu}{1-\nu}&1&0\\0&0&\frac{1-2\nu}{2(1-\nu)}\end{pmatrix}$ | [1-5 §5.4](../01-Lecture-Notes/1-5-FEM-Formulation.md) |
+| 等参形函数 Q4 | $N_i = \frac{1}{4}(1+\xi\xi_i)(1+\eta\eta_i)$ | [1-6 §6.4](../01-Lecture-Notes/1-6-Element-Construction.md) |
+| Gauss 积分 2点 | $\int_{-1}^1 f(\xi)d\xi \approx f(-1/\sqrt{3}) + f(1/\sqrt{3})$ | [1-6 §6.4](../01-Lecture-Notes/1-6-Element-Construction.md) |
 
 ---
 
