@@ -1,581 +1,502 @@
-# 第3章：变分法基础（Variational Calculus）
+# 变分法基础（Variational Calculus）
 
-> **对应 PDF**：[`Chapter 3 Variation theory and applications-1.pdf`](../06-References/pdfs-originals/Chapter%203%20Variation%20theory%20and%20applications-1.pdf) · [`有限元复习.pdf`](../06-References/pdfs-originals/有限元复习.pdf) §4
-> **相关作业**：[HW2 Q1-Q4](../04-Homework-Solutions/2026w/HW2-Problem.md) · [HW3 Q3（弹性地基梁）](../04-Homework-Solutions/2026w/HW3-Problem.md)
-> **前置知识**：微积分（微分定义、分部积分、常微分方程求解）、线性代数
-
----
-
-## 3.1 引言：从最速降线问题说起
-
-### 3.1.1 一个改变数学史的问题
-
-1696 年 6 月，瑞士数学家 Johann Bernoulli 在《教师学报》上向全欧洲数学家发起了挑战。他提出了这样一个问题：
-
-> 设 $A$ 和 $B$ 是垂直平面内不在同一垂线上的两点（$A$ 高于 $B$）。一质点在重力作用下从 $A$ 无摩擦地滑到 $B$。问沿哪条曲线滑行所需时间最短？
-
-这就是著名的**最速降线问题（Brachistochrone Problem）**，源自希腊语 "brachistos"（最短）和 "chronos"（时间）。
-
-这个问题在当时引起了轰动。Newton、Leibniz、L'Hôpital 和 Jacob Bernoulli（Johann 的哥哥）都在数月内给出了解答。令人惊讶的是，答案不是人们直觉以为的直线或圆弧，而是一条**旋轮线（cycloid）**——即一个圆沿直线滚动时，圆周上某点所描绘的轨迹。
-
-### 3.1.2 最速降线的数学表述
-
-建立坐标系：$A$ 在原点，$y$ 轴向下为正。质点质量为 $m$，重力加速度为 $g$。
-
-由能量守恒：
-$$\frac12 mv^2 = mgy \quad\Rightarrow\quad v = \sqrt{2gy}$$
-
-弧长微分：$dS = \sqrt{1 + y'^2}\,dx$
-
-时间微元：
-$$dt = \frac{dS}{v} = \frac{\sqrt{1+y'^2}}{\sqrt{2gy}}\,dx$$
-
-总时间 $T$ 是路径 $y(x)$ 的函数（泛函）：
-$$T[y] = \int_{x_A}^{x_B} \frac{\sqrt{1+y'^2}}{\sqrt{2gy}}\,dx = \frac{1}{\sqrt{2g}}\int_{x_A}^{x_B} \sqrt{\frac{1+y'^2}{y}}\,dx$$
-
-这就是一个典型的变分问题：在满足端点条件 $y(x_A)=0, y(x_B)=y_B$ 的所有函数 $y(x)$ 中，寻找使 $T[y]$ 取最小值的那个。
-
-### 3.1.3 核心问题
-
-变分法的核心问题可以概括为：
-
-> 从合适的函数集中选择某个函数 $y(x)$，使某个依赖于该函数整体的量（即泛函）达到极值。
-
-数学上，最常见的泛函形式是：
-$$Q[y] = \int_{x_1}^{x_2} F(x, y, y')\,dx \to \text{extremum}$$
-
-这里的"自变量"不再是微积分中的数 $x$，而是**函数 $y(x)$ 本身**。
+> **对应课件**：[`6 FEM_Element construction.pdf`](../06-References/pdfs-originals/6%20FEM_Element%20construction.pdf) 第1章 §IV · [原文MD](../06-References/../06-References/../md_output/6%20FEM_Element%20construction.md) §4.1-4.7
+> **PDF 章节定位**：Chapter 1 → Theory of elasticity → IV. Basics of Variational Principles (Section 4.1–4.7)
+> **相关作业**：[HW2 Q1-Q4](../04-Homework-Solutions/2026w/HW2-Problem.md) · [HW3 Q3（弹性地基梁变分推导）](../04-Homework-Solutions/2026w/HW3-Problem.md)
+> **前置知识**：微积分（微分定义、分部积分、ODE 求解）、线性代数
 
 ---
 
-## 3.2 从函数到泛函
+## §4.1 引言
 
-### 3.2.1 泛函的定义
+### 4.1.1 为什么需要近似方法？
 
-**泛函（Functional）**是从函数空间到实数域的映射。换句话说，泛函是"函数的函数"——它输入一个函数，输出一个实数。
+弹性力学微分形式的方程很难获得精确解，原因在于：
 
-**定义**：设 $D$ 是一个函数集合。如果对于任意函数 $f(x) \in D$，都有唯一一个实数 $Q$ 与之对应，则称 $Q$ 是 $f$ 的**泛函**，记作：
-$$Q = Q[f(x)]$$
+■ 复杂的控制方程（偏微分方程组，15个方程耦合）
+■ 复杂的边界条件（不规则几何形状、混合边界条件）
 
-### 3.2.2 函数 vs 泛函
+因此近似方法是必要的。**有限元分析（FEA）** 就是其中非常重要的一种。近似解可以非常接近精确解——实际上，在前面推导控制方程时，我们通常已经做了一些简化假设，这本身也是一种近似。
 
-理解泛函的关键在于区分它与普通函数：
+> 换言之，这个世界上不存在绝对精确的解。
 
-| 概念 | 函数 $y = f(x)$ | 泛函 $Q = Q[f]$ |
-|------|----------------|-----------------|
-| 输入 | 一个数 $x$ | 一个**函数** $f(x)$ |
-| 输出 | 一个数 $y$ | 一个数 $Q$ |
-| 依赖关系 | 依赖于 $x$ 的**取值** | 依赖于 $f$ 的**形状** |
+### 4.1.2 最速降线问题（Brachistochrone Problem）
 
-**例 1**：$Q[f] = \int_0^1 f(x)\,dx$
-- 当 $f(x) = x$ 时，$Q = \frac12$
-- 当 $f(x) = \sqrt{x}$ 时，$Q = \frac23$
-- 同一个输入 $x=0.5$ 在两个函数下的值完全不同，但 $Q$ 关心的是整个曲线的"形状"——即曲线下的面积
+1696年，Johann Bernoulli（1667–1748）向全欧洲的数学家提出了一个挑战：
 
-**例 2**：$N[f] = $ 函数 $f$ 在 $[a,b]$ 上的零点个数
-- $N[\cos x]$ 在 $[0,2\pi]$ 上等于 2
-- $N[\sin x]$ 在 $[0,2\pi]$ 上等于 3
-- 这也是泛函——输入函数、输出数
+> 设在垂直平面内有任意两点 A 和 B（A 高于 B）。一质点在重力作用下从 A 沿某曲线无摩擦地滑到 B。问沿哪条曲线所需时间最短？
 
-### 3.2.3 线性泛函
+泛函表述为：
+$$Q[y] = \int_{x_A}^{x_B} \sqrt{\frac{1+y'^2}{y}}\,dx$$
 
-若泛函 $Q$ 同时满足以下两个条件：
+这个问题之所以著名，不仅在于求最大值或最小值，而在于要求出一个**未知函数（曲线）** 来满足所有条件。这个创新而有趣的问题迅速吸引了当时最著名的数学家。该期刊在1697年5月发表了 L'Hôpital（1661–1704）、Jacob Bernoulli（1654–1705）、Leibniz（1646–1716）和 Newton（1642–1727）的解答。他们都用不同的方法得到了相同的答案——最速降线是**旋轮线（cycloid）**。但仅凭这些解答还不能建立变分法的框架。
 
-1. **齐次性**：$Q[cy] = c\,Q[y]$（$c$ 为任意常数）
-2. **可加性**：$Q[y_1 + y_2] = Q[y_1] + Q[y_2]$
+### 4.1.3 Euler 方程与变分法的建立
 
-则称 $Q$ 是**线性泛函**。两个条件可以合并为：
-$$Q[c_1y_1 + c_2y_2] = c_1Q[y_1] + c_2Q[y_2]$$
+**Euler（1707–1783）** 在1736年解决了最速降线问题，并得到了解决这类问题的一般方法。他指出：若以下积分达到极值，
+$$Q[y] = \int_{x_1}^{x_2} F[x, y(x), y'(x)]\,dx$$
 
-**例 3**：判断 $Q[y] = \int_a^b y(x)\,dx$ 是否为线性泛函
+则函数 $y(x)$ 必须满足：
+$$\frac{\partial F}{\partial y} - \frac{d}{dx}\left(\frac{\partial F}{\partial y'}\right) = 0$$
 
-$$\begin{aligned}
-Q[c_1y_1 + c_2y_2] &= \int_a^b [c_1y_1(x) + c_2y_2(x)]\,dx \\
-&= c_1\int_a^b y_1(x)\,dx + c_2\int_a^b y_2(x)\,dx \\
-&= c_1Q[y_1] + c_2Q[y_2]
-\end{aligned}$$
+这就是著名的 **Euler 方程**。
 
-因此 $Q[y] = \int_a^b y(x)dx$ **是**线性泛函。✅
+**Lagrange（1736–1813）** 在1755年用数学分析的方法改进和简化了 Euler 的研究，变分法由此作为数学的一个新分支正式建立。
 
-**例 4**：判断 $Q[y] = \int_a^b y^2(x)\,dx$ 是否为线性泛函
+### 4.1.4 经典变分法的问题
 
-$$\begin{aligned}
-Q[c_1y_1 + c_2y_2] &= \int_a^b (c_1y_1 + c_2y_2)^2\,dx \\
-&= \int_a^b [c_1^2y_1^2 + c_2^2y_2^2 + 2c_1c_2y_1y_2]\,dx
-\end{aligned}$$
+经典变分法的主要问题可以概括为：在适当的函数集合内选取函数，使得某个积分达到极值，这可以通过求解相应的 Euler 方程来解决。
 
-而：
-$$c_1Q[y_1] + c_2Q[y_2] = c_1\int_a^b y_1^2\,dx + c_2\int_a^b y_2^2\,dx$$
+**但事实并非如此简单！**
 
-两式不相等（多出了交叉项 $2c_1c_2y_1y_2$），因此 $Q[y] = \int_a^b y^2dx$ **不是**线性泛函。❌
+几乎所有自然定律都可以用变分原理的形式来表达。变分法可以实现数学上的**统一**——数学物理定解问题通常可以转化为变分问题。变分法是解数学物理问题的近似方法，其基本思想就是把这样的问题转化为变分问题。
 
-> **判断线性泛函的陷阱**：必须同时检查齐次性和可加性，缺一不可。工程中常见的泛函大多是**非线性**的（因为涉及 $y^2, y'^2$ 等项），但这不影响我们用变分法求解。
+经典变分法促进了 Ritz 法等近似方法的发展，但 Ritz 法的试探函数选取仍然十分困难，而且系数矩阵的计算也非常复杂。直到计算机的发展，FEM 才迅速诞生。
 
 ---
 
-## 3.3 变分的概念
+## §4.2 泛函（Functional）
 
-### 3.3.1 自变函数的变分
+### 4.2.1 从例子理解泛函
 
-在微积分中，我们研究自变量的微小变化 $\Delta x$ 对函数值的影响。在变分法中，我们研究自变函数（即曲线）的微小变化对泛函值的影响。
+变分法的研究对象是**泛函**，它是函数概念的推广。
 
-**定义**：两个函数之间的差称为**变分**（variation），记作 $\delta y$：
-$$\delta y = y(x) - y_1(x)$$
+**例**：设 $y=f(x)$ 是在闭区间上连续且非负的函数。则以下积分的几何意义是曲线下的面积：
+$$Q[f] = \int_0^1 f(x)\,dx$$
 
-类似地，导数的变分为：
-$$\delta y' = y'(x) - y_1'(x)$$
+当 $f(x)=x$ 时，$Q[f]=\int_0^1 x\,dx=\frac12$
+当 $f(x)=\sqrt{x}$ 时，$Q[f]=\int_0^1\sqrt{x}\,dx=\frac23$
 
-> 变分 $\delta y$ 类似于微分 $dx$：$dx$ 是一个**微小量**，$\delta y$ 是一个**微小函数**。在端点固定的问题中，$\delta y$ 必须满足 $\delta y(a) = \delta y(b) = 0$，因为边界值已经给定，不能变化。
+可见对于任意一个连续非负函数 $f(x)$，都有一个确定的 $Q$ 值与之对应。
 
-### 3.3.2 函数的微分（回顾）
+### 4.2.2 函数 vs 泛函
 
-为了理解泛函的变分，先回顾函数微分的两种定义方式：
+**函数**：对于两个变量 $x$ 和 $y$，$x$ 属于数集 $D$，$y$ 属于数集 $R$。若对于 $D$ 中的每个 $x$，都有唯一的 $y$ 与之对应，则 $y$ 是 $x$ 的函数。
 
-**定义一（常规）**：将函数增量分解为线性主部和高阶小量。
-$$\Delta y = A(x)\Delta x + \varphi(x,\Delta x)\Delta x^2$$
-其中 $A(x)$ 与 $\Delta x$ 无关。当 $\Delta x \to 0$ 时 $\varphi(x,\Delta x) \to 0$。称 $dy = A(x)dx = y'(x)dx$ 为函数 $y$ 的**微分**。
+在之前的例子中，给定函数 $f(x)$ 后，$Q[f(x)]$ 被唯一确定。这意味着 $Q[f(x)]$ 可以看作是 $f(x)$ 的函数（记作 $Q[f]$）。这里 $f$ 可以看作一种自变量，$Q$ 就是它的函数。**泛函实际上是函数概念的推广**。
 
-**定义二（Lagrange 法）**：引入参数 $\varepsilon$。
-$$\left.\frac{\partial}{\partial\varepsilon}y(x + \varepsilon\Delta x)\right|_{\varepsilon=0} = y'(x)\Delta x = dy$$
+### 4.2.3 泛函的定义
 
-### 3.3.3 泛函变分的常规定义
+考虑一个函数集 $D$。若对于 $D$ 中的任意函数 $f(x)$，都有唯一的一个 $Q$ 值与之对应，那么变量 $Q$ 可以称为函数 $f$ 的泛函，记作：
+$$Q = Q[f(x)] \quad \text{或} \quad Q = Q[f]$$
 
-仿照函数微分的定义一。令 $\delta y$ 为自变函数的变分，则泛函的增量为：
-$$\Delta Q = Q[y + \delta y] - Q[y]$$
+> 注意：这只是一个粗略的定义，但足够用于后续讨论。
 
-如果能将 $\Delta Q$ 分解为：
-$$\Delta Q = T[y, \delta y] + \beta[y, \delta y]$$
+**用通俗的话说**：泛函就是"函数的函数"（不是复合函数那种）。函数通常依赖于自变量的**取值**，而泛函依赖于自变函数的**形状**。
 
-其中：
-- $T[y, \delta y]$ 对 $\delta y$ 是**线性泛函**（当 $y$ 固定时）
-- $\beta[y, \delta y] / \max|\delta y| \to 0$ 当 $\max|\delta y| \to 0$（高阶小量）
+### 4.2.4 更多例子
 
-则称 $T[y, \delta y]$ 为泛函 $Q$ 在 $y$ 处的**一阶变分**，记作 $\delta Q$。
+记 $N[f(x)]$ 为函数 $f(x)$ 在区间 $[a,b]$ 上零点的个数。则对任意实函数 $f$ 在 $[a,b]$ 上，都有一个确定的 $N$ 值。
 
-**例 5**：求 $Q[y] = \int_a^b y^2(x)dx$ 的变分 $\delta Q$
+例如取 $[a,b]=[0,2\pi]$：
+$$N[\cos x] = 2,\quad N[\sin x] = 3,\quad N[x^2-1] = 1$$
 
-$$\begin{aligned}
-\Delta Q &= \int_a^b (y + \delta y)^2 dx - \int_a^b y^2 dx \\
-&= \int_a^b [y^2 + 2y\delta y + (\delta y)^2] dx - \int_a^b y^2 dx \\
-&= \int_a^b 2y\,\delta y\,dx + \int_a^b (\delta y)^2 dx
-\end{aligned}$$
-
-第一项 $\int_a^b 2y\,\delta y\,dx$ 对 $\delta y$ 是线性的 → 这就是 $\delta Q$。
-第二项 $\int_a^b (\delta y)^2 dx$ 是 $\delta y$ 的高阶小量（因为 $(\delta y)^2$ 比 $\delta y$ 更快趋于零）。
-
-因此：
-$$\delta Q = \int_a^b 2y(x)\,\delta y(x)\,dx$$
-
-### 3.3.4 泛函变分的 Lagrange 定义（计算利器）
-
-**定义**：固定 $y(x)$ 和变分 $\delta y$，构造辅助函数：
-$$\varphi(\alpha) = Q[y + \alpha\delta y]$$
-
-则泛函变分为：
-$$\boxed{\delta Q = \left.\frac{\partial\varphi}{\partial\alpha}\right|_{\alpha=0} = \left.\frac{\partial}{\partial\alpha}Q[y + \alpha\delta y]\right|_{\alpha=0}}$$
-
-> **为什么这个定义好用？** 它将变分问题转化为普通微分问题——只需要对参数 $\alpha$ 求导，然后令 $\alpha=0$，不需要记忆复杂的分解公式。
-
-**例 6**：用 Lagrange 定义重做例 5
-
-构造 $\varphi(\alpha) = \int_a^b (y + \alpha\delta y)^2 dx$，则：
-$$\varphi'(\alpha) = \int_a^b 2(y + \alpha\delta y)\delta y\,dx$$
-$$\varphi'(0) = \int_a^b 2y\,\delta y\,dx = \delta Q$$
-
-与常规定义的结果一致。✅
-
-### 3.3.5 变分算子的运算法则
-
-一个重要性质将在推导 Euler 方程时发挥关键作用：
-
-**微分算子与变分算子可交换顺序**：
-$$\boxed{\frac{d}{dx}(\delta y) = \delta(y')}$$
-
-即：对变分求导数，等于对导数求变分。
-
-**证明**：
-$$\frac{d}{dx}(\delta y) = \frac{d}{dx}[y_1(x) - y(x)] = y_1'(x) - y'(x) = \delta(y')$$
-
-这个性质使我们可以在分部积分时自由地将 $\delta y'$ 替换为 $(\delta y)'$。
+根据前述定义，$N$ 是 $f$ 的泛函。
 
 ---
 
-## 3.4 泛函的极值
+## §4.3 变分（Variation）
 
-### 3.4.1 极值的必要条件
+### 4.3.1 相关概念的推广
 
-类比函数的极值条件（$dy = 0$），泛函取极值的**必要条件**是：
-$$\boxed{\delta Q = 0}$$
+在深入讨论之前，需要将函数的相关概念推广到泛函：
+- 函数极值 → **泛函极值**
+- 函数连续性 → **泛函连续性**
+- 函数微分 → **函数变分**
 
-即在极值函数处，泛函的一阶变分为零。
+### 4.3.2 自变函数的变分
 
-### 3.4.2 强极值与弱极值
+函数 $y(x)$ 自变量的增量为两个值的差：
+$$\Delta x = x - x_1$$
 
-根据所考虑的"邻域"的不同，泛函极值分为两类：
+类似地，泛函 $Q[y(x)]$ 的自变函数的增量为两个函数值的差：
+$$\Delta y = y(x) - y_1(x)$$
 
-- **强极值**：在零阶邻域（函数值本身接近）内成立。即对任意 $|y(x)-y_0(x)| < \varepsilon$ 的曲线，$Q[y] \geq Q[y_0]$。
-- **弱极值**：在一阶邻域（函数值和一阶导数都接近）内成立。即要求 $|y(x)-y_0(x)| < \varepsilon$ 且 $|y'(x)-y_0'(x)| < \varepsilon$。
+当这个增量足够小时，称为**变分**，记作 $\delta y(x)$ 或 $\delta y$：
+$$\delta y = y(x) - y_1(x),\quad \delta y' = y'(x) - y_1'(x)$$
 
-> 对于大多数工程问题，我们只关心极值的**必要条件** $\delta Q = 0$。充分性通常由物理背景来保证——我们知道系统应该取最小势能，而不需要验证二阶变分的正定性。
+自变函数通常需要满足特定的边界条件（如 $y(a)=y_a, y(b)=y_b$），所以自变函数的变分必须满足齐次边界条件：
+$$\delta y\big|_{x=a} = 0,\quad \delta y\big|_{x=b} = 0$$
 
----
+### 4.3.3 函数的接近度
 
-## 3.5 Euler 方程的完整推导
+所谓两条曲线"接近"有不同的含义：
 
-这是全书最重要的一节。**考试必考**。
+**零阶接近度**：仅函数值相近，即 $\max|y(x)-y_1(x)|$ 很小，但导数可能相差很大。
 
-### 3.5.1 问题设定
+**一阶接近度**：函数值和导数值都相近，即 $|y(x)-y_1(x)|$ 和 $|y'(x)-y_1'(x)|$ 都很小。
 
-求泛函：
-$$Q[y] = \int_{x_1}^{x_2} F(x, y, y')\,dx$$
+**K 阶接近度**：直到 $k$ 阶导数都很接近，即 $\delta y, \delta y', \ldots, \delta y^{(k)}$ 都很小。
 
-在边界条件 $y(x_1) = y_1, y(x_2) = y_2$ 下的极值曲线。
+显然 K 越高，曲线之间越接近。
 
-### 3.5.2 推导过程
+### 4.3.4 连续泛函
 
-**Step 1：构造邻域函数**
+对于函数：若对任意小的 $\varepsilon>0$，存在 $\delta>0$，使 $|x-x_1|<\delta$ 时总有 $|y(x)-y(x_1)|<\varepsilon$，则函数在 $x_1$ 处连续。
 
-设 $y(x)$ 是使 $Q$ 取极值的待求函数。考虑在 $y(x)$ 附近的一条"扰动"曲线：
-$$y_1(x) = y(x) + \alpha\eta(x)$$
+泛函的定义类似：若对任意小的 $\varepsilon>0$，存在 $\delta>0$，使当 $|y(x)-y_1(x)|<\delta, |y'(x)-y_1'(x)|<\delta, \ldots, |y^{(k)}(x)-y_1^{(k)}(x)|<\delta$ 时，总有 $|Q[y(x)]-Q[y_1(x)]|<\varepsilon$，则称泛函 $Q[y(x)]$ 是 K 阶连续的。
 
-其中：
-- $\eta(x)$ 是任意满足 $\eta(x_1) = \eta(x_2) = 0$ 的光滑函数（端点固定，所以扰动在端点为0）
-- $\alpha$ 是一个小参数，用来控制扰动的大小
+**例**：对于泛函 $Q[y(x)]=\int_a^b y(x)dx$，若 $y(x)\in C[a,b]$，则 $Q[y(x)]$ 是连续泛函。
 
-当 $\alpha = 0$ 时，$y_1 = y$，此时 $Q$ 取极值。
+**证明**：对任意 $y(x)$，若 $\max_{a\leq x\leq b}|y(x)-y_0(x)|<\frac{\varepsilon}{b-a}$，则：
+$$|Q[y(x)]-Q[y_0(x)]| = \left|\int_a^b[y(x)-y_0(x)]dx\right| \leq \int_a^b\left|[y(x)-y_0(x)]\right|dx < \frac{\varepsilon}{b-a}\int_a^b dx = \varepsilon$$
+得证。
 
-**Step 2：转化为 $\alpha$ 的函数**
+### 4.3.5 线性泛函
 
-将 $y_1$ 代入泛函：
-$$\varphi(\alpha) = Q[y + \alpha\eta] = \int_{x_1}^{x_2} F(x, y + \alpha\eta, y' + \alpha\eta')\,dx$$
+若泛函 $Q[y(x)]$ 满足：
+1. $Q[cy(x)] = cQ[y(x)]$（c 为任意常数）
+2. $Q[y_1(x)+y_2(x)] = Q[y_1(x)]+Q[y_2(x)]$
 
-由于 $Q$ 在 $y$ 处取极值，$\varphi(\alpha)$ 在 $\alpha = 0$ 处取极值，因此根据 Fermat 定理：
-$$\varphi'(0) = 0$$
+则称 $Q$ 为线性泛函。两条件可合并为：
+$$Q[c_1y_1(x)+c_2y_2(x)] = c_1Q[y_1(x)]+c_2Q[y_2(x)]$$
 
-**Step 3：在积分号内求导**
-
-应用链式法则，在积分号内对 $\alpha$ 求导：
-$$\varphi'(\alpha) = \int_{x_1}^{x_2} \left[\frac{\partial F}{\partial y}\eta + \frac{\partial F}{\partial y'}\eta'\right]dx$$
-
-令 $\alpha = 0$：
-$$\varphi'(0) = \int_{x_1}^{x_2} \left[F_y\,\eta + F_{y'}\,\eta'\right]dx = 0 \tag{3.1}$$
-
-其中 $F_y = \partial F/\partial y$，$F_{y'} = \partial F/\partial y'$，均在 $\alpha=0$ 处取值。
-
-**Step 4：分部积分**
-
-对式 (3.1) 的第二项进行分部积分：
-$$\int_{x_1}^{x_2} F_{y'}\,\eta'\,dx = \left[F_{y'}\,\eta\right]_{x_1}^{x_2} - \int_{x_1}^{x_2} \frac{d}{dx}(F_{y'})\,\eta\,dx$$
-
-由于 $\eta(x_1) = \eta(x_2) = 0$（端点固定），边界项为零：
-$$\int_{x_1}^{x_2} F_{y'}\,\eta'\,dx = -\int_{x_1}^{x_2} \frac{d}{dx}(F_{y'})\,\eta\,dx$$
-
-代入式 (3.1)：
-$$\int_{x_1}^{x_2} \left[F_y - \frac{d}{dx}(F_{y'})\right]\eta(x)\,dx = 0 \tag{3.2}$$
-
-**Step 5：利用变分法预备定理**
-
-> **变分法预备定理**（Fundamental Lemma of Calculus of Variations）：
-> 若 $f(x)$ 在 $[a,b]$ 上连续，且对任意满足 $\eta(a)=\eta(b)=0$ 的光滑函数 $\eta(x)$，都有 $\int_a^b f(x)\eta(x)dx = 0$，则 $f(x) \equiv 0$ 在 $[a,b]$ 上。
-
-**证明概要（反证法）**：假设存在 $x_0 \in (a,b)$ 使得 $f(x_0) > 0$。由连续性，存在 $\delta > 0$ 使在 $(x_0-\delta, x_0+\delta)$ 上 $f(x) > 0$。构造一个在该区间内为正、其余为零的光滑函数 $\eta(x)$，则 $\int f\eta dx > 0$，与假设矛盾。
-
-**应用**：令 $f(x) = F_y - \frac{d}{dx}F_{y'}$，它在 $[x_1,x_2]$ 上连续（假设 $y$ 有二阶连续导数）。式 (3.2) 对任意满足端点为零的 $\eta(x)$ 成立。由预备定理：
-
-$$\boxed{F_y - \frac{d}{dx}F_{y'} = 0}$$
-
-这就是 **Euler-Lagrange 方程**，通常简称为 **Euler 方程**。
-
-### 3.5.3 推导回顾
-
-Euler 方程的推导是变分法的核心，需要透彻理解每一步：
-
-1. **构造扰动** → 将变分问题 $\delta Q=0$ 转化为普通函数求导 $\varphi'(0)=0$
-2. **求导 + 分部积分** → 将 $\eta'$ 项转移到 $\eta$ 上，以便提取公因子
-3. **利用边界条件** → 分部积分产生的边界项因 $\eta$ 在端点为 0 而消失
-4. **应用预备定理** → 从积分恒等式导出微分方程
-
----
-
-## 3.6 Euler 方程的应用
-
-### 3.6.1 解题标准流程
-
-```
-① 写出被积函数 F(x, y, y')
-② 计算偏导 ∂F/∂y 和 ∂F/∂y'
-③ 计算全导 d/dx(∂F/∂y')
-④ 代入 Euler 方程 → 得到一个 ODE
-⑤ 解 ODE → 通解
-⑥ 代入边界条件 → 确定积分常数
-```
-
-### 3.6.2 例 7：最短路径问题
-
-**问题**：求 $A(0,0)$ 到 $B(2,1)$ 的最短曲线。
-
-**解**：两点间曲线的弧长为 $S[y] = \int_0^2 \sqrt{1+y'^2}\,dx$。
-
-$F = \sqrt{1+y'^2}$，$F_y = 0$，$F_{y'} = \frac{y'}{\sqrt{1+y'^2}}$
-
-Euler 方程：
-$$0 - \frac{d}{dx}\left(\frac{y'}{\sqrt{1+y'^2}}\right) = 0 \quad\Rightarrow\quad \frac{y'}{\sqrt{1+y'^2}} = C$$
-
-解出 $y'$：
-$$y'^2 = C^2(1+y'^2) \quad\Rightarrow\quad y'^2 = \frac{C^2}{1-C^2}$$
-
-即 $y' = m$（常数），$y = mx + b$
-
-代入 $y(0)=0 \Rightarrow b=0$，$y(2)=1 \Rightarrow m = \frac12$。
-
-**结论**：$y = \frac12 x$ —— 连接两点的直线。■
-
-### 3.6.3 $F$ 不显含 $x$ 时的首次积分
-
-当 $F = F(y, y')$（即 $F$ 不显含 $x$）时，有一个重要的**首次积分**：
-$$\boxed{F - y'F_{y'} = C}$$
-
-**推导**：
-$$\begin{aligned}
-\frac{d}{dx}(F - y'F_{y'}) &= F_y y' + F_{y'}y'' - y''F_{y'} - y'(F_{y'y}y' + F_{y'y'}y'') \\
-&= y'[F_y - F_{y'y}y' - F_{y'y'}y''] \\
-&= y'\left[F_y - \frac{d}{dx}F_{y'}\right] = 0
-\end{aligned}$$
-
-因为 $F_y - \frac{d}{dx}F_{y'} = 0$（Euler 方程），所以括号内为零，故 $F - y'F_{y'} =$ 常数。
-
-> 这个首次积分在求解最速降线等问题时非常有用——它将二阶 ODE 降为一阶，大大简化了计算。
-
-### 3.6.4 例 8：完整的 ODE 求解
-
-**问题**：求 $Q[y] = \int_0^1 [(y')^2 + 4y^2 - 8xy]\,dx$ 在 $y(0)=1, y(1)=2$ 下的极值函数。
-
-**解**：$F = y'^2 + 4y^2 - 8xy$
-
-$$\frac{\partial F}{\partial y} = 8y - 8x,\quad \frac{\partial F}{\partial y'} = 2y'$$
-
-Euler 方程：
-$$(8y - 8x) - \frac{d}{dx}(2y') = 0 \quad\Rightarrow\quad y'' - 4y = -4x$$
-
-这是一个非齐次二阶线性常系数 ODE。
-
-**齐次解**：特征方程 $r^2 - 4 = 0$，$r = \pm 2$
-$$y_h = C_1e^{2x} + C_2e^{-2x}$$
-
-**特解**（待定系数法）：设 $y_p = Ax + B$，代入：
-$$0 - 4(Ax + B) = -4x \quad\Rightarrow\quad A = 1,\; B = 0$$
-$$y_p = x$$
-
-**通解**：
-$$y = y_h + y_p = C_1e^{2x} + C_2e^{-2x} + x$$
-
-**代入边界条件**：
-$$\begin{cases}
-y(0) = C_1 + C_2 = 1 \\
-y(1) = C_1e^2 + C_2e^{-2} + 1 = 2
-\end{cases}$$
-
-解得：
-$$C_1 = \frac{1}{e^2+1},\quad C_2 = \frac{e^2}{e^2+1}$$
-
-**最终解**：
-$$\boxed{y(x) = \frac{e^{2x}}{e^2+1} + \frac{e^2 e^{-2x}}{e^2+1} + x}$$
+**例**：$Q[y(x)]=\int_a^b y(x)dx$ 是线性泛函 ✅
+**例**：$Q[y(x)]=\int_a^b y^2(x)dx$ **不是**线性泛函 ❌
 
 **验证**：
-- $y(0) = \frac{1}{e^2+1} + \frac{e^2}{e^2+1} + 0 = 1$ ✅
-- $y(1) = \frac{e^2}{e^2+1} + \frac{e^2 e^{-2}}{e^2+1} + 1 = \frac{e^2+1}{e^2+1} + 1 = 2$ ✅
+$$Q[c_1y_1+c_2y_2] = \int_a^b (c_1y_1+c_2y_2)^2dx = \int_a^b(c_1^2y_1^2 + c_2^2y_2^2 + 2c_1c_2y_1y_2)dx$$
+$$c_1Q[y_1] + c_2Q[y_2] = c_1\int_a^b y_1^2dx + c_2\int_a^b y_2^2dx$$
+两式因交叉项 $2c_1c_2y_1y_2$ 的存在而不等。
+
+### 4.3.6 函数的微分（两种定义）
+
+**定义一（常规）**：若函数增量可展开为 $\Delta y = A(x)\Delta x + \varphi(x,\Delta x)\Delta x^2$，其中 $A(x)$ 与 $\Delta x$ 无关，$\Delta x\to0$ 时 $\varphi\to0$。则微分为：
+$$dy = A(x)dx = y'(x)dx$$
+
+即：函数的微分是增量中的**线性主部**。
+
+**定义二（Lagrange）**：
+$$\left.\frac{\partial}{\partial\varepsilon}y(x+\varepsilon\Delta x)\right|_{\varepsilon=0} = y'(x)\Delta x = dy(x)$$
+
+即：在 $\varepsilon=0$ 处对 $\varepsilon$ 求导。这个定义与 Lagange 给出的变分定义类似。
+
+### 4.3.7 泛函的变分
+
+**定义一（常规）**：仿照函数微分的定义。
+
+泛函 $Q[y(x)]$ 的增量：
+$$\Delta Q = Q[y(x)+\delta y] - Q[y(x)]$$
+
+若 $\Delta Q$ 可表为：
+$$\Delta Q = T[y(x),\delta y] + \beta[y(x),\delta y]$$
+
+其中 $T$ 是 $\delta y$ 的线性泛函（$y$ 给定时），且 $\beta$ 满足 $\frac{\beta}{\max|\delta y|}\to0$（高阶小量），则 $T$ 称为泛函的**一阶变分**，记作 $\delta Q$。
+
+**例**：$Q[y]=\int_a^b y^2(x)dx$ 的变分
+$$\Delta Q = \int_a^b[(y+\delta y)^2 - y^2]dx = \int_a^b 2y\delta y\,dx + \int_a^b(\delta y)^2dx$$
+
+第一项 $\int_a^b 2y\delta y\,dx$ 对 $\delta y$ 是线性的 → 这就是 $\delta Q$。第二项 $(\delta y)^2$ 比 $\delta y$ 更快趋于零，是高阶小量。
+
+**定义二（Lagrange 法）**：
+$$\varphi(\alpha) = Q[y(x)+\alpha\delta y]$$
+则：
+$$\delta Q = \left.\frac{\partial\varphi}{\partial\alpha}\right|_{\alpha=0} = \left.\frac{\partial}{\partial\alpha}Q[y+\alpha\delta y]\right|_{\alpha=0}$$
+
+这个定义在计算中非常方便——对参数 $\alpha$ 求导再令 $\alpha=0$ 即可，不需要手动分解。
+
+### 4.3.8 泛函极值
+
+**函数极值**：若在 $x=x_0$ 附近，$dy=y(x)-y(x_0)\leq0(\geq0)$，则函数在 $x_0$ 处取极大（小）值。必要条件：$dy=0$。
+
+**泛函极值**的定义类似。引入曲线 $y_0(x)$ 的 $\varepsilon$ 邻域概念——满足 $|y(x)-y_0(x)|\leq\varepsilon$ 的所有曲线的集合。
+
+**强极值**：在零阶 $\varepsilon$ 邻域内成立，对任意 $|y(x)-y_0(x)|\leq\varepsilon$ 的曲线都有 $\Delta Q \leq 0$。
+
+**弱极值**：在一阶 $\varepsilon$ 邻域内成立，要求 $|y(x)-y_0(x)|\leq\varepsilon$ **且** $|y'(x)-y_0'(x)|\leq\varepsilon$。
+
+泛函极值的**必要条件**（类比函数极值的 $dy=0$）：
+$$\delta Q = 0$$
+
+即泛函的一阶变分为零。
 
 ---
 
-## 3.7 Euler 方程的推广
+## §4.4 最简单的 Euler 方程
 
-### 3.7.1 含二阶导数的泛函
+### 4.4.1 变分法预备定理
 
-对于 $Q[y] = \int F(x, y, y', y'')\,dx$：
+若函数 $f(x)$ 在 $[a,b]$ 上连续，且对任意满足 $\eta(a)=\eta(b)=0$ 且 $|\eta(x)|\leq\varepsilon$ 的具有连续导数的非零函数 $\eta(x)$，都有：
+$$\int_a^b f(x)\eta(x)dx = 0$$
+则 $f(x)$ 在 $[a,b]$ 上恒等于零。
 
-$$\delta Q = \int (F_y\delta y + F_{y'}\delta y' + F_{y''}\delta y'')\,dx = 0$$
+**描述性证明**（反证法）：若存在 $x_0\in(a,b)$ 使 $f(x_0)>0$，由连续性存在 $\delta>0$ 使当 $|x-x_0|<\delta$ 时 $f(x)>0$。构造一个在该区间内为正、其余为零的光滑函数 $\varphi(x)$，令 $\eta(x)=A\varphi(x)$（$A$ 为足够小的正数使 $|\eta(x)|\leq\varepsilon$）。则 $\int_a^b f(x)\eta(x)dx = \int_{x_0-\delta}^{x_0+\delta}f(x)\eta(x)dx > 0$，与假设矛盾。
 
-对 $F_{y''}\delta y''$ 分部积分**两次**：
-$$\int F_{y''}\delta y'' dx = F_{y''}\delta y'\Big|_{x_1}^{x_2} - \left[\frac{d}{dx}F_{y''}\delta y\right]_{x_1}^{x_2} + \int \frac{d^2}{dx^2}F_{y''}\,\delta y\,dx$$
+### 4.4.2 简单 Euler 方程
 
-假设 $\delta y$ 和 $\delta y'$ 在端点为零，得：
-$$\boxed{F_y - \frac{d}{dx}F_{y'} + \frac{d^2}{dx^2}F_{y''} = 0}$$
+求泛函 $Q[y] = \int_a^b F[x, y(x), y'(x)]dx$ 的极值曲线。
 
-### 3.7.2 含 $n$ 阶导数的泛函（通用形式）
+**定理**：若 $F(x,y,y')$ 是三个变量的连续函数，且 $F$ 及其一阶、二阶偏导在定义域内连续。若泛函 $Q[y]$ 在具有二阶连续导数的曲线 $y(x)$ 上取极值（满足 $y(a)=y_0$，$y(b)=y_1$，且位于平面有界域 B 内），则 $y(x)$ 必须满足：
+$$F_y - \frac{d}{dx}F_{y'} = 0$$
 
-$$Q[y] = \int F(x, y, y', y'', \ldots, y^{(n)})\,dx$$
+这就是 **Euler 方程**。
 
-$$\boxed{\sum_{k=0}^n (-1)^k\frac{d^k}{dx^k}\left(\frac{\partial F}{\partial y^{(k)}}\right) = 0}$$
+### 4.4.3 推导证明
 
-符号规律：$+F_y - \frac{d}{dx}F_{y'} + \frac{d^2}{dx^2}F_{y''} - \frac{d^3}{dx^3}F_{y'''} + \cdots + (-1)^n\frac{d^n}{dx^n}F_{y^{(n)}} = 0$
+**Step 1**：设 $y(x)$ 是使 $Q$ 取极值的函数。任选一个函数 $\eta(x)$，满足 $\eta(a)=\eta(b)=0$，$\eta(x)\in C^1[a,b]$。则当 $|\alpha|$ 足够小时，曲线 $y_1(x)=y(x)+\alpha\eta(x)$ 在 $y(x)$ 的一阶 $\varepsilon$ 邻域内。
 
-### 3.7.3 多个独立函数的泛函
+**Step 2**：由于 $y(x)$ 和 $\eta(x)$ 都给定，$Q[y(x)+\alpha\eta(x)]$ 是 $\alpha$ 的函数，记作 $\varphi(\alpha)$。
 
-$$Q[y_1, y_2, \ldots, y_n] = \int F(x, y_1, \ldots, y_n, y_1', \ldots, y_n')\,dx$$
+**Step 3**：$Q$ 在 $y(x)$ 取极值 → $\varphi(\alpha)$ 在 $\alpha=0$ 取极值 → $\varphi'(0)=0$。
 
-对每个 $y_i$ 独立地成立 Euler 方程：
-$$F_{y_i} - \frac{d}{dx}F_{y_i'} = 0,\quad i = 1, 2, \ldots, n$$
+$$\begin{aligned}
+\varphi'(0) &= \left.\frac{d}{d\alpha}\int_a^b F[x, y+\alpha\eta, y'+\alpha\eta']dx\right|_{\alpha=0} \\
+&= \int_a^b [F_y\eta + F_{y'}\eta']dx = 0
+\end{aligned}$$
 
-### 3.7.4 多元函数的泛函
+**Step 4**：分部积分：
+$$\int_a^b F_{y'}\eta' dx = F_{y'}\eta\Big|_a^b - \int_a^b \eta\frac{d}{dx}F_{y'}dx = -\int_a^b \eta\frac{d}{dx}F_{y'}dx$$
 
-$$Q[z(x,y)] = \iint_D F(x, y, z, p, q)\,dxdy,\quad p = \frac{\partial z}{\partial x},\; q = \frac{\partial z}{\partial y}$$
+代入得：
+$$\int_a^b \left(F_y - \frac{d}{dx}F_{y'}\right)\eta(x)dx = 0$$
 
-$$\boxed{F_z - \frac{\partial}{\partial x}F_p - \frac{\partial}{\partial y}F_q = 0}$$
+**Step 5**：由变分法预备定理，被积函数必须恒为零：
+$$F_y - \frac{d}{dx}F_{y'} = 0$$
 
-**例 9**：$Q[z] = \iint_D (z_x^2 + z_y^2)\,dxdy$ 给出 Laplace 方程！
+> 注意：Euler 方程只是泛函取极值的**必要条件**而非充分条件。但对于大多数工程问题，物理背景提供了直观判断，不需要验证充分性。
 
-$F = p^2 + q^2$，$F_z = 0$，$F_p = 2p$，$F_q = 2q$，代入得：
-$$0 - \frac{\partial}{\partial x}(2z_x) - \frac{\partial}{\partial y}(2z_y) = 0 \quad\Rightarrow\quad \frac{\partial^2 z}{\partial x^2} + \frac{\partial^2 z}{\partial y^2} = 0$$
+### 4.4.4 Euler 方程示例
 
-这就是著名的 **Laplace 方程**。变分法提供了推导 PDE 的另一个视角！
+**例**：求泛函 $Q[y(x)]=\int_0^1(x^2y + y'^2)dx$ 满足 $y(0)=0, y(1)=1/3$ 的驻值曲线。
 
----
+**解**：$F = x^2y + y'^2$，$F_y = x^2$，$F_{y'} = 2y'$
 
-## 3.8 边界条件分类
+Euler 方程：$x^2 - \frac{d}{dx}(2y') = 0$ → $2y'' = x^2$ → $y'' = \frac12x^2$
 
-在变分推导中，分部积分产生的边界项必须妥善处理。
+积分得：$y = \frac{1}{24}x^4 + C_1x + C_2$
 
-### 3.8.1 本质边界条件（Essential BC）
+代入边界条件：$y(0)=0 \Rightarrow C_2=0$，$y(1)=\frac{1}{24}+C_1=\frac13 \Rightarrow C_1=\frac{7}{24}$
 
-**定义**：边界值预先给定，与泛函的变分无关。在变分中，$\delta y$ 在边界上为零。
+**解**：$y(x) = \frac{1}{24}x^4 + \frac{7}{24}x$
 
-- 例：固定端 $y(a) = y_a$，或简支端 $w(0) = 0$
-- 来源：问题陈述中直接给定的边界值
+### 4.4.5 最速降线问题的 Euler 方程
 
-### 3.8.2 自然边界条件（Natural BC）
+对于最速降线问题，$F(y,y') = \sqrt{\frac{1+y'^2}{y}}$
 
-**定义**：当边界值未给定时，分部积分产生的边界项必须单独为零，由此自动导出的条件。
+直接计算 $F_y$ 和 $F_{y'}$ 并代入 Euler 方程非常复杂。但因为 $F$ 不显含 $x$，可以利用首次积分。
 
-以 $\delta Q = \int (F_y - \frac{d}{dx}F_{y'})\delta y\,dx + [F_{y'}\delta y]_{x_1}^{x_2} = 0$ 为例：
+**首次积分**：当 $F=F(y,y')$ 时：
+$$F - y'F_{y'} = C$$
 
-若 $y(x_1)$ 未指定（即 $\delta y(x_1) \neq 0$），则必须有：
-$$\left.\frac{\partial F}{\partial y'}\right|_{x=x_1} = 0$$
+**证明**：
+$$\frac{d}{dx}(F - y'F_{y'}) = F_yy' + F_{y'}y'' - y''F_{y'} - y'(F_{y'y}y' + F_{y'y'}y'') = y'(F_y - \frac{d}{dx}F_{y'}) = 0$$
 
-这就是**自然边界条件**。
+代入 $F$：
+$$\sqrt{\frac{1+y'^2}{y}} - \frac{y'^2}{\sqrt{y(1+y'^2)}} = C \quad\Rightarrow\quad \frac{1}{\sqrt{y(1+y'^2)}} = C$$
 
-### 3.8.3 两类边界条件的对比
+即 $y(1+y'^2) = D$（$D=1/C^2$）。
 
-| | 本质边界条件 | 自然边界条件 |
-|--|------------|------------|
-| 又称 | Dirichlet BC, Geometric BC | Neumann BC, Static BC |
-| 来源 | 问题给定 | 变分极值自动导出 |
-| 变分中 | $\delta y = 0$ | $\partial F/\partial y' = 0$ |
-| 梁的例 | $w(0)=0$（固定端位移） | $EI w''(l)=0$（自由端弯矩） |
+令 $y'=\tan\theta$：
+$$y = \frac{D}{1+\tan^2\theta} = D\cos^2\theta = \frac{D}{2}(1+\cos2\theta)$$
 
----
-
-## 3.9 条件极值与 Lagrange 乘子法
-
-实际中常遇到附加约束的泛函极值问题。例如：在曲线长度固定的条件下求面积最大，或者在满足某等周条件 $\int\varphi\,dx = \alpha$ 下求泛函极值。
-
-**方法**（与普通函数条件极值的 Lagrange 乘子法完全类似）：
-
-构造新泛函：
-$$Q^*[y] = \int_a^b (F + \lambda\varphi)\,dx - \lambda\alpha = \int_a^b F^*\,dx - \lambda\alpha$$
-
-其中 $\lambda$ 为 Lagrange 乘子（常数），$F^* = F + \lambda\varphi$。
-
-对 $Q^*$ 应用 Euler 方程：
-$$F^*_y - \frac{d}{dx}F^*_{y'} = 0$$
-
-通解包含 2 个积分常数 + $\lambda$，由 2 个边界条件 + 1 个等周条件确定。
-
----
-
-## 3.10 最速降线问题的完整求解
-
-作为变分法的经典范例，我们完整求解最速降线问题。
-
-### 3.10.1 泛函的简化
-
-已得总时间泛函（略去常数 $1/\sqrt{2g}$）：
-$$Q[y] = \int_{x_A}^{x_B} \sqrt{\frac{1+y'^2}{y}}\,dx,\quad F(y,y') = \sqrt{\frac{1+y'^2}{y}}$$
-
-注意 $F$ 不显含 $x$！
-
-### 3.10.2 应用首次积分
-
-由 $F - y'F_{y'} = C$，计算 $F_{y'} = \frac{y'}{\sqrt{y(1+y'^2)}}$：
-$$\sqrt{\frac{1+y'^2}{y}} - \frac{y'^2}{\sqrt{y(1+y'^2)}} = C$$
-
-化简：
-$$\frac{1}{\sqrt{y(1+y'^2)}} = C \quad\Rightarrow\quad y(1+y'^2) = D \quad(D = 1/C^2)$$
-
-### 3.10.3 参数化求解
-
-令 $y' = \tan\theta$，代入：
-$$y = \frac{D}{1+\tan^2\theta} = D\cos^2\theta = \frac{D}{2}(1+\cos 2\theta)$$
-
-$$dx = \frac{dy}{y'} = \frac{-D\sin 2\theta\,d\theta}{\tan\theta} = -D(1+\cos 2\theta)\,d\theta$$
+$$dx = \frac{dy}{y'} = \frac{-D\sin2\theta d\theta}{\tan\theta} = -D(1+\cos2\theta)d\theta$$
 
 积分得参数方程：
 $$\begin{cases}
-x = -\frac{D}{2}(2\theta + \sin 2\theta) + E \\[4pt]
-y = \frac{D}{2}(1 + \cos 2\theta)
+x = -\frac{D}{2}(2\theta + \sin2\theta) + E \\
+y = \frac{D}{2}(1+\cos2\theta)
 \end{cases}$$
 
-### 3.10.4 化为旋轮线标准形式
-
-令 $2\theta = \pi - \phi$，则：
+令 $2\theta = \pi - \phi$，得旋轮线标准形式：
 $$\boxed{\begin{cases}
-x = r(\phi - \sin\phi) \\[4pt]
+x = r(\phi - \sin\phi) \\
 y = r(1 - \cos\phi)
 \end{cases}},\quad r = \frac{D}{2}$$
 
-这就是**旋轮线（cycloid）**的参数方程——一个半径为 $r$ 的圆沿直线滚动时，圆周上某点的轨迹。
+### 4.4.6 变分记号与运算法则
+
+**基本法则**：$\delta(y') = (\delta y)'$，即变分算子与微分算子可交换。
+
+利用这一法则，Euler 方程的推导可以写为：
+$$\delta Q = \int_a^b [F_y\delta y + F_{y'}\delta y']dx = \int_a^b[F_y\delta y + F_{y'}d(\delta y)]dx$$
+$$= \left.\delta y F_{y'}\right|_a^b + \int_a^b\left(F_y - \frac{d}{dx}F_{y'}\right)\delta y\,dx = 0$$
+
+由于 $\delta y(a)=\delta y(b)=0$（边界条件），得：
+$$\int_a^b\left(F_y - \frac{d}{dx}F_{y'}\right)\delta y\,dx = 0 \quad\Rightarrow\quad F_y - \frac{d}{dx}F_{y'} = 0$$
+
+### 4.4.7 本质边界条件与自然边界条件
+
+前面讨论的边界条件（$y(a)=y_a$，$y(b)=y_b$）是预先定义和固定的，因此边界值与泛函的一阶变分无关。这类边界条件称为**本质边界条件**。
+
+现在考虑可变边界问题。变分结果为：
+$$\delta Q = \int_a^b\left(F_y - \frac{d}{dx}F_{y'}\right)\delta y\,dx + \left.F_{y'}\delta y\right|_a^b$$
+
+第一项→Euler 方程必须成立。对于第二项，当 $x=a$ 和 $x=b$ 时，必须有：
+$$\left.\frac{\partial F}{\partial y'}\right|_{x=a} = 0,\quad \left.\frac{\partial F}{\partial y'}\right|_{x=b} = 0$$
+
+否则可以找到 $\delta y$ 使 $\delta Q \neq 0$。这类边界条件称为**自然边界条件**。
+
+### 4.4.8 泛函的二阶变分
+
+类似函数的极值条件，一阶变分 $\delta Q = 0$ 只是极值的必要条件（驻值条件）。
+
+二阶变分：
+$$\delta^2 Q = \frac12\int_a^b\left(\frac{\partial^2F}{\partial y^2}\delta y^2 + 2\frac{\partial^2F}{\partial y\partial y'}\delta y\delta y' + \frac{\partial^2F}{\partial y'^2}\delta y'^2\right)dx$$
+
+充分条件：
+- $\delta Q = 0$ 且 $\delta^2 Q > 0$ → 极小值
+- $\delta Q = 0$ 且 $\delta^2 Q < 0$ → 极大值
+
+实际应用中通常只考虑一阶变分，充分性由物理背景保证。
+
+### 4.4.9 条件极值与 Lagrange 乘子法
+
+前面的泛函极值问题要求自变函数光滑且满足给定边界条件，无其他附加条件——称为**无条件极值问题**。
+
+具有附加约束条件的泛函极值问题称为**条件极值问题**。类似于函数的条件极值，可以用 Lagrange 乘子法转化为等价的无条件极值问题。
+
+**例**：求泛函 $Q[y(x)] = \int_a^b F(x,y,y')dx$ 在等周条件 $\int_a^b \varphi(x,y,y')dx = \alpha$ 下的极值。
+
+构造新泛函：
+$$Q^*[y] = \int_a^b F(x,y,y')dx + \lambda\left[\int_a^b\varphi(x,y,y')dx - \alpha\right] = \int_a^b F^*(x,y,y',\lambda)dx - \lambda\alpha$$
+
+其中 $F^* = F + \lambda\varphi$，$\lambda$ 是 Lagrange 乘子。
+
+对应的 Euler 方程为：
+$$F_y^* - \frac{d}{dx}F_{y'}^* = 0$$
+
+通解含 2 个积分常数和 $\lambda$，由 2 个边界条件 + 等周条件确定。
 
 ---
 
-## 3.11 变分法记号与运算法则
+## §4.5 更一般的 Euler 方程
 
-变分法中有一些方便的计算规则，熟练掌握可大幅简化推导。
+### 4.5.1 含高阶导数的泛函
 
-**规则 1**：变分算子与微分算子可交换
-$$\frac{d}{dx}(\delta y) = \delta(y')$$
+对于 $Q = \int_a^b F(x, y, y', y'')dx$，变分为：
+$$\delta Q = \int_a^b (F_y\delta y + F_{y'}\delta y' + F_{y''}\delta y'')dx = 0$$
 
-**规则 2**：变分算子与积分算子可交换
-$$\delta\int_a^b F\,dx = \int_a^b \delta F\,dx$$
+对 $F_{y''}\delta y''$ 项分部积分两次：
+$$\int_a^b F_{y''}\delta y'' dx = \left.\delta y'F_{y''}\right|_a^b - \left.\delta y\frac{d}{dx}F_{y''}\right|_a^b + \int_a^b \delta y\frac{d^2}{dx^2}F_{y''}dx$$
 
-**规则 3**：复合函数的变分（与全微分形式相同）
-$$\delta F(x,y,y') = \frac{\partial F}{\partial y}\delta y + \frac{\partial F}{\partial y'}\delta y'$$
+假设 $\delta y'(a) = \delta y'(b) = 0$ 和 $\delta y(a) = \delta y(b) = 0$，得：
+$$\boxed{F_y - \frac{d}{dx}F_{y'} + \frac{d^2}{dx^2}F_{y''} = 0}$$
+
+**推广到 $n$ 阶导数**（通用形式）：
+$$\boxed{F_y - \frac{d}{dx}F_{y'} + \frac{d^2}{dx^2}F_{y''} - \cdots + (-1)^n\frac{d^n}{dx^n}F_{y^{(n)}} = 0}$$
+
+### 4.5.2 含多个独立函数的泛函
+
+对于 $Q[y_1(x), \ldots, y_n(x)] = \int_a^b F(x, y_1, \ldots, y_n, y_1', \ldots, y_n')dx$：
+
+变分后得：
+$$\delta Q = \int_a^b \left[\delta y_1\left(F_{y_1} - \frac{d}{dx}F_{y_1'}\right) + \cdots + \delta y_n\left(F_{y_n} - \frac{d}{dx}F_{y_n'}\right)\right]dx = 0$$
+
+由于 $\delta y_i$ 可独立任意选取，令 $\delta y_2 = \cdots = \delta y_n = 0$，得：
+$$F_{y_i} - \frac{d}{dx}F_{y_i'} = 0,\quad i = 1, 2, \ldots, n$$
+
+即每个 $y_i$ 独立满足 Euler 方程。
+
+### 4.5.3 含多元函数的泛函
+
+对于 $Q[z(x,y)] = \iint_D F[x, y, z(x,y), p, q]\,dxdy$，其中 $p=\partial z/\partial x$，$q=\partial z/\partial y$。
+
+**Euler 方程**：
+$$\boxed{F_z - \frac{\partial}{\partial x}F_p - \frac{\partial}{\partial y}F_q = 0}$$
+
+**推导要点**：利用 Green 公式将面积分转化为边界积分，利用 $\delta z$ 在边界上为零消去边界项。
+
+**例**：$Q[z] = \iint_D (z_x^2 + z_y^2)dxdy$，边界条件 $z|_{\partial D} = \varphi(x,y)$
+
+$F = p^2+q^2$，$F_p=2p$，$F_q=2q$，代入 Euler 方程：
+$$\frac{\partial^2 z}{\partial x^2} + \frac{\partial^2 z}{\partial y^2} = 0$$
+
+这就是著名的 **Laplace 方程**！
 
 ---
 
-## 3.12 经典变分法与 FEM 的关系
+## §4.6 变分法在力学中的应用
 
-### Ritz 法
-Ritz 法将变分问题近似求解：设 $u \approx \sum c_i\varphi_i(x)$，代入泛函，由 $\partial\Pi/\partial c_i = 0$ 得到线性方程组。
+### 4.6.1 Fermat 原理与广义相对论
 
-**局限**：$\varphi_i$ 必须满足全部边界条件，复杂几何下难以构造。
+- **Fermat 原理**：在均匀介质中，光线沿所需时间最少的光路传播。
+- **Einstein 广义相对论**：光线在四维 Riemann 空间中沿所需时间最短的路线传播。
 
-### FEM 的突破
-FEM 将求解域划分为单元，在每个单元内独立建立简单的形函数：
-- 形函数不必满足单元间的协调条件
-- 程序标准化、自动化
-- 是"在单元层面上应用 Ritz/Galerkin 法"
+变分法的应用不仅限于经典物理和工程学科，而是延伸到量子场论、控制论、信息论等现代高科技领域。
 
-```
-经典变分法 (Euler-Lagrange) → 精确但求解困难
-    ↓
-Ritz 法 (整体 trial function) → 边界条件难满足
-    ↓
-Courant 分片近似 (1943) → 克服边界困难
-    ↓
-FEM (单元级 trial function, 1960) → 程序化、通用化
-```
+### 4.6.2 Hamilton 原理
+
+当 $t=t_1$ 和 $t=t_2$ 时，质点分别位于 A 和 B。则其真实运动路径应使以下**作用量积分**取极值：
+$$S = \int_{t_1}^{t_2} (T - U)dt$$
+
+其中 $T$ 是动能，$U$ 是势能，$T-U$ 称为 **Lagrange 函数**。
+
+Hamilton 原理（1834）是力学的基本原理，可推出 Newton 三定律、能量守恒、动量守恒和角动量守恒。
+
+### 4.6.3 Lagrange 方程
+
+对于具有 $K$ 个自由度的系统，广义坐标为 $q_1, \ldots, q_K$，广义速度为 $\dot{q}_1, \ldots, \dot{q}_K$。
+
+Lagrange 函数 $L = T - U = L(t, q, \dot{q})$
+
+由 Hamilton 原理和 Euler 方程：
+$$\frac{\partial L}{\partial q_i} - \frac{d}{dt}\frac{\partial L}{\partial \dot{q}_i} = 0,\quad i=1,2,\ldots,K$$
+
+这就是著名的 **Lagrange 方程**——在广义坐标下描述运动基本规律的方程。
+
+**Lagrange 方程的优势**：只需写出广义坐标下的动能和势能表达式，代入即可，不需要画受力图。
+
+### 4.6.4 单摆
+
+**例**：质量为 $m$ 的质点悬挂在长度为 $l$ 的轻绳末端，在重力场中运动。
+
+取广义坐标为 $\theta$：
+- 动能：$T = \frac12mv^2 = \frac12m(l\dot{\theta})^2$
+- 势能（$\theta=0$ 设为零）：$U = mgl(1-\cos\theta)$
+
+Lagrange 函数：$L = \frac12ml^2\dot{\theta}^2 - mgl(1-\cos\theta)$
+
+代入 Lagrange 方程：
+$$\frac{\partial L}{\partial\theta} - \frac{d}{dt}\frac{\partial L}{\partial\dot{\theta}} = -mgl\sin\theta - ml^2\ddot{\theta} = 0$$
+
+$$\ddot{\theta} + \frac{g}{l}\sin\theta = 0$$
+
+小角度时 $\sin\theta \approx \theta$，得简谐振动 $\ddot{\theta} + \frac{g}{l}\theta = 0$。
+
+### 4.6.5 两端固定弦的自由横向振动
+
+建立坐标系，设 $u(x,t)$ 为点 $x$ 在 $t$ 时刻的横向位移。
+
+考虑弦上一微段变形后长度 $dl = \sqrt{1+u_x^2}dx$，伸长为 $(\sqrt{1+u_x^2}-1)dx \approx \frac12u_x^2dx$。
+
+弹性势能：$U = \int_0^l \frac{K}{2}u_x^2 dx$
+动能：$T = \int_0^l \frac12\rho(x)u_t^2 dx$
+
+作用量泛函：
+$$S = \int_{t_1}^{t_2}\int_0^l\left[\frac12\rho u_t^2 - \frac12K u_x^2\right]dx\,dt$$
+
+Euler 方程给出：
+$$\frac{\partial}{\partial x}(Ku_x) - \frac{\partial}{\partial t}(\rho u_t) = 0 \quad\Rightarrow\quad u_{tt} = \frac{K}{\rho(x)}u_{xx}$$
+
+这就是经典的**弦振动方程**。
+
+---
+
+## §4.7 结论
+
+从以上例子可以总结变分法的主要步骤：
+
+1. **建立泛函**及其边界条件（基于物理问题）
+2. **利用变分法预备定理**，通过泛函变分得到 Euler 方程
+3. **求解 Euler 方程**——这是一个微分方程问题
+
+注意：变分法和 Euler 方程描述的是同一个物理问题。从变分法和 Euler 方程出发获得近似解具有相同的效果。
+
+Euler 方程往往很难求解。但有些问题已知微分方程但很难求解，如果能转化为相应的泛函极值问题，就可以用近似方法（如有限元分析）方便地求解。
+
+> 然而，**并非每个微分方程都能找到合适的泛函**。这种情况下，我们必须使用其他方法获得近似解，如最小二乘法和 Galerkin 法——这些将在后续章节讨论。
 
 ---
 
 ## 检查你的理解
 
 1. 什么是泛函？它与普通函数有什么本质区别？请举一个不是积分形式的泛函例子。
-2. 线性泛函必须满足哪两个条件？$Q[y] = \int_a^b (y^2 + y'^2)dx$ 是否是线性泛函？为什么？
-3. 写出 Euler 方程并解释其推导过程中分部积分和预备定理各自的作用。
-4. 对于 $Q[y] = \int_a^b F(x,y,y',y'')dx$，它的 Euler 方程是什么？
-5. 什么条件下可以使用首次积分 $F - y'F_{y'} = C$？
-6. 本质边界条件和自然边界条件有什么区别？在梁问题中各对应于什么物理边界？
+2. 泛函变分的Lagrange定义是什么？为什么这个定义在计算中更方便？
+3. Euler 方程推导的五个步骤中，分部积分和预备定理各自起什么作用？
+4. 为什么 $F$ 不显含 $x$ 时有首次积分 $F - y'F_{y'} = C$？
+5. 本质边界条件和自然边界条件有什么区别？各举一例。
 
 ---
 
-> **对应作业**：[HW2 Q1（最短路径）](../04-Homework-Solutions/2026w/HW2-Problem.md) · [Q2（三阶导数 Euler 方程）](../04-Homework-Solutions/2026w/HW2-Problem.md) · [Q3（Lagrange 乘子法）](../04-Homework-Solutions/2026w/HW2-Problem.md) · [Q4（泛函极值函数）](../04-Homework-Solutions/2026w/HW2-Problem.md)
+> **对应作业**：[HW2 Q1（最短路径）](../04-Homework-Solutions/2026w/HW2-Problem.md) · [Q2（三阶导数Euler方程）](../04-Homework-Solutions/2026w/HW2-Problem.md) · [Q3（Lagrange乘子法）](../04-Homework-Solutions/2026w/HW2-Problem.md) · [Q4（泛函极值函数）](../04-Homework-Solutions/2026w/HW2-Problem.md)
 > **往年参考**：[past/HW2/homework 2](../04-Homework-Solutions/past/HW2/homework%202.md) · [LIU Sai 答案](../04-Homework-Solutions/past/HW2/Ans%20to%20HM2_LIU%20Sai_handed%20in.md)
