@@ -2,247 +2,269 @@
 
 > **对应 PDF**：[`Chapter 2 Elastic theory.pdf`](../06-References/pdfs-originals/Chapter%202%20Elastic%20theory.pdf)
 > **相关作业**：[HW1 Q1-Q4](../04-Homework-Solutions/2026w/HW1-Problem.md)（全为张量题）
-> **前置知识**：线性代数（向量、矩阵乘法、坐标变换、行列式）、高等数学（偏导数、链式法则）
+> **前置知识**：线性代数（向量、矩阵、行列式、坐标变换）、高等数学（偏导数、链式法则）
 
 ---
 
-## 2.1 为什么学习张量？
+## 2.1 为什么要用张量？
 
-弹性力学涉及大量的坐标变换、多分量物理量、以及在曲线坐标系下的微分运算。用分量形式逐项书写不仅冗长，而且容易出错。张量记号（tensor notation）提供了一种**简洁、统一**的语言：
+### 2.1.1 弹性力学需要张量的原因
 
-| 不用张量 | 用张量后 |
-|----------|----------|
-| 几何方程：$\varepsilon_x = \frac{\partial u}{\partial x}, \cdots$（6个式子） | $\varepsilon_{ij} = \frac12(u_{i,j}+u_{j,i})$（1个式子） |
-| 平衡方程：$\frac{\partial\sigma_x}{\partial x} + \frac{\partial\tau_{xy}}{\partial y} + \frac{\partial\tau_{xz}}{\partial z} + f_x = 0, \cdots$ | $\sigma_{ij,j} + f_i = 0$ |
-| 本构关系：需要写出 $6\times6$ 矩阵元素 | $\sigma_{ij} = D_{ijkl}\varepsilon_{kl}$ |
-| 坐标变换：逐项展开 9 个分量 | $a_{i'j'}' = l_{i'i}l_{j'j}a_{ij}$ |
+弹性力学涉及大量多分量物理量（应力 6 个分量、应变 6 个分量），这些量在不同坐标系之间遵循特定的变换规律。如果我们用分量形式逐一书写，不仅冗长，而且容易迷失在符号的海洋中。
 
-> 张量分析的核心洞察：物理量本身（如应力 $\boldsymbol{\sigma}$）是与坐标系选取**无关**的客观实体，它的**分量**才随坐标系变化而变化。
+**张量记号（tensor notation）** 的优势：
+
+| 操作 | 不用张量 | 用张量后 |
+|------|----------|----------|
+| 几何方程 | $\varepsilon_x = \frac{\partial u}{\partial x}, \varepsilon_y = \frac{\partial v}{\partial y}, \cdots$（6 个式子） | $\varepsilon_{ij} = \frac12(u_{i,j}+u_{j,i})$（1 行） |
+| 平衡方程 | $\frac{\partial\sigma_x}{\partial x} + \frac{\partial\tau_{xy}}{\partial y} + \frac{\partial\tau_{xz}}{\partial z} + f_x = 0$ 等 3 式 | $\sigma_{ij,j} + f_i = 0$（1 行） |
+| 坐标变换 | 逐项展开 $3\times3=9$ 个分量 | $a_{i'j'}' = l_{i'i}l_{j'j}a_{ij}$ |
+| 本构关系 | 写出 $6\times6$ 矩阵 | $\sigma_{ij} = C_{ijkl}\varepsilon_{kl}$ |
+
+### 2.1.2 物理量 vs 分量
+
+张量分析的核心洞察：**物理量本身（如应力 $\boldsymbol{\sigma}$）是与坐标系选取无关的客观实体**，改变坐标系只改变它的**分量（components）**，不改变物理量本身。
+
+例如，在 $xyz$ 坐标系中应力状态为 $\sigma_{ij}$，在旋转后的 $x'y'z'$ 坐标系中变成了 $\sigma_{i'j'}'$。$\sigma_{ij}$ 和 $\sigma_{i'j'}'$ 是同一个物理应力的不同面貌，它们通过一定的变换规律相互联系。
 
 ---
 
-## 2.2 指标记号约定
+## 2.2 指标记号与求和约定
 
-### 2.2.1 自由指标与哑指标
+### 2.2.1 Einstein 求和约定
 
-- **自由指标**（Free Index）：在表达式左右两侧各出现一次 → 表示分量的编号
-- **哑指标**（Dummy Index）：在同一项中出现两次 → 表示对该指标从 1 到 3 求和（省略了求和符号 $\sum$）
+在张量运算中，**重复出现的下标表示对该下标从 1 到 3 求和**，求和符号 $\sum$ 省略不写：
 
-**示例**：$a_{ij} = b_{ik}c_{kj}$
-- $i, j$：自由指标 → 这代表 $3\times3 = 9$ 个方程
-- $k$：哑指标 → 对 $k=1,2,3$ 求和
-
-**展开验证**（以 $i=1, j=1$ 为例）：
-$$a_{11} = \sum_{k=1}^3 b_{1k}c_{k1} = b_{11}c_{11} + b_{12}c_{21} + b_{13}c_{31}$$
-
-### 2.2.2 Einstein 求和约定
-
-同一项中重复出现的下标表示对该下标求和，省略求和符号 $\sum$：
 $$a_i b_i = a_1 b_1 + a_2 b_2 + a_3 b_3 = \sum_{i=1}^3 a_i b_i$$
 
-> **重要规则**：哑指标不能在同一项中出现**三次及以上**。$a_i b_i c_i$ 是无意义的，因为无法确定对哪些下标求和。
+$$a_{ij} b_j = a_{i1} b_1 + a_{i2} b_2 + a_{i3} b_3$$
+
+> **规则**：同一项中同一个下标不能出现三次及以上。例如 $a_i b_i c_i$ 是无意义的。
+
+### 2.2.2 哑指标与自由指标
+
+- **哑指标（Dummy Index）**：同一项中重复出现的下标 → 对该指标求和
+- **自由指标（Free Index）**：同一项中只出现一次的下标 → 表示分量的编号
+
+**例**：$a_{ij} = b_{ik} c_{kj}$
+- $i, j$：自由指标 → 这个式子代表 $3\times3 = 9$ 个方程
+- $k$：哑指标 → 对 $k=1,2,3$ 求和
+
+**展开**（取 $i=1, j=1$）：
+$$a_{11} = \sum_{k=1}^3 b_{1k}c_{k1} = b_{11}c_{11} + b_{12}c_{21} + b_{13}c_{31}$$
+
+### 2.2.3 练习
+
+判断以下表达式的含义：
+
+| 表达式 | 方程个数 | 求和指标 |
+|--------|----------|----------|
+| $a_i = b_{ij}c_j$ | 3 | $j$ |
+| $A_{ij} = B_{ik}C_{kj}$ | 9 | $k$ |
+| $a_i b_i = c$ | 1 | $i$ |
+| $A_{ii} = B_{ij}C_{ji}$ | 1 | $i, j$ 都求和 |
 
 ---
 
-## 2.3 两个重要的特殊符号
+## 2.3 Kronecker $\delta$ 符号
 
-### 2.3.1 Kronecker $\delta$ 符号
+### 2.3.1 定义
 
-$$ \delta_{ij} = \begin{cases} 1 & \text{if } i = j \\ 0 & \text{if } i \neq j \end{cases} $$
+$$\delta_{ij} = \begin{cases} 1 & i = j \\ 0 & i \neq j \end{cases}$$
 
-几何意义：单位矩阵的元素 $I_{ij} = \delta_{ij}$。
+即单位矩阵的元素：$I_{ij} = \delta_{ij}$。
 
-**重要性质**（需要能熟练运用）：
+### 2.3.2 重要性质
 
 | 性质 | 含义 |
 |------|------|
-| $\delta_{ii} = 3$ | 迹（trace）等于空间维数 |
-| $\delta_{ij}a_j = a_i$ | 指标替换——把 $j$ 替换成 $i$ |
-| $\delta_{ij}\delta_{jk} = \delta_{ik}$ | 缩并 |
-| $\delta_{ij}\delta_{ij} = 3$ | 双缩并 |
-| $\delta_{ij}A_{jk} = A_{ik}$ | 矩阵乘法中的单位元 |
+| $\delta_{ii} = 3$ | 迹 = 空间维数（1+1+1=3） |
+| $\delta_{ij} a_j = a_i$ | **指标替换功能**——把 $j$ 换成 $i$ |
+| $\delta_{ij} \delta_{jk} = \delta_{ik}$ | 缩并后仍是 $\delta$ |
+| $\delta_{ij} \delta_{ij} = 3$ | 双缩并 |
+| $\delta_{ij} A_{jk} = A_{ik}$ | 矩阵乘法中的单位元 |
 
-### 2.3.2 置换符号 $e_{ijk}$（Levi-Civita 符号）
-
-$$ e_{ijk} = \begin{cases}
-0 & \text{任意两个指标相等} \\
-+1 & (i,j,k) \text{ 是 } (1,2,3) \text{ 的偶排列} \\
--1 & (i,j,k) \text{ 是 } (1,2,3) \text{ 的奇排列}
-\end{cases} $$
-
-偶排列（$e_{ijk}=1$）：$(1,2,3), (2,3,1), (3,1,2)$ —— **循环置换**
-奇排列（$e_{ijk}=-1$）：$(1,3,2), (2,1,3), (3,2,1)$ —— **交换一次**
-
-**重要恒等式**（考试必考！）：
-
-$$ e_{ijk}e_{ist} = \delta_{js}\delta_{kt} - \delta_{jt}\delta_{ks} $$
-
-这是 $\varepsilon$-$\delta$ 恒等式的标准形式。推导思路：将相同指标放在最后（利用循环置换），然后应用标准恒等式。
-
-$$ e_{ijk}e_{ijt} = 2\delta_{kt} $$
-
-向量叉积的张量形式：
-$$ (\mathbf{a}\times\mathbf{b})_i = e_{ijk}a_jb_k $$
-
-**证明方案**：以标准恒等式 $e_{ijk}e_{imn} = \delta_{jm}\delta_{kn} - \delta_{jn}\delta_{km}$ 为例。注意到两个 $e$ 在第一个指标上缩并，结果只与剩下的两个指标有关。通过枚举所有可能情况（共 $3^4=81$ 种，但多数为零）可证实。
+**例**：验证 $\delta_{ij}a_j = a_i$
+$$\delta_{1j}a_j = \delta_{11}a_1 + \delta_{12}a_2 + \delta_{13}a_3 = 1\cdot a_1 + 0 + 0 = a_1$$
+$$\delta_{2j}a_j = \delta_{21}a_1 + \delta_{22}a_2 + \delta_{23}a_3 = 0 + 1\cdot a_2 + 0 = a_2$$
+$$\delta_{3j}a_j = a_3$$
 
 ---
 
-## 2.4 坐标变换与张量定义
+## 2.4 置换符号 $e_{ijk}$（Levi-Civita 符号）
 
-### 2.4.1 基向量变换
+### 2.4.1 定义
 
-设新旧两个笛卡尔直角坐标系 $\{O; x_1,x_2,x_3\}$ 和 $\{O; x_1',x_2',x_3'\}$，它们共享原点。
+$$e_{ijk} = \begin{cases}
+0 & \text{任意两指标相等} \\
++1 & (i,j,k) \text{ 是 } (1,2,3) \text{ 的偶排列} \\
+-1 & (i,j,k) \text{ 是 } (1,2,3) \text{ 的奇排列}
+\end{cases}$$
 
-方向余弦（direction cosine）：
-$$ l_{i'j} = \cos(x_i', x_j) $$
+**偶排列**（循环置换）：$(1,2,3), (2,3,1), (3,1,2)$ → $e=1$
+**奇排列**（交换一次）：$(1,3,2), (2,1,3), (3,2,1)$ → $e=-1$
 
-基向量变换：
-$$ \mathbf{e}_{i'}' = l_{i'j}\mathbf{e}_j \quad \text{或矩阵形式} \quad \mathbf{e}' = \mathbf{L}\mathbf{e} $$
+### 2.4.2 向量运算中的用途
 
-由于 $\mathbf{L}$ 是正交矩阵（$\mathbf{L}^{-1} = \mathbf{L}^T$），逆变换为：
-$$ \mathbf{e} = \mathbf{L}^T\mathbf{e}' $$
+**叉积**的张量形式：
+$$(\mathbf{a}\times\mathbf{b})_i = e_{ijk} a_j b_k$$
 
-### 2.4.2 分量变换
+**展开**（$i=1$）：
+$$(\mathbf{a}\times\mathbf{b})_1 = e_{123}a_2b_3 + e_{132}a_3b_2 = 1\cdot a_2b_3 + (-1)\cdot a_3b_2 = a_2b_3 - a_3b_2$$
 
-一个向量 $\mathbf{a}$ 在新旧坐标系下可以表示为：
-$$ \mathbf{a} = a_j\mathbf{e}_j = a_{j'}'\mathbf{e}_{j'}' $$
+这正是一阶行列式的形式。✅
 
-将基向量变换代入：
-$$ a_j\mathbf{e}_j = a_{j'}'l_{j'j}\mathbf{e}_j \quad \Rightarrow \quad a_j = l_{j'j}a_{j'}' $$
+### 2.4.3 核心恒等式（考试必考！）
 
-即 $$ a_{i'} = l_{i'j}a_j $$
+**恒等式 1**（最常用）：
+$$e_{ijk}e_{ist} = \delta_{js}\delta_{kt} - \delta_{jt}\delta_{ks}$$
 
-### 2.4.3 张量的定义（引入法）
+**恒等式 2**（前两个指标缩并）：
+$$e_{ijk}e_{ijt} = 2\delta_{kt}$$
 
-一个变量 $T$ 是 $n$ 阶张量，当且仅当其分量在坐标变换下按以下规律变换：
+**恒等式 3**（全部缩并）：
+$$e_{ijk}e_{ijk} = 6$$
+
+**记忆方法**：
+- 第一个指标相同（$i$），后面的 "交叉相乘减交换"
+- "交叉"：$j$→$s$，$k$→$t$
+- "交换"：$j$→$t$，$k$→$s$
+
+### 2.4.4 恒等式的应用步骤
+
+遇到 $e_{ijk}e_{pqr}$ 形式的乘积：
+1. **对齐指标**：利用 $e_{ijk} = e_{jki} = e_{kij}$（循环置换），将相同指标放在同一位置
+2. **应用恒等式**：代入 $e_{ijk}e_{imn} = \delta_{jm}\delta_{kn} - \delta_{jn}\delta_{km}$
+3. **利用 $\delta$ 简化**：$\delta_{ij}a_j = a_i$，$\delta_{ii} = 3$
+
+---
+
+## 2.5 坐标变换
+
+### 2.5.1 基向量变换
+
+设有新旧两个笛卡尔直角坐标系 $\{x_1,x_2,x_3\}$ 和 $\{x_1',x_2',x_3'\}$，共享原点。
+
+定义方向余弦 $l_{i'j} = \cos(x_i', x_j)$，即 $x_i'$ 轴与 $x_j$ 轴夹角的余弦。
+
+**基向量变换**：
+$$\mathbf{e}_{i'}' = l_{i'j}\mathbf{e}_j \quad \text{或矩阵形式} \quad \mathbf{e}' = \mathbf{L}\mathbf{e}$$
+
+其中 $\mathbf{L}$ 是方向余弦矩阵（$3\times3$），其 $i'$ 行 $j$ 列元素为 $l_{i'j}$。
+
+### 2.5.2 正交性
+
+方向余弦矩阵是**正交矩阵**：
+$$\mathbf{L}^{-1} = \mathbf{L}^T \quad \Rightarrow \quad l_{ji'} = l_{i'j}$$
+
+这一性质非常重要，意味着逆变换只需转置：
+$$\mathbf{e} = \mathbf{L}^T\mathbf{e}'$$
+
+### 2.5.3 向量分量的变换
+
+同一个向量 $\mathbf{a}$ 在新旧坐标系中表达：
+$$\mathbf{a} = a_j\mathbf{e}_j = a_{j'}'\mathbf{e}_{j'}'$$
+
+代入基向量变换：
+$$a_j\mathbf{e}_j = a_{j'}'l_{j'j}\mathbf{e}_j \quad\Rightarrow\quad a_j = l_{j'j}a_{j'}'$$
+
+**旧→新**：$a_{i'} = l_{i'j}a_j$
+**新→旧**：$a_i = l_{ij'}a_{j'} = l_{j'i}a_{j'}$
+
+---
+
+## 2.6 张量的定义
+
+### 2.6.1 定义（变换律法）
+
+一个量 $T$ 是 $n$ 阶张量，当且仅当其分量在坐标变换下按以下规律变换：
 
 | 阶数 | 名称 | 变换规律 | 例子 |
 |------|------|----------|------|
 | 0 | 标量 | $\phi' = \phi$ | 温度、密度 |
 | 1 | 向量 | $a_{i'}' = l_{i'j}a_j$ | 位移、力 |
 | 2 | 二阶张量 | $a_{i'j'}' = l_{i'i}l_{j'j}a_{ij}$ | 应力、应变 |
-| 3 | 三阶张量 | $a_{i'j'k'}' = l_{i'i}l_{j'j}l_{k'k}a_{ijk}$ | $e_{ijk}$（赝张量） |
+| 3 | 三阶张量 | $a_{i'j'k'}' = l_{i'i}l_{j'j}l_{k'k}a_{ijk}$ | $e_{ijk}$（赝张量）|
 
-### 2.4.4 张量运算
+### 2.6.2 张量运算
 
-| 运算 | 公式 | 阶数变化 | 说明 |
-|------|------|----------|------|
-| 加法 | $C_{ij} = A_{ij} + B_{ij}$ | 同阶 | 对应分量相加 |
-| 标量乘 | $B_{ij} = \lambda A_{ij}$ | 不变 | 每个分量乘常数 |
-| 张量积（外积） | $C_{ijkl} = A_{ij}B_{kl}$ | 升 2 阶 | 从 $m$ 阶到 $m+n$ 阶 |
-| 缩并 | $A_{ii}$ | 降 2 阶 | 令两个指标相等并求和 |
-| 内积 | $A_{ij}b_j = c_i$ | 降 1 阶 | 对乘积缩并 |
+| 运算 | 公式 | 阶数变化 |
+|------|------|----------|
+| 加法 | $C_{ij} = A_{ij} + B_{ij}$ | 不变 |
+| 张量积（外积） | $C_{ijkl} = A_{ij}B_{kl}$ | 升 2 阶 |
+| 缩并 | $A_{ii} = \text{tr}(A)$ | 降 2 阶 |
+| 内积 | $A_{ij}b_j = c_i$ | 降 1 阶 |
 
-### 2.4.5 张量运算的几何意义
+### 2.6.3 对称与反对称分解
 
-- **缩并 $A_{ii}$** = 求矩阵的迹（trace）→ 标量不变量
-- **张量对称分解**：任意二阶张量可分解为对称部分和反对称部分
-  $$A_{ij} = \underbrace{\frac12(A_{ij}+A_{ji})}_{A_{(ij)}\text{ 对称}} + \underbrace{\frac12(A_{ij}-A_{ji})}_{A_{[ij]}\text{ 反对称}}$$
-  应力张量 $\sigma_{ij}$ 和应变张量 $\varepsilon_{ij}$ 都**天然对称**（$\sigma_{ij} = \sigma_{ji}$）
-- **张量的不变量**（坐标变换下保持不变）：
-  - 第一不变量（迹）：$I_1 = A_{ii}$
-  - 第二不变量：$I_2 = \frac12(A_{ii}A_{jj} - A_{ij}A_{ji})$
-  - 第三不变量：$I_3 = \det(\mathbf{A})$
+任意二阶张量可唯一分解为：
+$$A_{ij} = \underbrace{\frac12(A_{ij}+A_{ji})}_{A_{(ij)}\text{ 对称}} + \underbrace{\frac12(A_{ij}-A_{ji})}_{A_{[ij]}\text{ 反对称}}$$
+
+- 应力张量 $\sigma_{ij}$：**对称**（$\sigma_{ij}=\sigma_{ji}$）
+- 应变张量 $\varepsilon_{ij}$：**对称**（$\varepsilon_{ij}=\varepsilon_{ji}$）
+
+### 2.6.4 张量的不变量
+
+坐标变换下保持不变：
+- $I_1 = A_{ii}$（迹）
+- $I_2 = \frac12(A_{ii}A_{jj} - A_{ij}A_{ji})$
+- $I_3 = \det(\mathbf{A})$
 
 ---
 
-## 2.5 习题级推导：如何证明一个量是张量？
+## 2.7 张量证明通用模板
 
-这是考试的标准题型。通用策略：
+考试中常要求证明某个量是张量。标准策略：
 
 **Step 1**：写出坐标变换 $x_{i'} = l_{i'j}x_j$
 **Step 2**：写出该量在新旧坐标系中的定义
-**Step 3**：利用链式法则变换导数 $\partial/\partial x_{j'} = l_{mj'}\,\partial/\partial x_m$
-**Step 4**：代入整理成 $l_{i'i}l_{j'j}\cdots$ 乘以原分量的形式
+**Step 3**：利用链式法则 $\partial/\partial x_{j'} = l_{mj'}\,\partial/\partial x_m$
+**Step 4**：整理成 $l_{i'i}l_{j'j}\cdots$ 乘以原分量的形式
 **Step 5**：与张量变换律对比 → 得证
 
 ### 例 1：证明 $\varepsilon_{ij} = \frac12(u_{i,j}+u_{j,i})$ 是二阶张量
 
-**证明**：
 $$\begin{aligned}
 \varepsilon_{i'j'} &= \frac12(u_{i',j'} + u_{j',i'}) \\
-&= \frac12\left[ \frac{\partial}{\partial x_{j'}}(l_{i'i}u_i) + \frac{\partial}{\partial x_{i'}}(l_{j'j}u_j) \right] \\
-&= \frac12\left[ l_{i'i}l_{mj'}u_{i,m} + l_{j'j}l_{ni'}u_{j,n} \right]
+&= \frac12[l_{i'i}l_{mj'}u_{i,m} + l_{j'j}l_{ni'}u_{j,n}] \\
+&= \frac12[l_{i'i}l_{j'm} + l_{j'i}l_{i'm}]u_{i,m}
 \end{aligned}$$
 
-将第二项的哑指标 $(j,n)\to(i,m)$：
-$$ \varepsilon_{i'j'} = \frac12\left[ l_{i'i}l_{mj'} + l_{j'i}l_{mi'} \right] u_{i,m} $$
+其中利用了 $l_{mj'} = l_{j'm}$（正交性）。另一方面：
+$$l_{i'i}l_{j'j}\varepsilon_{ij} = \frac12(l_{i'i}l_{j'j} + l_{i'j}l_{j'i})u_{i,j}$$
 
-利用 $l_{mj'} = l_{j'm}$ 和 $l_{mi'} = l_{i'm}$：
-$$ \varepsilon_{i'j'} = \frac12\left[ l_{i'i}l_{j'm} + l_{j'i}l_{i'm} \right] u_{i,m} $$
+两式相等，故 $\varepsilon_{i'j'} = l_{i'i}l_{j'j}\varepsilon_{ij}$。■
 
-**关键步骤**：注意到 $u_i$ 是向量（一阶张量），$u_{i,m}$ 是二阶张量的分量。我们希望将其表达为：
-$$ \varepsilon_{i'j'} = l_{i'i}l_{j'j}\varepsilon_{ij} $$
+### 例 2：证明 $e_{ijk}$ 是三阶张量
 
-而 $\varepsilon_{ij} = \frac12(u_{i,j} + u_{j,i})$，代入右侧：
-$$ l_{i'i}l_{j'j}\varepsilon_{ij} = \frac12\left(l_{i'i}l_{j'j} + l_{i'j}l_{j'i}\right)u_{i,j} $$
+需要验证 $e_{i'j'k'} = l_{i'i}l_{j'j}l_{k'k}e_{ijk}$。
 
-交换第二项中的哑指标名字 $(j,i)\to(m,i)$：
-$$ = \frac12\left(l_{i'i}l_{j'm} + l_{i'm}l_{j'i}\right)u_{i,m} $$
-
-与左侧式比较，完全相同。因此 $\varepsilon_{i'j'} = l_{i'i}l_{j'j}\varepsilon_{ij}$。■
-
-### 例 2：证明 $e_{ijk}$ 是三阶张量（对正常转动）
-
-需要验证：
-$$ e_{i'j'k'} = l_{i'i}l_{j'j}l_{k'k}e_{ijk} $$
-
-右侧 $l_{i'i}l_{j'j}l_{k'k}e_{ijk}$ 的几何意义是矩阵 $\mathbf{L}$ 三行向量的**标量三重积**，即 $\det(\mathbf{L})$。
-
-对**正常转动**（$\det(\mathbf{L}) = 1$，不包含反射）：
-$$ l_{i'i}l_{j'j}l_{k'k}e_{ijk} = \det(\mathbf{L}) \cdot e_{i'j'k'} = e_{i'j'k'} $$
-
-因此满足三阶张量变换律。对包含反射的变换（$\det(\mathbf{L}) = -1$），$e_{ijk}$ 需额外乘以 $\det(\mathbf{L})$ 的符号，因此称为**赝张量（pseudotensor）**。
+右侧 = $\det(\mathbf{L})\,e_{i'j'k'}$（行列式的定义）。$\det(\mathbf{L}) = 1$（正常转动）时成立；$\det(\mathbf{L}) = -1$（含反射）时多一个负号 → 称为**赝张量**。
 
 ---
 
-## 2.6 弹性力学的张量形式
+## 2.8 弹性力学的张量形式
 
-使用张量记号后，弹性力学基本方程变得极其简洁：
-
-| 方程 | 矩阵形式（第 1 章） | 张量形式 |
-|------|-------------------|----------|
+| 方程 | 矩阵形式 | 张量形式 |
+|------|----------|----------|
 | 几何 | $\boldsymbol{\varepsilon} = [\partial]\mathbf{u}$ | $\varepsilon_{ij} = \frac12(u_{i,j}+u_{j,i})$ |
-| 物理 | $\boldsymbol{\sigma} = \mathbf{D}\boldsymbol{\varepsilon}$ | $\sigma_{ij} = D_{ijkl}\varepsilon_{kl}$ 或 $\sigma_{ij} = \lambda\varepsilon_{kk}\delta_{ij} + 2G\varepsilon_{ij}$ |
+| 物理 | $\boldsymbol{\sigma} = \mathbf{D}\boldsymbol{\varepsilon}$ | $\sigma_{ij} = \lambda\varepsilon_{kk}\delta_{ij} + 2G\varepsilon_{ij}$ |
 | 平衡 | $[\partial]^T\boldsymbol{\sigma} + \mathbf{f} = \mathbf{0}$ | $\sigma_{ij,j} + f_i = 0$ |
-| 位移 BC | $\mathbf{u}|_{S_u} = \bar{\mathbf{u}}$ | $u_i|_{S_u} = \bar{u}_i$ |
-| 力 BC | $[\mathbf{n}]\boldsymbol{\sigma}|_{S_\sigma} = \bar{\mathbf{T}}$ | $\sigma_{ij}n_j|_{S_\sigma} = \bar{T}_i$ |
 
-其中 $D_{ijkl}$ 是四阶弹性张量（$3^4 = 81$ 个分量），但对称性使其缩减为 21 个独立分量（各向异性）→ 2 个独立分量（各向同性）。
+**体积应变**：$\varepsilon_v = \varepsilon_{kk} = \frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} + \frac{\partial w}{\partial z}$
 
 ---
 
-## 2.7 解题实用技能
+## 2.9 恒等式速查表
 
-### ε-δ 恒等式使用三步法
-
-遇到 $e_{ijk}e_{pqr}$ 形式的乘积时：
-
-1. **对齐指标**：利用循环置换 $e_{ijk} = e_{jki} = e_{kij}$，将相同指标放在最后一个位置
-2. **应用恒等式**：$e_{ijk}e_{imn} = \delta_{jm}\delta_{kn} - \delta_{jn}\delta_{km}$
-3. **利用 $\delta$ 简化**：$\delta_{ij}a_j = a_i$，$\delta_{ii} = 3$
-
-### 常见 ε-δ 恒等式速查
-
-| 恒等式 | 记忆法 |
-|--------|--------|
-| $e_{ijk}e_{ist} = \delta_{js}\delta_{kt} - \delta_{jt}\delta_{ks}$ | 第一个指标相同，后面的"交叉减交换" |
-| $e_{ijk}e_{ijt} = 2\delta_{kt}$ | 前两个指标缩并后还剩两个 |
-| $e_{ijk}e_{ijk} = 6$ | 全部缩并 = 3 维空间的全排列数 |
+| 恒等式 | 用途 |
+|--------|------|
+| $\delta_{ii} = 3$ | 计算迹 |
+| $\delta_{ij}a_j = a_i$ | 指标替换 |
+| $e_{ijk}e_{ist} = \delta_{js}\delta_{kt} - \delta_{jt}\delta_{ks}$ | **最常用！** |
+| $e_{ijk}e_{ijt} = 2\delta_{kt}$ | 双重缩并 |
+| $(\boldsymbol{a}\times\boldsymbol{b})\cdot(\boldsymbol{c}\times\boldsymbol{d}) = (\boldsymbol{a}\cdot\boldsymbol{c})(\boldsymbol{b}\cdot\boldsymbol{d}) - (\boldsymbol{a}\cdot\boldsymbol{d})(\boldsymbol{b}\cdot\boldsymbol{c})$ | Lagrange 恒等式 |
 
 ---
 
-## 检查你的理解
-
-1. 什么是哑指标和自由指标？在 $a_i = B_{ij}c_j$ 中，哪些是哑指标，哪些是自由指标？这个式子代表多少个方程？
-2. $\delta_{ij}\delta_{ij}$ 等于多少？用求和展开验证。
-3. $e_{123}$ 和 $e_{213}$ 分别等于多少？
-4. 为什么 $e_{ijk}$ 对 $\det(\mathbf{L}) = -1$ 的变换是赝张量而不是真正张量？
-5. 将 $\varepsilon_{ij} = \frac12(u_{i,j}+u_{j,i})$ 展开成矩阵形式，验证与第 1 章的几何方程一致。
-6. 张量运算中，缩并（contraction）的作用是什么？举例说明。
-
----
-
-> **对应作业**：[HW1 Q1](../04-Homework-Solutions/2026w/HW1-Problem.md)（恒等式证明）· [Q2](../04-Homework-Solutions/2026w/HW1-Problem.md)（张量证明）· [Q3](../04-Homework-Solutions/2026w/HW1-Problem.md)（$e_{ijk}$ 证明）· [Q4](../04-Homework-Solutions/2026w/HW1-Problem.md)（指标运算）
-> **往年参考**：[Homework1.1](../04-Homework-Solutions/past/comprehensive/Homework1.1.md) · [Homework1.2](../04-Homework-Solutions/past/comprehensive/Homework1.2.md)
+> **对应作业**：[HW1 Q1（恒等式证明）](../04-Homework-Solutions/2026w/HW1-Problem.md) · [Q2（张量证明）](../04-Homework-Solutions/2026w/HW1-Problem.md) · [Q3（$e_{ijk}$ 证明）](../04-Homework-Solutions/2026w/HW1-Problem.md) · [Q4（指标运算）](../04-Homework-Solutions/2026w/HW1-Problem.md)
