@@ -267,4 +267,48 @@ $$l_{i'i}l_{j'j}\varepsilon_{ij} = \frac12(l_{i'i}l_{j'j} + l_{i'j}l_{j'i})u_{i,
 
 ---
 
+## 2.10 张量在 FEM 中的实际作用
+
+### 2.10.1 从分量运算到抽象索引
+
+在 FEM 编程中，很少直接使用张量符号。但张量符号是**推导公式**的利器。
+
+**例**：弹性矩阵 $D_{ijkl}$ 的对称性
+
+$$D_{ijkl} = \lambda\delta_{ij}\delta_{kl} + G(\delta_{ik}\delta_{jl} + \delta_{il}\delta_{jk})$$
+
+利用这个表达式，我们可以直接推导出应力-应变关系：
+$$\sigma_{ij} = D_{ijkl}\varepsilon_{kl} = \lambda\varepsilon_{kk}\delta_{ij} + 2G\varepsilon_{ij}$$
+
+而不需要展开 $6\times6$ 的矩阵乘法。
+
+### 2.10.2 FEM 编程中的索引映射
+
+编程实现时，张量的多指标需要映射到一维存储：
+- $\sigma_{11} \to \sigma_1,\; \sigma_{22} \to \sigma_2,\; \sigma_{33} \to \sigma_3$
+- $\sigma_{12} \to \sigma_4,\; \sigma_{23} \to \sigma_5,\; \sigma_{31} \to \sigma_6$
+
+这就是工程中 Voigt 记号的来源。
+
+### 2.10.3 张量分析工具的价值
+
+| 场景 | 不用张量 | 用张量 |
+|------|----------|--------|
+| 推导新本构关系 | 需要展开所有分量 | 张量代数一行搞定 |
+| 检查坐标不变性 | 需要逐项验证 | 缩并结果自然满足 |
+| 代码实现一致性 | 容易遗漏或重复 | 爱因斯坦求和 + 循环 |
+
+---
+
+## 检查你的理解
+
+1. 什么是 Einstein 求和约定？在 $a_{ij}b_{jk} = c_{ik}$ 中，哪个是哑指标，哪个是自由指标？
+2. $\delta_{ii}$ 等于多少？$\delta_{ij}\delta_{ij}$ 等于多少？
+3. 证明 $\varepsilon_{ij} = \frac12(u_{i,j}+u_{j,i})$ 是二阶张量的关键步骤是什么？
+4. 为什么 $e_{ijk}$ 对反射变换是赝张量？
+5. 弹性力学三类方程的张量形式和矩阵形式有什么对应关系？
+6. 什么是张量的缩并？它有什么几何意义？
+
+---
+
 > **对应作业**：[HW1 Q1（恒等式证明）](../04-Homework-Solutions/2026w/HW1-Problem.md) · [Q2（张量证明）](../04-Homework-Solutions/2026w/HW1-Problem.md) · [Q3（$e_{ijk}$ 证明）](../04-Homework-Solutions/2026w/HW1-Problem.md) · [Q4（指标运算）](../04-Homework-Solutions/2026w/HW1-Problem.md)
