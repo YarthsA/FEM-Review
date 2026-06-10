@@ -7,7 +7,7 @@
 
 ---
 
-## I. 引言（Introduction）
+## 4.1 引言（Introduction）
 
 ### FEM 是什么？
 
@@ -73,7 +73,7 @@ FEM 的整个计算过程由计算机自动完成，具有非常强的通用性�
 
 ---
 
-## II. 变分问题的直接法（The Direct Method of Variation Problem）
+## 4.2 变分问题的直接法（The Direct Method of Variation Problem）
 
 ### 2.1 引言
 
@@ -281,7 +281,7 @@ $$\int_0^l R\,\varphi_i dx = 0,\quad i=1,2,\ldots,N$$
 
 ---
 
-## III. 加权残量法（The Method of Weighted Residuals）
+## 4.3 加权残量法（The Method of Weighted Residuals）
 
 ### 3.1 引言
 
@@ -316,7 +316,7 @@ $$(R, \omega_i) = 0,\quad i=1,2,\ldots,n$$
 
 ---
 
-## IV. 有限单元法（The Finite Element Method）
+## 4.4 有限单元法（The Finite Element Method）
 
 ### 4.1 概述
 
@@ -342,7 +342,7 @@ $$\varphi_i = \begin{cases}
 
 ---
 
-## V. 结论
+## 4.5 结论
 
 经典 FEM 首先通过变分原理找到微分方程所对应的变分问题（即对应的泛函）。对于力学问题，可以从变分方法直接建立泛函。
 

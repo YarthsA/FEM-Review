@@ -7,7 +7,7 @@
 
 ---
 
-## I. Summary（概述）
+## 5.1 概述（Summary）
 
 变分原理普遍适用于弹性力学，我们将在此范围内讨论有限元分析。
 
@@ -27,7 +27,7 @@
 
 ---
 
-## II. Two-dimensional Poisson equations（二维 Poisson 方程）
+## 5.2 二维 Poisson 方程（Two-dimensional Poisson Equations）
 
 ### 2.1 The weak form of equivalent integral（等效积分的弱形式）
 
@@ -126,7 +126,7 @@ $$u(x,y) = [N]\{\delta\}_{e_n} = u_iN_i + u_jN_j + u_mN_m$$
 
 ---
 
-## III. General format of finite element method（FEM 的一般形式）
+## 5.3 FEM 的一般形式（General Format of FEM）
 
 ### 3.1 Matrix expression of the basic equations（基本方程的矩阵表达）
 
@@ -198,7 +198,7 @@ $$\mathbf{u} = N_i\mathbf{u}_i + N_j\mathbf{u}_j + N_m\mathbf{u}_m + N_l\mathbf{
 
 ---
 
-## IV. Plane problems of elastic mechanics（弹性力学平面问题）
+## 5.4 弹性力学平面问题（Plane Problems of Elastic Mechanics）
 
 ### 4.1 Element analysis（单元分析）
 
@@ -229,7 +229,7 @@ $$[k]_e = \iint_e [B]^T[D][B]\,t\,dxdy = t\Delta_e[B]^T[D][B]$$
 
 ---
 
-## V. Further discussions（进一步讨论）
+## 5.5 进一步讨论（Further Discussions）
 
 有限元方法有效克服了经典变分法的局限——试函数选择困难和程序化不易。通过将求解域划分为单元，在单元级别上建立统一的位移函数，整个过程可以完全**标准化**和**自动化**，只需要根据不同的工程问题修改输入数据。
 

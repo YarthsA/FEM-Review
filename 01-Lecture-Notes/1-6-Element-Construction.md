@@ -7,7 +7,7 @@
 
 ---
 
-## I. Introduction（引言）
+## 6.1 引言（Introduction）
 
 ### 1.1 形函数的重要性
 
@@ -44,7 +44,7 @@
 
 ---
 
-## II. Two-dimensional situation（二维情况）
+## 6.2 二维情况（Two-dimensional Situation）
 
 二维插值是一维插值的自然推广。但随着区域维数的增加，新的特点和困难也随之出现：
 1. 二维插值与区域划分方式密切相关（三角形、矩形、任意四边形）
@@ -118,7 +118,7 @@ $$N_1 = \frac14(1+\xi)(1+\eta)(\xi+\eta-1)$$
 
 ---
 
-## III. Three-dimensional situation（三维情况）
+## 6.3 三维情况（Three-dimensional Situation）
 
 ### 3.1 Tetrahedron element（四面体单元）
 
@@ -127,7 +127,7 @@ $$\iiint_{V_e} L_1^{\alpha_1}L_2^{\alpha_2}L_3^{\alpha_3}L_4^{\alpha_4}dV = \fra
 
 ---
 
-## IV. Isoparametric element and numerical integration（等参元与数值积分）
+## 6.4 等参元与数值积分（Isoparametric Element and Numerical Integration）
 
 ### 4.1 任意四边形单元
 
@@ -164,7 +164,7 @@ $$\iint_{\Omega_e} f(x,y)dxdy = \iint_{-1}^1 f(\xi,\eta)|\mathbf{J}|d\xi d\eta \
 
 ---
 
-## V. Conclusion（结论）
+## 6.5 结论（Conclusion）
 
 长度坐标、面积坐标和体积坐标均与单元形式无直接关系，统称为**自然坐标**。
 
