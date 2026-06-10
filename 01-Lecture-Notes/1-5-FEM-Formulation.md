@@ -1,6 +1,8 @@
 # 第5章：弹性力学有限元公式推导
 
-## 1. 从微分方程到等效积分弱形式
+> **对应 PDF**：[`5 FEM_formulation.pdf`](../06-References/pdfs-originals/5%20FEM_formulation.pdf) · [`有限元复习.pdf`](../06-References/pdfs-originals/有限元复习.pdf) §4
+> **相关作业**：[HW3 Q4](../04-Homework-Solutions/2026w/HW3-Problem.md)（梁单元形函数）
+> **前置知识**：第 4 章（Ritz/Galerkin 法）、线性代数（矩阵乘法）、材料力学（梁弯曲）
 
 ### 1.1 加权残量法的等效积分形式
 
@@ -386,3 +388,22 @@ k_1 & -k_1 & 0 & 0 \\
 - 单元节点的编号顺序必须是**逆时针**（保证面积 $\Delta_e > 0$）
 - 总体刚度矩阵是奇异的 → 必须施加足够的位移约束消除刚体位移
 - CST 单元在每个单元内应力恒定 → 需要较密网格才能获得好的应力精度
+
+---
+
+## 8. 边界条件处理方法
+
+### 划行划列法
+已知 $\delta_i = \bar{u}_i$ 时，删去第 $i$ 行和第 $i$ 列，将右端项减去 $K_{ji}\bar{u}_i$。
+
+**示例**：$u_1 = 0$
+$$\begin{pmatrix}1 & 0 & 0 \\ 0 & K_{22} & K_{23} \\ 0 & K_{32} & K_{33}\end{pmatrix}\begin{pmatrix}0 \\ u_2 \\ u_3\end{pmatrix} = \begin{pmatrix}R_1 \\ F_2 \\ F_3\end{pmatrix}$$
+实际求解时取后两行两列即可。
+
+### 乘大数法（罚函数法）
+将 $K_{ii}$ 乘以一个很大的数（如 $10^{15}$），同时将 $F_i$ 改为 $K_{ii} \times 10^{15} \times \bar{u}_i$。适用于编程实现。
+
+---
+
+> **对应作业**：[HW3 Q4: 梁单元形函数](../04-Homework-Solutions/2026w/HW3-Problem.md)
+> **往年相关**：[Homework3 (past)](../04-Homework-Solutions/past/HW3/Homework3.md)

@@ -9,7 +9,10 @@
 
 ```
 FEM-Review/
-├── 01-Lecture-Notes/          ← Chapter summaries distilled from course slides
+├── 00-Cross-Reference/       ← 交叉引用索引（笔记→PDF→作业双向链接）
+│   └── index.md
+│
+├── 01-Lecture-Notes/          ← Chapter summaries (textbook-level depth)
 │   ├── 1-1-FEA-Elasticity.md        # FEA overview + fundamentals of elasticity
 │   ├── 1-2-Tensor-Elasticity.md     # Tensor notation + elasticity in tensor form
 │   ├── 1-3-Variational-Methods.md   # Variational calculus + Euler equations

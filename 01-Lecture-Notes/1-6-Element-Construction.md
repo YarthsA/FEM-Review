@@ -1,6 +1,8 @@
 # 第6章：单元构造与形函数
 
-## 1. 单元构造概述
+> **对应 PDF**：[`6 FEM_Element construction.pdf`](../06-References/pdfs-originals/6%20FEM_Element%20construction.pdf) · [`有限元复习.pdf`](../06-References/pdfs-originals/有限元复习.pdf) §5
+> **相关作业**：[HW3 Q4](../04-Homework-Solutions/2026w/HW3-Problem.md)（Hermite 梁单元）
+> **前置知识**：第 5 章（FEM 公式）、线性代数（多项式插值）
 
 形函数的构造是 FEM 中最重要也最技巧性的环节，因为：
 1. 单元刚度矩阵计算、总体集成和求解可标准化、自动化
@@ -340,3 +342,25 @@ $$
 | 3D 任意几何 | 4节点四面体 | 网格划分容易 |
 | 3D 规则区域 | 8节点六面体 | 精度更高 |
 | 弯曲边界 | 等参元 | 精确描述边界 |
+
+---
+
+## 10. 形函数性质验证方法
+
+考试中常要求验证形函数是否合法，标准检查项：
+
+1. **Kronecker 性质**：$N_i(\text{节点}_j) = \delta_{ij}$
+   - 在自身节点为 1，在其他节点为 0
+2. **单位分解**：$\sum N_i = 1$
+   - 能表示刚体平移（$u = \text{常数}$）
+3. **线性完备性**：$\sum N_i x_i = x$，$\sum N_i y_i = y$
+   - 能表示刚体转动和常应变状态
+
+**例**：验证梁单元 Hermite 形函数 $N_1 = 1-3\xi^2+2\xi^3$
+- $N_1(0) = 1$，$N_1(1) = 0$ ✅
+- $N_1'(0) = 0$，$N_1'(1) = 0$ ✅（对转角无贡献）
+
+---
+
+> **对应作业**：[HW3 Q4: Hermite 梁单元形函数](../04-Homework-Solutions/2026w/HW3-Problem.md)
+> **往年相关**：[Homework3 (past)](../04-Homework-Solutions/past/HW3/Homework3.md) · [答案(LIU Sai)](../04-Homework-Solutions/past/HW3/Ans%20to%20HM3_LIU%20Sai_handed%20in.md)

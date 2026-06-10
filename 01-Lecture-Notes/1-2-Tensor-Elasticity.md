@@ -1,5 +1,11 @@
 # 第2章：张量分析与弹性力学
 
+> **对应 PDF**：[`Chapter 2 Elastic theory.pdf`](../06-References/pdfs-originals/Chapter%202%20Elastic%20theory.pdf)
+> **相关作业**：[HW1 Q1-Q4](../04-Homework-Solutions/2026w/HW1-Problem.md)（全部张量题）
+> **前置知识**：线性代数（向量、矩阵、行列式）、高等数学（偏导数）
+
+---
+
 ## 1. 指标记号与求和约定
 
 ### Einstein 求和约定
@@ -201,6 +207,38 @@ $$\begin{aligned}
 $$\det(\mathbf{L}) = 1\text{ 时：}\quad e_{i'j'k'} = l_{i'i}l_{j'j}l_{k'k}e_{ijk}$$
 
 即满足三阶张量变换律。对反射变换 $\det(\mathbf{L}) = -1$，$e_{ijk}$ 是**赝张量**。
+
+---
+
+## 9. 指标运算的工程直觉
+
+### 为什么要学张量？
+| 不用张量 | 用张量后 |
+|----------|----------|
+| 弹性力学 15 个方程写成一大片 | $\sigma_{ij,j} + f_i = 0$ 一行搞定 |
+| 坐标变换需要逐项推导 | $a_{i'} = l_{i'j}a_j$ 统一处理 |
+| 应变-位移关系记不住 | $\varepsilon_{ij} = \frac12(u_{i,j}+u_{j,i})$ 简洁优雅 |
+| 本构关系连写都写不下 | $\sigma_{ij} = \lambda\varepsilon_{kk}\delta_{ij} + 2G\varepsilon_{ij}$ |
+
+### 哑指标 vs 自由指标速判
+- **哑指标**：同一项中重复出现 → 对这个指标求和（求和符号隐藏了）
+- **自由指标**：只出现一次 → 表示分量的编号（方程个数）
+
+**例**：$a_{ij} = b_{ik}c_{kj}$
+- $i$ 和 $j$ 各出现一次 → 自由指标 → 这个方程代表 9 个方程（$i=1,2,3, j=1,2,3$）
+- $k$ 出现两次 → 哑指标 → 对 $k=1,2,3$ 求和
+
+### 题目中如何运用 $\varepsilon$-$\delta$ 恒等式
+
+遇到 $e_{ijk}e_{pqr}$ 形式，三步走：
+1. 将相同指标放在最后一个位置（利用循环置换 $e_{ijk} = e_{jki} = e_{kij}$）
+2. 应用恒等式 $e_{ijk}e_{imn} = \delta_{jm}\delta_{kn} - \delta_{jn}\delta_{km}$
+3. 利用 $\delta_{ij}a_j = a_i$ 简化
+
+---
+
+> **对应作业**：[HW1 Q1: 恒等式证明](../04-Homework-Solutions/2026w/HW1-Problem.md) · [Q2: 张量证明](../04-Homework-Solutions/2026w/HW1-Problem.md) · [Q3: e_ijk 证明](../04-Homework-Solutions/2026w/HW1-Problem.md) · [Q4: 指标运算](../04-Homework-Solutions/2026w/HW1-Problem.md)
+> **往年相关**：[Homework1.1](../04-Homework-Solutions/past/comprehensive/Homework1.1.md) · [Homework1.2](../04-Homework-Solutions/past/comprehensive/Homework1.2.md)
 
 ---
 

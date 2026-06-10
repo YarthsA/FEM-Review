@@ -1,5 +1,11 @@
 # 第1章：引言与弹性力学基础
 
+> **对应 PDF**：[`Chapter 1 Introduction to FEA.pdf`](../06-References/pdfs-originals/Chapter%201%20Introduction%20to%20FEA.pdf) · [`有限元复习.pdf`](../06-References/pdfs-originals/有限元复习.pdf) §5
+> **相关作业**：[HW1 Q2](../04-Homework-Solutions/2026w/HW1-Problem.md)（张量证明）· [HW1 Q4](../04-Homework-Solutions/2026w/HW1-Problem.md)（指标运算）
+> **前置知识**：高等数学（偏微分、多重积分）、线性代数（矩阵运算）
+
+---
+
 ## 1. FEA/FEM 基本概念
 
 **FEM (Finite Element Method)** / **FEA (Finite Element Analysis)** — 一种数值求解场问题（field problems）的方法。
@@ -230,5 +236,55 @@ $$
 - **p 方法**：不改变网格，提高单元阶数 → 更高次多项式
 - **hp 方法**：两者结合
 
-### FEM 软件
-ANSYS、ABAQUS、NASTRAN、MARC、ADINA、COMSOL、LS-DYNA
+---
+
+## 8. 关于应力的物理解释
+
+应力 $\sigma_{ij}$ 的物理含义：在垂直于 $i$ 轴的截面上，沿 $j$ 方向的单位面积力。
+
+- $\sigma_{xx}, \sigma_{yy}, \sigma_{zz}$：**正应力**（法向），拉为正、压为负
+- $\tau_{xy}, \tau_{yz}, \tau_{zx}$：**剪应力**（切向）
+
+从微元体平衡（$\sum F_x = 0, \sum F_y = 0, \sum F_z = 0$）可导出平衡方程。以 $x$ 方向为例：
+$$\left(\sigma_x + \frac{\partial\sigma_x}{\partial x}dx\right)dydz - \sigma_x dydz + \left(\tau_{yx} + \frac{\partial\tau_{yx}}{\partial y}dy\right)dxdz - \tau_{yx}dxdz + \left(\tau_{zx} + \frac{\partial\tau_{zx}}{\partial z}dz\right)dxdy - \tau_{zx}dxdy + f_x dxdydz = 0$$
+
+化简得 $\frac{\partial\sigma_x}{\partial x} + \frac{\partial\tau_{yx}}{\partial y} + \frac{\partial\tau_{zx}}{\partial z} + f_x = 0$。
+
+---
+
+## 9. 平面问题分类
+
+当结构在一个方向上的尺寸远小于或远大于另外两个方向时，三维问题可以简化。
+
+### 平面应力 (Plane Stress)
+- **条件**：薄板（$z$ 方向厚度很小），载荷在 $xy$ 平面内
+- **假设**：$\sigma_z = 0, \tau_{zx} = \tau_{zy} = 0$
+- **应用**：薄板拉压、含孔板
+
+### 平面应变 (Plane Strain)
+- **条件**：长结构（$z$ 方向很长），截面沿 $z$ 不变
+- **假设**：$\varepsilon_z = 0, \gamma_{zx} = \gamma_{zy} = 0$
+- **应用**：水坝、隧道、长墙
+
+---
+
+## 10. 三类方程的核⼼关系
+
+```
+位移 u_i        
+  │ 几何方程 ε_ij = (u_i,j + u_j,i)/2
+  ▼
+应变 ε_ij      
+  │ 物理方程 σ_ij = D_ijkl ε_kl
+  ▼
+应力 σ_ij      
+  │ 平衡方程 σ_ij,j + f_i = 0
+  ▼
+外力 f_i
+```
+
+三类方程 + 边界条件 = **15 个方程解 15 个未知量**（6 应力 + 6 应变 + 3 位移）→ 弹性力学问题适定。
+
+---
+
+> **对应作业**：[HW1 Q2: 应变张量证明](../04-Homework-Solutions/2026w/HW1-Problem.md) · [HW1 Q4: 指标运算](../04-Homework-Solutions/2026w/HW1-Problem.md)

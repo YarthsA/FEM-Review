@@ -1,6 +1,8 @@
 # 第3章：变分法基础（Variational Calculus）
 
-## 1. 变分法概述
+> **对应 PDF**：[`Chapter 3 Variation theory and applications-1.pdf`](../06-References/pdfs-originals/Chapter%203%20Variation%20theory%20and%20applications-1.pdf) · [`有限元复习.pdf`](../06-References/pdfs-originals/有限元复习.pdf) §4
+> **相关作业**：[HW2 Q1-Q4](../04-Homework-Solutions/2026w/HW2-Problem.md)（全部变分法题）· [HW3 Q3](../04-Homework-Solutions/2026w/HW3-Problem.md)（弹性地基梁）
+> **前置知识**：微积分（微分定义、分部积分、常微分方程）、线性代数
 
 **变分法 (Variational Method)** — 泛函分析的一个分支，研究**泛函极值**问题。
 
@@ -363,3 +365,25 @@ Courant 分片近似 (1943) → 克服边界困难
    ↓
 FEM (单元级 trial function, 1960) → 程序化、通用化
 ```
+
+---
+
+## 12. 解题常见陷阱
+
+### 陷阱 1：错把全导当偏导
+Euler 方程中 $\frac{\partial F}{\partial y'}$ 是偏导，但 $\frac{d}{dx}$ 是全导：
+$$\frac{d}{dx}F_{y'} = \frac{\partial F_{y'}}{\partial x} + \frac{\partial F_{y'}}{\partial y}y' + \frac{\partial F_{y'}}{\partial y'}y''$$
+
+### 陷阱 2：忘记边界项
+分部积分时，边界项 $[F_{y'}\delta y]_{x_1}^{x_2}$ 必须处理。如果 $\delta y$ 在端点为 0，该项消失。如果端点自由，必须令 $F_{y'}=0$（自然边界条件）。
+
+### 陷阱 3：线性泛函判断不全
+只检查了齐次性而漏了可加性，或反之。**两者必须同时满足**。
+
+### 陷阱 4：条件极值中 $\lambda$ 的处理
+引入 $\lambda$ 后，$F^* = F + \lambda\varphi$，$\lambda$ 和 $y(x)$ 都是未知函数，对两者都要用 Euler 方程。
+
+---
+
+> **对应作业**：[HW2 Q1: 最短路径](../04-Homework-Solutions/2026w/HW2-Problem.md) · [Q2: 三阶导数 Euler 方程](../04-Homework-Solutions/2026w/HW2-Problem.md) · [Q3: Lagrange 乘子](../04-Homework-Solutions/2026w/HW2-Problem.md) · [Q4: 泛函极值函数](../04-Homework-Solutions/2026w/HW2-Problem.md)
+> **往年相关**：[past/HW2/homework 2](../04-Homework-Solutions/past/HW2/homework%202.md) · [答案(LIU Sai)](../04-Homework-Solutions/past/HW2/Ans%20to%20HM2_LIU%20Sai_handed%20in.md)

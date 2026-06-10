@@ -1,5 +1,9 @@
 # 第4章：FEM 理论基础 — Ritz 法、Galerkin 法与加权残量法
 
+> **对应 PDF**：[`Chapter 4 Applications of variational theory in elasticity (1).pdf`](../06-References/pdfs-originals/Chapter%204%20Applications%20of%20variational%20theory%20in%20elasticity%20(1).pdf) · [`有限元复习.pdf`](../06-References/pdfs-originals/有限元复习.pdf) §2-3
+> **相关作业**：[HW3 Q1-Q4](../04-Homework-Solutions/2026w/HW3-Problem.md)
+> **前置知识**：第 3 章变分法、线性代数
+
 > 本章连接变分法的数学理论与有限元的具体实现。
 > 核心问题：当我们无法获得微分方程的精确解时，如何用有限个参数的近似解逼近真实解？
 
@@ -286,3 +290,19 @@ FEM 的优越之处在于：
 2. 降低了试函数的光滑度要求（从 $C^1$ 降到 $C^0$，甚至可间断）
 3. 程序实现标准化、自动化
 4. 适用性问题不受限制（固体、流体、热、电磁均可）
+
+---
+
+## 8. 核心选择题 / 判断题考点
+
+1. **Ritz 法的试函数必须满足什么？** → 位移边界条件（本质 BC）✅
+2. **Galerkin 法的试函数必须满足什么？** → 全部边界条件（本质 BC + 自然 BC）✅
+3. **Galerkin 法和 Ritz 法什么时候等价？** → 当微分方程存在能量泛函时✅
+4. **加权残量法中 Galerkin 法的权函数是什么？** → 基函数本身✅
+5. **Ritz 法需要判断超静定次数吗？** → 不需要✅
+6. **Ritz 法求出的位移解比真实值大还是小？** → 小（位移元下限性）✅
+
+---
+
+> **对应作业**：[HW3 Q2: 试函数合法性](../04-Homework-Solutions/2026w/HW3-Problem.md) · [HW3 Q3: 弹性地基梁](../04-Homework-Solutions/2026w/HW3-Problem.md)
+> **往年相关**：[past/HW3/Homework3](../04-Homework-Solutions/past/HW3/Homework3.md) · [答案(LIU Sai)](../04-Homework-Solutions/past/HW3/Ans%20to%20HM3_LIU%20Sai_handed%20in.md)
