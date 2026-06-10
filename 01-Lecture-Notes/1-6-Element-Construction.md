@@ -1,284 +1,190 @@
-# 第6章：单元构造与形函数
+# 单元构造与形函数
 
-> **对应 PDF**：[`6 FEM_Element construction.pdf`](../06-References/pdfs-originals/6%20FEM_Element%20construction.pdf) · [`有限元复习.pdf`](../06-References/pdfs-originals/有限元复习.pdf) §5
+> **对应课件**：[`Chapter 2 Elastic theory.pdf`](../06-References/pdfs-originals/Chapter%202%20Elastic%20theory.pdf) 课程第 4 章
+> **章节定位**：Construction of element and shape functions → I. Introduction → II. Two-dimensional situation → III. Three-dimensional → IV. Isoparametric element and numerical integration → V. Conclusion
 > **相关作业**：[HW3 Q4（Hermite 梁单元形函数）](../04-Homework-Solutions/2026w/HW3-Problem.md)
-> **前置知识**：第 5 章、线性代数（插值理论）、数值分析
+> **前置知识**：第 5 章（FEM 公式）、插值理论
 
 ---
 
-## 6.1 形函数的作用
+## I. Introduction（引言）
 
-### 6.1.1 形函数是什么？
+### 1.1 形函数的重要性
 
-形函数（Shape Function）是 FEM 中连接**节点值**和**单元内任意点值**的桥梁：
-$$u^{(e)}(x) = \sum_{i=1}^n N_i(x)\,u_i^{(e)}$$
+单元形函数的构造是 FEM 中最重要也最技巧性的环节之一，因为：
 
-其中 $u_i^{(e)}$ 是待求的节点位移，$N_i(x)$ 是已知的插值函数。
+1. **标准化与自动化**：单元刚度矩阵的计算、总体刚度矩阵的合成到有限元方程组的求解，全过程可以标准化和自动化。
+2. **收敛性**：有限元空间中的基函数由形函数生成，因此形函数关系到解的**收敛性和收敛精度**。
 
-### 6.1.2 为什么形函数如此重要？
+一般来说，单元的选择取决于结构或求解域的几何特征、方程类型和预期的解决精度。
 
-1. **标准化**：形函数 → 单元刚度矩阵 → 总装 → 求解，整个过程可以完全程序化
-2. **收敛性**：解的精度和收敛行为直接由形函数的性质决定
-3. **计算效率**：形函数的阶数决定了单元的自由度数，直接影响计算量
+有限元的插值函数/形函数取决于：
+- 单元的**形状**（1D/2D/3D）
+- **节点类型**（Lagrange/Hermite）
+- **节点数目**
 
-### 6.1.3 构造单元前需确定的三个因素
+### 构造单元需确定的因素
 
-| 因素 | 选择 | 示例 |
-|------|------|------|
-| **几何形状** | 1D/2D/3D | 线、三角形、四边形、四面体 |
-| **节点分布** | 顶点 / 边中点 / 内部点 | 3 节点三角、6 节点三角 |
-| **节点自由度** | Lagrange / Hermite | 仅位移 / 位移+转角 |
+**① 单元的几何形状**
+- 一维单元：直线或曲线
+- 二维单元：三角形、矩形或任意四边形
+- 三维单元：四面体、五面体、三棱柱或六面体
 
----
+**② 节点个数和分布**
+- 内节点：位于单元内部；外节点：位于边界上
+- 为便于构造形函数，节点通常布置在特殊位置：一维单元的两端点、三角形的三个顶点、三边中点或形心
 
-## 6.2 插值基础
+**③ 节点的自由度（DOF）**
+- **Lagrange 型**：仅包含位移场，$n$ 维问题结点有 $n$ 个自由度
+- **Hermite 型**：包含位移和导数（转角），$n$ 维问题结点有 $2n$ 个自由度
 
-### 6.2.1 Lagrange 插值
-
-已知 $n$ 个点的函数值，求 $n-1$ 次多项式：
-$$P_{n-1}(x) = \sum_{i=1}^n f(x_i)L_i(x),\quad L_i(x) = \prod_{j\neq i}\frac{x-x_j}{x_i-x_j}$$
-
-$L_i(x_j) = \delta_{ij}$ ✅
-
-### 6.2.2 Hermite 插值
-
-不仅函数值，导数值也已知。梁弯曲问题（4 个条件 → 三次多项式）是典型应用。
-
-### 6.2.3 广义 Lagrange 公式
-
-通用形函数构造：
-$$N_i = \prod_{j\neq i}\frac{f_j(\xi)}{f_j(\xi_i)},\quad f_j(\xi) = \xi - \xi_j$$
-
-自动满足 $N_i(\xi_j) = \delta_{ij}$。
+对应两类插值：
+- **Lagrange 插值**：仅要求插值多项式在插值点处的函数值已知
+- **Hermite 插值**：还要求多项式的导数（包括一阶、二阶等）已知
 
 ---
 
-## 6.3 一维单元与长度坐标
+## II. Two-dimensional situation（二维情况）
 
-### 6.3.1 长度坐标
+二维插值是一维插值的自然推广。但随着区域维数的增加，新的特点和困难也随之出现：
+1. 二维插值与区域划分方式密切相关（三角形、矩形、任意四边形）
+2. 连接两个单元的不仅是节点，而是共有边——节点处的连续性不能保证整体公共边上的连续性
+3. 插值点可以是顶点、边界点或内点
 
-单元 $e_i = [x_i, x_{i+1}]$，长度 $L_i$。定义：
-$$\lambda_1 = \frac{x_{i+1} - x}{L_i},\quad \lambda_2 = \frac{x - x_i}{L_i},\quad \lambda_1 + \lambda_2 = 1$$
+### 2.1 Triangular element（三角形单元）
 
-**长度坐标下的积分公式**（核心工具）：
-$$\int_{x_i}^{x_{i+1}} \lambda_1^{\alpha_1}\lambda_2^{\alpha_2}\,dx = L_i\int_0^1 \lambda_1^{\alpha_1}(1-\lambda_1)^{\alpha_2}d\lambda_1 = \frac{\alpha_1!\,\alpha_2!}{(\alpha_1+\alpha_2+1)!}L_i$$
+#### 线性插值与面积坐标
 
-这个公式使单元刚度矩阵的积分计算变成简单的代数运算——代指数即可。
+三角形单元在二维问题中应用广泛——不仅因为形状简单灵活易于适应区域形状，还因为采用**面积坐标**后单元形函数的建立简便且标准化。
 
-### 6.3.2 线性 Lagrange 单元（2 节点）
+**面积坐标（Area Coordinate）** $L_1, L_2, L_3$：
+$$L_1 = \frac{\triangle QQ_2Q_3}{\triangle Q_1Q_2Q_3},\quad L_2 = \frac{\triangle Q_1QQ_3}{\triangle Q_1Q_2Q_3},\quad L_3 = \frac{\triangle Q_1Q_2Q}{\triangle Q_1Q_2Q_3}$$
 
-$$N_1 = \frac{1-\xi}{2},\quad N_2 = \frac{1+\xi}{2},\quad \xi = \frac{2x}{l}\in[-1,1]$$
+其中 $\triangle Q_1Q_2Q_3$ 为三角形总面积。
 
-验证：$N_1(-1)=1, N_1(1)=0$ ✅，$N_1+N_2=1$ ✅
+**面积坐标的性质**：
+1. 三个顶点的面积为坐标：$(1,0,0), (0,1,0), (0,0,1)$；形心 $(\frac13,\frac13,\frac13)$
+2. 三边方程：$L_1=0$（$Q_2Q_3$ 边），$L_2=0$（$Q_1Q_3$ 边），$L_3=0$（$Q_1Q_2$ 边）
+3. 平行于对边的直线上任一点的 $L_i$ 值相同
+4. 任一 $x,y$ 的 $k$ 次多项式可唯一转化为 $L_1,L_2,L_3$ 的 $k$ 次齐次多项式
 
-### 6.3.3 二次 Lagrange 单元（3 节点）
-
-$$N_1 = \frac{\xi(\xi-1)}{2},\; N_2 = \frac{\xi(\xi+1)}{2},\; N_3 = 1-\xi^2$$
-
-### 6.3.4 Hermite 三次单元（梁单元）
-
-每节点 2 个自由度（挠度 $w$ + 转角 $\theta = dw/dx$），共 4 个条件 → 三次多项式。
-
-设 $w(\xi) = c_0 + c_1\xi + c_2\xi^2 + c_3\xi^3$，$\xi = x/L$：
-
-节点条件：
-$$w(0)=w_1,\; \frac{1}{L}\frac{dw}{d\xi}\big|_0 = \theta_1,\; w(1)=w_2,\; \frac{1}{L}\frac{dw}{d\xi}\big|_1 = \theta_2$$
-
-求解得标准 Hermite 形函数：
-$$\boxed{\begin{aligned}
-N_1 &= 1 - 3\xi^2 + 2\xi^3 \quad &\text{(对应 } w_1 \text{)}\\
-N_2 &= L(\xi - 2\xi^2 + \xi^3) \quad &\text{(对应 } \theta_1 \text{)}\\
-N_3 &= 3\xi^2 - 2\xi^3 \quad &\text{(对应 } w_2 \text{)}\\
-N_4 &= L(-\xi^2 + \xi^3) \quad &\text{(对应 } \theta_2 \text{)}
-\end{aligned}}$$
-
-**性质验证**：$N_1+N_3=1$（刚体平移），$N_2+N_4 = L(1-\xi)$（刚体转动）。
-
-由最小势能原理得梁单元刚度矩阵：
-$$[k]_e = \frac{EI}{L^3}\begin{pmatrix}
-12 & 6L & -12 & 6L \\
-6L & 4L^2 & -6L & 2L^2 \\
--12 & -6L & 12 & -6L \\
-6L & 2L^2 & -6L & 4L^2
-\end{pmatrix}$$
-
----
-
-## 6.4 二维单元
-
-### 6.4.1 面积坐标（三角形单元的"自然坐标"）
-
-对三角形 $\triangle Q_1Q_2Q_3$，定义：
-$$L_1 = \frac{A_1}{A},\quad L_2 = \frac{A_2}{A},\quad L_3 = \frac{A_3}{A}$$
-
-其中 $A$ 是总面积，$A_i$ 是点 $P$ 与对边 $Q_jQ_k$ 围成的子三角形面积。
-
-**性质**：
-1. $L_1+L_2+L_3=1$（只有 2 个独立坐标）
-2. 顶点坐标：$(1,0,0), (0,1,0), (0,0,1)$；形心 $(\frac13,\frac13,\frac13)$
-3. 三边方程：$L_1=0$（$Q_2Q_3$），$L_2=0$（$Q_1Q_3$），$L_3=0$（$Q_1Q_2$）
-4. 平行于对边的直线上 $L_i$ 为常数
-
-**与直角坐标的互化**：
+**面积坐标与直角坐标的互化**：
 $$\begin{pmatrix}x\\y\\1\end{pmatrix} = \begin{pmatrix}
 x_1 & x_2 & x_3 \\
 y_1 & y_2 & y_3 \\
 1 & 1 & 1
 \end{pmatrix}\begin{pmatrix}L_1\\L_2\\L_3\end{pmatrix}$$
 
-**面积坐标下的积分公式（核心！）**：
-$$\boxed{\iint_{\Delta_e} L_1^{\alpha_1}L_2^{\alpha_2}L_3^{\alpha_3}\,dxdy = \frac{\alpha_1!\,\alpha_2!\,\alpha_3!}{(\alpha_1+\alpha_2+\alpha_3+2)!}\,2\Delta_e}$$
-
-**例**：$\iint L_1L_2\,dxdy = \frac{1!\,1!\,0!}{(1+1+0+2)!}2\Delta = \frac{2\Delta}{24} = \frac{\Delta}{12}$
-
-**导数变换**（面积坐标→直角坐标）：
+**导数的链式变换**：
 $$\begin{cases}
-\frac{\partial}{\partial x} = \frac{1}{2\Delta_e}\left(b_1\frac{\partial}{\partial L_1} + b_2\frac{\partial}{\partial L_2} + b_3\frac{\partial}{\partial L_3}\right) \\[4pt]
-\frac{\partial}{\partial y} = \frac{1}{2\Delta_e}\left(c_1\frac{\partial}{\partial L_1} + c_2\frac{\partial}{\partial L_2} + c_3\frac{\partial}{\partial L_3}\right)
+\frac{\partial}{\partial x} = \frac{1}{2\Delta_e}(a_1\frac{\partial}{\partial L_1} + a_2\frac{\partial}{\partial L_2} + a_3\frac{\partial}{\partial L_3}) \\
+\frac{\partial}{\partial y} = \frac{1}{2\Delta_e}(b_1\frac{\partial}{\partial L_1} + b_2\frac{\partial}{\partial L_2} + b_3\frac{\partial}{\partial L_3})
 \end{cases}$$
 
-### 6.4.2 CST（3 节点三角形）
+**面积坐标下的积分公式**（极为有用）：
+$$\iint_{\Omega_e} L_1^{\alpha_1}L_2^{\alpha_2}L_3^{\alpha_3}dxdy = \frac{\alpha_1!\,\alpha_2!\,\alpha_3!}{(\alpha_1+\alpha_2+\alpha_3+2)!}\,2\Delta_e$$
 
-$$N_i = L_i = \frac{1}{2\Delta}(a_i + b_i x + c_i y)$$
+#### 高阶 Lagrange 插值
 
-线性位移场 → 常应变。$[B]$ 常数矩阵。
+以 6 节点二次三角形单元为例，各节点的面积坐标：
+- 节点1(1,0,0)、节点2(0,1,0)、节点3(0,0,1)
+- 节点4($\frac12,\frac12,0$)、节点5($0,\frac12,\frac12$)、节点6($\frac12,0,\frac12$)
 
-### 6.4.3 划线法构造 LST（6 节点三角形）
+**划线法**：建立形函数时，对节点 $i$，找出除 $i$ 外所有经过其他节点的直线方程，将左侧表达式相乘再归一化。
 
-"划线法"：对节点 $i$，找出除 $i$ 外所有经过其他节点的直线，将每条直线的方程左端相乘，除以在节点 $i$ 处的值归一化。
+例如节点 1：经过节点 4 和 6 的直线为 $L_1=0$，经过节点 2,5,3 的直线为 $L_1-\frac12=0$：
+$$N_1 = \frac{L_1 - 1/2}{1-1/2}\cdot\frac{L_1}{1} = (2L_1-1)L_1$$
 
-**例**：对节点 1（顶点），经过节点 2,5,3 的直线为 $L_1=0$，经过节点 4,6 的直线为 $L_1 - \frac12 = 0$。
-$$N_1 = \frac{L_1 - \frac12}{\frac12}\cdot\frac{L_1}{1} = L_1(2L_1-1)$$
-
-对节点 4（边中点），经过节点 1,6 的直线为 $L_2=0$，经过节点 2,5 的直线为 $L_3=0$。
+节点 4：经过节点 1,6 的直线为 $L_2=0$，经过节点 2,5 的直线为 $L_3=0$：
 $$N_4 = \frac{L_2}{1/2}\cdot\frac{L_3}{1/2} = 4L_1L_2$$
 
-完整组：
-$$\begin{aligned}
-N_1 &= L_1(2L_1-1), & N_2 &= L_2(2L_2-1), & N_3 &= L_3(2L_3-1) \\
-N_4 &= 4L_1L_2, & N_5 &= 4L_2L_3, & N_6 &= 4L_3L_1
-\end{aligned}$$
+### 2.2 Rectangular element（矩形单元）
 
-### 6.4.4 Q4（4 节点矩形）
+矩形单元对边界形状的适应性不如三角形单元，但精度较高，与其他单元配合时可以发挥优势。
 
-自然坐标 $(\xi,\eta)\in[-1,1]$：
-$$N_i = \frac14(1+\xi_i\xi)(1+\eta_i\eta)$$
+采用局部坐标 $(\xi,\eta)\in[-1,1]$。标准矩形为 $D: \{-1\leq\xi\leq1, -1\leq\eta\leq1\}$。
 
-双线性插值。$[B]$ 线性变化 → 精度高于 CST。
+#### Lagrange 单元
 
-### 6.4.5 Serendipity 单元（Q8）
+双线性插值：
+$$N_i = \frac14(1+\xi_i\xi)(1+\eta_i\eta),\quad i=1,2,3,4$$
 
-节点集中在边界上：4 角点 + 4 边中点。比 9 节点 Lagrange 单元少 1 个内部节点，精度相近。
+这是两个一维线性插值基函数的乘积。
 
-形函数（角节点 1）：
-$$N_1 = \frac14(1+\xi_1\xi)(1+\eta_1\eta)(\xi_1\xi+\eta_1\eta-1)$$
+#### Serendipity 单元
 
-边中点 5：$N_5 = \frac12(1-\xi^2)(1+\eta_5\eta)$
-
-修正：添加边节点后，原角节点的形函数需要减去修正项（如 $N_1 \leftarrow N_1 - N_5/2 - N_8/2$）。
-
-### 6.4.6 Pascal 三角形
-
-决定单元多项式的项次选择：
-```
-1
-x    y
-x²  xy  y²
-x³  x²y xy² y³
-```
-三角形单元取对称的三角形部分，矩形单元取矩形部分。
+为减少单元内部的节点而提出。以 8 节点二次 Serendipity 四边形为例——4 个角点 + 4 个边中点，无内部节点。角节点形函数：
+$$N_1 = \frac14(1+\xi)(1+\eta)(\xi+\eta-1)$$
 
 ---
 
-## 6.5 三维单元
+## III. Three-dimensional situation（三维情况）
 
-### 6.5.1 4 节点四面体
+### 3.1 Tetrahedron element（四面体单元）
 
-体积坐标 $L_i = V_i/V$。积分公式：
-$$\iiint_{V_e} L_1^{\alpha_1}L_2^{\alpha_2}L_3^{\alpha_3}L_4^{\alpha_4}\,dV = \frac{\alpha_1!\,\alpha_2!\,\alpha_3!\,\alpha_4!}{(\sum\alpha_i+3)!}\,6V_e$$
-
-### 6.5.2 8 节点六面体
-
-$$N_i = \frac18(1+\xi\xi_i)(1+\eta\eta_i)(1+\zeta\zeta_i)$$
+采用**体积坐标** $L_1,L_2,L_3,L_4$，积分公式：
+$$\iiint_{V_e} L_1^{\alpha_1}L_2^{\alpha_2}L_3^{\alpha_3}L_4^{\alpha_4}dV = \frac{\alpha_1!\,\alpha_2!\,\alpha_3!\,\alpha_4!}{(\sum\alpha_i+3)!}\,6V_e$$
 
 ---
 
-## 6.6 等参元
+## IV. Isoparametric element and numerical integration（等参元与数值积分）
 
-### 6.6.1 核心思想
+### 4.1 任意四边形单元
 
-坐标和位移使用**相同的形函数**：
-$$x = \sum N_i(\xi,\eta)x_i,\quad u = \sum N_i(\xi,\eta)u_i$$
+结合三角形和矩形单元的优点——内部精度高，边界逼近好。
 
-### 6.6.2 Jacobian 矩阵
+通过等参变换将标准矩形映射到任意四边形。坐标变换公式：
+$$x = \sum_{i=1}^4 x_i N_i(\xi,\eta),\quad y = \sum_{i=1}^4 y_i N_i(\xi,\eta)$$
 
-$$\begin{pmatrix} \partial N_i/\partial x \\ \partial N_i/\partial y \end{pmatrix} = \mathbf{J}^{-1}\begin{pmatrix} \partial N_i/\partial \xi \\ \partial N_i/\partial \eta \end{pmatrix}$$
+即坐标变换和插值函数**采用相同的形函数和相同的节点**——称为**等参元**。
+
+### 4.2 等参变换与 Jacobian 矩阵
 
 $$\mathbf{J} = \begin{pmatrix}
 \partial x/\partial\xi & \partial y/\partial\xi \\
 \partial x/\partial\eta & \partial y/\partial\eta
 \end{pmatrix}$$
 
-**关键条件**：$|\mathbf{J}| \neq 0$ 在整个单元内成立。
+导数关系：
+$$\begin{pmatrix}\partial N_i/\partial x \\ \partial N_i/\partial y\end{pmatrix} = \mathbf{J}^{-1}\begin{pmatrix}\partial N_i/\partial\xi \\ \partial N_i/\partial\eta\end{pmatrix}$$
 
-### 6.6.3 等参元刚度矩阵
+**坐标变换一对一的充要条件**：$|\mathbf{J}| \neq 0$。
 
-$$[k]_e = \int_{-1}^1\int_{-1}^1 [B]^T[D][B]\,t\,|\mathbf{J}|\,d\xi d\eta$$
+### 4.3 Gauss 数值积分
 
----
+对等参元，单元刚度矩阵需要数值积分：
+$$\iint_{\Omega_e} f(x,y)dxdy = \iint_{-1}^1 f(\xi,\eta)|\mathbf{J}|d\xi d\eta \approx \sum_{i=1}^n\sum_{j=1}^n w_i w_j f(\xi_i,\eta_j)$$
 
-## 6.7 Gauss 数值积分
-
-$$\int_{-1}^1 f(\xi)d\xi \approx \sum_{i=1}^n w_i f(\xi_i)$$
-
-| $n$ | $\xi_i$ | $w_i$ | 精度 |
-|-----|---------|-------|------|
-| 1 | 0 | 2 | 1 次 |
-| 2 | $\pm 1/\sqrt{3}$ | 1 | 3 次 |
-| 3 | $\pm\sqrt{0.6}, 0$ | $5/9, 8/9$ | 5 次 |
-
-**2D**：$\iint f(\xi,\eta)d\xi d\eta \approx \sum\sum w_i w_j f(\xi_i,\eta_j)$
-
-**减缩积分**：用低于精确所需的阶数 → 避免剪切自锁，但可能引入零能模式。
+一维 Gauss 积分点：
+| $n$ | $\xi_i$ | $w_i$ |
+|-----|---------|-------|
+| 1 | 0 | 2 |
+| 2 | $\pm1/\sqrt{3}$ | 1 |
+| 3 | $\pm\sqrt{0.6}, 0$ | $5/9, 8/9$ |
 
 ---
 
-## 6.8 收敛准则
+## V. Conclusion（结论）
 
-1. **完备性**：能表示刚体位移 + 常应变 → $\sum N_i = 1$
-2. **协调性**：单元间 $C^{m-1}$ 连续 → 协调元解单调收敛
-3. **分片试验**：判断新单元是否满足收敛性的数值测试
+长度坐标、面积坐标和体积坐标均与单元形式无直接关系，统称为**自然坐标**。
 
----
+采用多项式建立插值函数的原因：
+1. 便于计算
+2. 易于证明收敛性
 
-## 6.9 等参/超参/次参
-
-| 类型 | 坐标节点 vs 插值节点 | 说明 |
-|------|---------------------|------|
-| **等参元** | 相等 | 最常用 |
-| **超参元** | 坐标节点 > 插值节点 | 几何更精确 |
-| **次参元** | 坐标节点 < 插值节点 | 函数更精确 |
+实际计算中通常采用线性或二次单元以减少计算量。提高 FEM 精度的策略：
+- **$h$ 方法**：不改变插值函数形式，逐步细化网格
+- **$p$ 方法**：不改变网格划分，提高单元插值函数次数
 
 ---
 
 ## 检查你的理解
 
-1. 形函数必须满足哪两个基本条件？分别对应什么物理意义？
-2. CST、LST 和 Q4 三种单元的精度有什么差别？各自适用于什么场景？
-3. 什么是面积坐标？它相对于直角坐标有什么优势？
-4. 等参元的核心思想是什么？等参、超参、次参三者的区别是什么？
-5. Gauss 积分 $n=2$ 能精确积分几次多项式？对于 $4\times4$ 矩形的刚度矩阵，需要多少 Gauss 点？
-6. 什么是协调元和非协调元？为什么非协调元有时能得到更好的结果？
-
-### 形函数验证练习
-
-**练习**：验证 Hermite 梁单元形函数 $N_1 = 1-3\xi^2+2\xi^3$ 满足：
-- $N_1(0)=1$，$N_1(1)=0$
-- $N_1'(0)=0$，$N_1'(1)=0$
-
-**练习**：对 LST 单元验证 $N_1 + N_2 + N_3 + N_4 + N_5 + N_6 = 1$
-
-**练习**：用面积坐标积分公式计算 $\iint L_1^2 L_2\,dxdy$。
+1. 形函数的重要性体现在哪些方面？单元构造前需要确定哪些因素？
+2. 面积坐标与直角坐标的转换关系是什么？面积坐标下的积分公式是什么？
+3. 等参元、超参元和次参元有何区别？
+4. 在等参元中为什么要保证 $|\mathbf{J}| \neq 0$？
+5. $h$ 方法和 $p$ 方法的区别是什么？
 
 ---
 
