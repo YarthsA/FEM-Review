@@ -59,18 +59,22 @@
 | §4.3 Galerkin 法 | HW3 Q3 (弹性地基梁) | [`2026w/HW3-Solution`](../04-Homework-Solutions/2026w/HW3-Solution.md) §3 |
 | 往年题 | [`past/HW3/Homework3`](../04-Homework-Solutions/past/HW3/Homework3.md) | [`past/HW3/Ans to HM3_LIU Sai_handed in`](../04-Homework-Solutions/past/HW3/Ans%20to%20HM3_LIU%20Sai_handed%20in.md) |
 
-### 1-5 FEM 公式推导（配合 HW3）
+### 1-5 FEM 公式推导（配合 HW3 & HW4）
 
 | 笔记章节 | 相关题目 | 对应答案 |
 |----------|----------|----------|
+| §5.1 概述（杆单元） | HW4 Q1 (杆单元刚度矩阵) | [`2026w/HW4-Solution`](../04-Homework-Solutions/2026w/HW4-Solution.md) §1 |
+| §5.2 单元分析（形函数/刚阵） | HW4 Q1 | [`2026w/HW4-Solution`](../04-Homework-Solutions/2026w/HW4-Solution.md) §1 |
+| §5.3 总体集成（总刚组装） | HW4 Q1 (总刚矩阵) | [`2026w/HW4-Solution`](../04-Homework-Solutions/2026w/HW4-Solution.md) §1.2 |
 | §6.1 单元构造概述（形函数影响因素） | — | 参见 §2.7 数值算例 |
 | §7 杆单元 + 组装 | 往年杆系题 | — |
 
-### 1-6 单元构造（配合 HW3）
+### 1-6 单元构造（配合 HW3 & HW4）
 
 | 笔记章节 | 相关题目 | 对应答案 |
 |----------|----------|----------|
 | §6.2-6.4 形函数（二维） | HW3 Q4 (梁单元 Hermite) | [`2026w/HW3-Solution`](../04-Homework-Solutions/2026w/HW3-Solution.md) §4 |
+| §6.4 等参元（Q4 形函数） | HW4 Q3 (划线法构造 Q4 形函数) | [`2026w/HW4-Solution`](../04-Homework-Solutions/2026w/HW4-Solution.md) §3 |
 
 ---
 
@@ -83,6 +87,7 @@
 | HW1 张量 | [`homework1-2026-1.pdf`](../06-References/pdfs-originals/homework1-2026-1.pdf) | [`2026w/HW1-Problem`](../04-Homework-Solutions/2026w/HW1-Problem.md) | [`2026w/HW1-Solution`](../04-Homework-Solutions/2026w/HW1-Solution.md) |
 | HW2 变分法 | [`homework2-2026-1.pdf`](../06-References/pdfs-originals/homework2-2026-1.pdf) | [`2026w/HW2-Problem`](../04-Homework-Solutions/2026w/HW2-Problem.md) | [`2026w/HW2-Solution`](../04-Homework-Solutions/2026w/HW2-Solution.md) |
 | HW3 Galerkin+FEM | [`homework3-2026.pdf`](../06-References/pdfs-originals/homework3-2026.pdf) | [`2026w/HW3-Problem`](../04-Homework-Solutions/2026w/HW3-Problem.md) | [`2026w/HW3-Solution`](../04-Homework-Solutions/2026w/HW3-Solution.md) |
+| HW4 杆单元+ODE+FEM | [`homework4-2026.pdf`](../06-References/pdfs-originals/homework4-2026.pdf) | [`2026w/HW4-Problem`](../04-Homework-Solutions/2026w/HW4-Problem.md) | [`2026w/HW4-Solution`](../04-Homework-Solutions/2026w/HW4-Solution.md) |
 
 ### 往年作业
 
