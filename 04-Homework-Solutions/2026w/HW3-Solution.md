@@ -154,7 +154,7 @@ $$[EI\,w''\delta w']_0^l - [EI\,w'''\delta w]_0^l = 0$$
 
 **Step 1**：设定试函数
 
-对于简支梁（$w(0)=w(l)=0, w''(0)=w''(l)=0$），取一阶试函数：
+对于简支梁（左端固定铰支座 $w(0)=0,\,w''(0)=0$；右端可动铰支座 $w(l)=0,\,w''(l)=0$），取一阶试函数：
 $$w_1(x) = a_1 \sin\frac{\pi x}{l}$$
 
 验证边界条件：$w_1(0) = a_1 \sin 0 = 0 \checkmark$, $w_1(l) = a_1 \sin\pi = 0 \checkmark$, $w_1''(0) = -a_1(\pi/l)^2\sin 0 = 0 \checkmark$, $w_1''(l) = 0 \checkmark$。
