@@ -1,10 +1,14 @@
 # Variation Method & FEA Course — Homework 1 参考答案
 
 > 交大 FEM 课程 · 张量分析专题
+>
+> 本套题考察张量分析的基本功：指标运算、Kronecker δ 和置换符号的性质、张量的判定与证明。掌握这些是后续学习弹性力学张量形式的基础。
 
 ---
 
 ## 1. 利用 Lagrange 恒等式证明置换符号恒等式
+
+> 核心思路：把 $e_{ijk}$ 的乘积转化为向量叉积，再用 Lagrange 恒等式展开成点积组合，最后用 δ 改写点积。
 
 **题目**：利用 $(\boldsymbol{a} \times \boldsymbol{b}) \cdot (\boldsymbol{c} \times \boldsymbol{d}) = (\boldsymbol{a} \cdot \boldsymbol{c})(\boldsymbol{b} \cdot \boldsymbol{d}) - (\boldsymbol{a} \cdot \boldsymbol{d})(\boldsymbol{b} \cdot \boldsymbol{c})$ 证明：
 $$e_{ksp}e_{ipj} = \delta_{is}\delta_{jk} - \delta_{ik}\delta_{js}$$
@@ -206,6 +210,8 @@ $$
 ---
 
 ## 4. 给定张量的指标运算
+
+> 缩并就是对一对重复指标求和。$T_{ii}$ 是迹（对角线之和），$T_{ij}T_{ij}$ 是所有元素平方和，$T_{ij}T_{ji}$ 先转置再做内积。
 
 **题目**：
 $$T = \begin{bmatrix} 4 & -1 & 2 \\ -1 & 3 & 0 \\ 2 & 0 & 5 \end{bmatrix}$$
