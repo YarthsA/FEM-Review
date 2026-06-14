@@ -1,5 +1,7 @@
 # Variation Method & FEA Course Homework 2
 
+> **对应知识**：[1-3 变分法基础](../../01-Lecture-Notes/1-3-Variational-Methods.md)（§3.4 Euler 方程、§3.5 含高阶导数泛函、§3.4.9 Lagrange 乘子法）
+
 Submitted before May 25, 2026
 
 1. Identify the shortest curve between the point $A(0,0)$ and the point $B(2,1)$ by the variation method.

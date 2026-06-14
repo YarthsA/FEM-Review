@@ -1,5 +1,7 @@
 # Variation Method & FEA Course Homework 1
 
+> **对应知识**：[1-2 张量分析与弹性力学](../../01-Lecture-Notes/1-2-Tensor-Elasticity.md)（§2.2 常用符号、§2.4 笛卡尔张量）
+
 Submitted before April 27, 2026
 
 1. Using Lagrange formula $(\boldsymbol{a} \times \boldsymbol{b}) \cdot (\boldsymbol{c} \times \boldsymbol{d}) = (\boldsymbol{a} \cdot \boldsymbol{c})(\boldsymbol{b} \cdot \boldsymbol{d}) - (\boldsymbol{a} \cdot \boldsymbol{d})(\boldsymbol{b} \cdot \boldsymbol{c})(\boldsymbol{a}, \boldsymbol{b}, \boldsymbol{c}$ and d are all vectors), prove the following equation: $e_{ksp}e_{ipj} = \delta_{is}\delta_{jk} - \delta_{ik}\delta_{js}$ .

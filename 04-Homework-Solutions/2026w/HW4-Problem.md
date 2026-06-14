@@ -1,7 +1,7 @@
 # Variation Method & FEA Course Homework 4
 
 > **提交截止**：June 22, 2026
-> **对应知识**：[1-5 FEM 公式推导](../../01-Lecture-Notes/1-5-FEM-Formulation.md)、[1-6 单元构造](../../01-Lecture-Notes/1-6-Element-Construction.md)
+> **对应知识**：[1-5 FEM 公式推导](../../01-Lecture-Notes/1-5-FEM-Formulation.md)（§5.2 单元分析与总体集成）、[1-6 单元构造](../../01-Lecture-Notes/1-6-Element-Construction.md)（§6.2 矩形单元 Lagrange 插值、§6.4 等参元）
 > **PDF 原文**：[`homework4-2026.pdf`](../../06-References/pdfs-originals/homework4-2026.pdf)
 
 ---
@@ -43,6 +43,8 @@ $$
 ---
 
 ## Problem 3 — 划线法构造形函数（Scraping Line Method）
+
+> 📖 [1-6 单元构造 §6.2.2 矩形单元 Lagrange 插值](../../01-Lecture-Notes/1-6-Element-Construction.md#22-rectangular-element矩形单元)
 
 使用**划线法**（method of scraping line）直接满足基函数的要求。图中所有边长相等。
 

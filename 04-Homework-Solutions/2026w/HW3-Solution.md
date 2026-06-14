@@ -6,34 +6,42 @@
 
 ## 1. 矩形截面杆在夹持力下的长度变化
 
-**题目**：矩形截面杆（宽 $b$，高 $h$）中部受一对夹持力 $P$ 作用，求杆的长度变化 $\Delta$。
+**题目**：矩形截面杆（宽 $b$，高 $h$，长 $L$）中部受一对夹持力 $P$ 作用，求杆的长度变化 $\Delta$。
+
+> ⚠️ 注意：由图可知，力 $P$ 沿 $h$ 方向施加（横向压缩），而非沿杆轴向。因此这是一个**横向加载 + Poisson 效应**的问题。
 
 ### 解答
 
-**Step 1**：物理模型
+**Step 1**：物理模型与应力状态
 
 杆的截面面积：$A = b \cdot h$
 
-设杆的总长度为 $L$（尺寸需从图中读取），力 $P$ 施加于杆中部（两侧向中心夹持）。
+力 $P$ 作用于杆的顶面和底面（面积 $b \times L$），沿 $h$ 方向压缩。
 
-**Step 2**：受力分析
+$h$ 方向的正应力：
+$$\sigma_h = -\frac{P}{bL} \quad \text{（压应力）}$$
 
-在力 $P$ 的作用下，杆的上半段和下半段分别承受压力 $P$。由于对称性，杆的中部截面两侧的轴力均为 $P$。
+杆两端自由，轴向（$L$ 方向）无外力：
+$$\sigma_L = 0, \quad \sigma_b = 0$$
 
-**Step 3**：应力与应变
+**Step 2**：应变分析（广义 Hooke 定律）
 
-轴向应力（压缩）：
-$$\sigma = \frac{P}{A} = \frac{P}{bh}$$
+对于**单轴应力状态**（仅 $\sigma_h \neq 0$），三个方向的应变为：
 
-轴向应变：
-$$\varepsilon = \frac{\sigma}{E} = \frac{P}{Ebh}$$
+$$\varepsilon_h = \frac{\sigma_h}{E} = -\frac{P}{EbL} \quad \text{（$h$ 方向压缩）}$$
 
-**Step 4**：长度变化
+$$\varepsilon_L = -\frac{\nu\,\sigma_h}{E} = \frac{\nu P}{EbL} \quad \text{（$L$ 方向因 Poisson 效应伸长）}$$
 
-杆的总压缩量：
-$$\Delta = \int_0^L \varepsilon\,dx = \varepsilon L = \frac{PL}{Ebh}$$
+$$\varepsilon_b = -\frac{\nu\,\sigma_h}{E} = \frac{\nu P}{EbL} \quad \text{（$b$ 方向因 Poisson 效应伸长）}$$
 
-> **注意**：若 $P$ 施加于杆中部，力作用点之上、下两段各自产生 $\Delta/2$ 的压缩，但总体上式仍成立。具体数值需代入图中标注的长度 $L$ 计算。■
+其中 $\nu$ 为材料的 **Poisson 比**。
+
+**Step 3**：长度变化
+
+杆的长度 $L$ 方向的伸长量：
+
+$$\boxed{\Delta = \varepsilon_L \cdot L = \frac{\nu P }{Eb}}$$
+
 
 ---
 

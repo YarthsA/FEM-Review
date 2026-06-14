@@ -1,10 +1,13 @@
 # Variation Method & FEA Course — Homework 2 参考答案
 
 > 交大 FEM 课程 · 变分法应用专题
+> **对应知识**：[1-3 变分法基础](../../01-Lecture-Notes/1-3-Variational-Methods.md)（§3.4 Euler 方程、§3.5 高阶导数泛函、§3.4.9 Lagrange 乘子法）
 
 ---
 
 ## 1. 变分法求最短路径
+
+> 📖 [§3.4.2 简单 Euler 方程](../../01-Lecture-Notes/1-3-Variational-Methods.md#342-简单-euler-方程) · [§3.4.5 最速降线（类似题型）](../../01-Lecture-Notes/1-3-Variational-Methods.md#345-最速降线问题的-euler-方程)
 
 **题目**：求 $A(0,0)$ 到 $B(2,1)$ 的最短曲线。
 
@@ -203,6 +206,8 @@ $$z^{(2)} = -\frac{1 - 0.7952}{2(0.05792)} = -\frac{0.2048}{0.11584} \approx \bo
 ---
 
 ## 4. 变分法求泛函极值函数
+
+> 📖 [§3.4.2 简单 Euler 方程](../../01-Lecture-Notes/1-3-Variational-Methods.md#342-简单-euler-方程) · [§3.4.3 推导证明](../../01-Lecture-Notes/1-3-Variational-Methods.md#343-推导证明)
 
 **题目**：求泛函 $Q[y] = \int_0^1 [(y')^2 + 4y^2 - 8xy]dx$ 的极值函数，边界条件 $y(0)=1, y(1)=2$。
 
