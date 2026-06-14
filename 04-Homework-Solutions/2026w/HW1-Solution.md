@@ -1,6 +1,7 @@
 # Variation Method & FEA Course — Homework 1 参考答案
 
 > 交大 FEM 课程 · 张量分析专题
+> **对应知识**：[1-2 张量分析与弹性力学](../../01-Lecture-Notes/1-2-Tensor-Elasticity.md)
 >
 > 本套题考察张量分析的基本功：指标运算、Kronecker δ 和置换符号的性质、张量的判定与证明。掌握这些是后续学习弹性力学张量形式的基础。
 
@@ -8,6 +9,8 @@
 
 ## 1. 利用 Lagrange 恒等式证明置换符号恒等式
 
+> 📖 [1-2 §2.2 置换符号](../../01-Lecture-Notes/1-2-Tensor-Elasticity.md#置换符号permutation-symbol-eijk)
+>
 > 核心思路：把 $e_{ijk}$ 的乘积转化为向量叉积，再用 Lagrange 恒等式展开成点积组合，最后用 δ 改写点积。
 
 **题目**：利用 $(\boldsymbol{a} \times \boldsymbol{b}) \cdot (\boldsymbol{c} \times \boldsymbol{d}) = (\boldsymbol{a} \cdot \boldsymbol{c})(\boldsymbol{b} \cdot \boldsymbol{d}) - (\boldsymbol{a} \cdot \boldsymbol{d})(\boldsymbol{b} \cdot \boldsymbol{c})$ 证明：
@@ -93,6 +96,8 @@ $$
 ---
 
 ## 2. 证明 $\varepsilon_{ij} = \frac{1}{2}(u_{i,j} + u_{j,i})$ 是二阶张量
+
+> 📖 [1-2 §2.4 二阶张量变换律](../../01-Lecture-Notes/1-2-Tensor-Elasticity.md#二阶张量) · [§2.3 弹性力学张量表示](../../01-Lecture-Notes/1-2-Tensor-Elasticity.md##-23-弹性力学的张量表示)
 
 **证明**：
 
@@ -213,6 +218,8 @@ $$
 
 ## 4. 给定张量的指标运算
 
+> 📖 [1-2 §2.4 张量运算](../../01-Lecture-Notes/1-2-Tensor-Elasticity.md#张量运算)
+>
 > 缩并就是对一对重复指标求和。$T_{ii}$ 是迹（对角线之和），$T_{ij}T_{ij}$ 是所有元素平方和，$T_{ij}T_{ji}$ 先转置再做内积。
 
 **题目**：
