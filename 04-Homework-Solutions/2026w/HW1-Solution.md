@@ -165,6 +165,8 @@ $$
 
 ## 3. 证明置换符号 $e_{ijk}$ 是三阶张量
 
+> 📖 [1-2 §2.4 二阶张量变换律](../../01-Lecture-Notes/1-2-Tensor-Elasticity.md#二阶张量)（推广到三阶）· [§2.2 置换符号](../../01-Lecture-Notes/1-2-Tensor-Elasticity.md#置换符号permutation-symbol-eijk)
+
 **证明**：
 
 **Step 1**：张量变换律。若 $e_{ijk}$ 是三阶张量，则在坐标变换下应满足：

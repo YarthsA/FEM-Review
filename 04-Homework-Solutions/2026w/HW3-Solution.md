@@ -1,6 +1,7 @@
 # Variation Method & FEA Course — Homework 3 参考答案
 
 > 交大 FEM 课程 · Galerkin 法与 FEM 应用专题
+> **对应知识**：[1-3 变分法](../../01-Lecture-Notes/1-3-Variational-Methods.md) · [1-4 FEM 理论](../../01-Lecture-Notes/1-4-FEM-Theory.md) · [1-6 单元构造](../../01-Lecture-Notes/1-6-Element-Construction.md)
 
 ---
 
@@ -50,6 +51,8 @@ $$\boxed{\Delta = \varepsilon_L \cdot L = \frac{\nu P }{Eb}}$$
 ---
 
 ## 2. 悬臂梁 Galerkin 法试探函数检验
+
+> 📖 [1-4 §2.3 Galerkin 法](../../01-Lecture-Notes/1-4-FEM-Theory.md#23-galerkin-法) · [1-3 §3.4.7 本质/自然边界条件](../../01-Lecture-Notes/1-3-Variational-Methods.md#347-本质边界条件与自然边界条件)
 
 > 本题考查的核心概念是：试探函数能否作为 Galerkin 法的合法输入，取决于它是否满足所有边界条件。在强形式 Galerkin 法中，试探函数必须满足全部边界条件（本质 + 自然）；在弱形式中，只需满足本质边界条件（位移和转角约束），自然边界条件（弯矩和剪力为零）会自动包含在弱形式的边界项中。
 
@@ -112,6 +115,8 @@ $$w'''(l) = -a\left(\frac{\pi}{2l}\right)^3 \neq 0$$
 ---
 
 ## 3. 弹性地基梁 — 变分法与 Galerkin 法求解
+
+> 📖 [1-3 §3.4 最简单的 Euler 方程](../../01-Lecture-Notes/1-3-Variational-Methods.md#34-最简单的-euler-方程) · [1-4 §2.3 Galerkin 法](../../01-Lecture-Notes/1-4-FEM-Theory.md#23-galerkin-法)
 
 **题目**：用变分法导出弹性地基梁的微分方程和边界条件，并用 Galerkin 法的一阶近似求解。
 
@@ -213,6 +218,8 @@ $$\boxed{w(x) = \frac{4p_0}{\pi\left[EI(\pi/l)^4 + k\right]}\sin\frac{\pi x}{l}}
 ---
 
 ## 4. 两节点 Euler-Bernoulli 梁单元形函数
+
+> 📖 [1-6 §6.1 Lagrange vs Hermite](../../01-Lecture-Notes/1-6-Element-Construction.md#构造单元需确定的因素) · [§6.4 等参元](../../01-Lecture-Notes/1-6-Element-Construction.md#64-等参元与数值积分isoparametric-element-and-numerical-integration)
 
 > 为什么用三次 Hermite 插值？因为两节点梁单元共 4 个自由度（每节点：挠度 w + 转角 theta = dw/dx），需要 4 个待定系数，恰好对应一个三次多项式。同时，三次多项式可以保证 C^1 连续性（位移和一阶导数连续），这是 Euler-Bernoulli 梁理论的要求 —— 因为控制方程是四阶的，至少需要 C^1 连续。
 
