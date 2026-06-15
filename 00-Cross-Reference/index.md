@@ -9,14 +9,14 @@
 | 笔记文件 | 对应 PDF |
 |----------|----------|
 | [1-1 FEA-Elasticity](../01-Lecture-Notes/1-1-FEA-Elasticity.md) | [`Chapter 1 Introduction to FEA.pdf`](../06-References/pdfs-originals/Chapter%201%20Introduction%20to%20FEA.pdf) |
-| 1-1 补充：弹性力学 | [`有限元复习.pdf`](../06-References/pdfs-originals/有限元复习.pdf) 第五章 |
+| 1-1 补充：弹性力学 | ⚠️ `有限元复习.pdf` 缺失 |
 | [1-2 Tensor-Elasticity](../01-Lecture-Notes/1-2-Tensor-Elasticity.md) | [`Chapter 2 Elastic theory.pdf`](../06-References/pdfs-originals/Chapter%202%20Elastic%20theory.pdf) |
 | [1-3 Variational-Methods](../01-Lecture-Notes/1-3-Variational-Methods.md) | [`Chapter 3 Variation theory and applications-1.pdf`](../06-References/pdfs-originals/Chapter%203%20Variation%20theory%20and%20applications-1.pdf) |
-| 1-3 补充 | [`有限元复习.pdf`](../06-References/pdfs-originals/有限元复习.pdf) 第四、五章 |
+| 1-3 补充 | ⚠️ `有限元复习.pdf` 缺失 |
 | [1-4 FEM-Theory](../01-Lecture-Notes/1-4-FEM-Theory.md) | [`Chapter 4 Applications of variational theory in elasticity (1).pdf`](../06-References/pdfs-originals/Chapter%204%20Applications%20of%20variational%20theory%20in%20elasticity%20(1).pdf) |
 | [1-5 FEM-Formulation](../01-Lecture-Notes/1-5-FEM-Formulation.md) | [`5 FEM_formulation.pdf`](../06-References/pdfs-originals/5%20FEM_formulation.pdf) |
 | [1-6 Element-Construction](../01-Lecture-Notes/1-6-Element-Construction.md) | [`6 FEM_Element construction.pdf`](../06-References/pdfs-originals/6%20FEM_Element%20construction.pdf) |
-| 1-6 补充：等参元 | [`有限元复习.pdf`](../06-References/pdfs-originals/有限元复习.pdf) 第五章 |
+| 1-6 补充：等参元 | ⚠️ `有限元复习.pdf` 缺失 |
 | 补充课件 | [`3 FEM_lect variation.pdf`](../06-References/pdfs-originals/3%20FEM_lect%20variation.pdf) |
 | 补充课件 | [`4 FEM_lect variational theory.pdf`](../06-References/pdfs-originals/4%20FEM_lect%20variational%20theory.pdf) |
 
@@ -102,6 +102,6 @@
 
 | 材料 | PDF 原文 | Markdown |
 |------|----------|----------|
-| HowardWoolley 答案书 | [`变分与有限元作业与参考答案_byHowardWoolley.pdf`](../06-References/pdfs-originals/变分与有限元作业与参考答案_byHowardWoolley.pdf) | — |
+| HowardWoolley 答案书 | ⚠️ 缺失 | — |
 | 名词简答 | [`变分原理名词简答宫婷.pdf`](../06-References/pdfs-originals/变分原理名词简答宫婷.pdf) | [`06-References/变分原理名词简答-宫婷`](../06-References/变分原理名词简答-宫婷.md) |
-| 有限元复习 | [`有限元复习.pdf`](../06-References/pdfs-originals/有限元复习.pdf) | — |
+| 有限元复习 | ⚠️ 缺失 | — |

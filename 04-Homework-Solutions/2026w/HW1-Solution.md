@@ -97,7 +97,7 @@ $$
 
 ## 2. 证明 $\varepsilon_{ij} = \frac{1}{2}(u_{i,j} + u_{j,i})$ 是二阶张量
 
-> 📖 [1-2 §2.4 二阶张量变换律](../../01-Lecture-Notes/1-2-Tensor-Elasticity.md#二阶张量) · [§2.3 弹性力学张量表示](../../01-Lecture-Notes/1-2-Tensor-Elasticity.md##-23-弹性力学的张量表示)
+> 📖 [1-2 §2.4 二阶张量变换律](../../01-Lecture-Notes/1-2-Tensor-Elasticity.md#二阶张量) · [§2.3 弹性力学张量表示](../../01-Lecture-Notes/1-2-Tensor-Elasticity.md#23-弹性力学的张量表示)
 
 **证明**：
 

@@ -298,7 +298,7 @@ $$\boxed{u(0)=0,\; u(0.25)\approx -0.0352,\; u(0.5)\approx -0.0569,\; u(0.75)\ap
 
 ## 3. 划线法构造形函数
 
-> 📖 [1-6 §6.2.2 矩形单元 Lagrange 插值](../../01-Lecture-Notes/1-6-Element-Construction.md#22-rectangular-element矩形单元)
+> 📖 [1-6 §6.2.2 矩形单元 Lagrange 插值](../../01-Lecture-Notes/1-6-Element-Construction.md#622-rectangular-element矩形单元)
 
 **题目**：使用划线法构造标准 Q4 等参单元的 4 个形函数。节点坐标：$1(1,1)$, $2(-1,1)$, $3(-1,-1)$, $4(1,-1)$。
 

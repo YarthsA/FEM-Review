@@ -51,7 +51,7 @@ $$\boxed{\Delta = \varepsilon_L \cdot L = \frac{\nu P }{Eb}}$$
 
 ## 2. 悬臂梁 Galerkin 法试探函数检验
 
-> 📖 [1-4 §2.3 Galerkin 法](../../01-Lecture-Notes/1-4-FEM-Theory.md#23-galerkin-法) · [1-3 §3.4.7 本质/自然边界条件](../../01-Lecture-Notes/1-3-Variational-Methods.md#347-本质边界条件与自然边界条件)
+> 📖 [1-4 §2.3 Galerkin 法](../../01-Lecture-Notes/1-4-FEM-Theory.md#423-galerkin-法) · [1-3 §3.4.7 本质/自然边界条件](../../01-Lecture-Notes/1-3-Variational-Methods.md#347-本质边界条件与自然边界条件)
 
 > 本题考查的核心概念是：试探函数能否作为 Galerkin 法的合法输入，取决于它是否满足所有边界条件。在强形式 Galerkin 法中，试探函数必须满足全部边界条件（本质 + 自然）；在弱形式中，只需满足本质边界条件（位移和转角约束），自然边界条件（弯矩和剪力为零）会自动包含在弱形式的边界项中。
 
@@ -115,7 +115,7 @@ $$w'''(l) = -a\left(\frac{\pi}{2l}\right)^3 \neq 0$$
 
 ## 3. 弹性地基梁 — 变分法与 Galerkin 法求解
 
-> 📖 [1-3 §3.4 最简单的 Euler 方程](../../01-Lecture-Notes/1-3-Variational-Methods.md#34-最简单的-euler-方程) · [1-4 §2.3 Galerkin 法](../../01-Lecture-Notes/1-4-FEM-Theory.md#23-galerkin-法)
+> 📖 [1-3 §3.4 最简单的 Euler 方程](../../01-Lecture-Notes/1-3-Variational-Methods.md#34-最简单的-euler-方程) · [1-4 §2.3 Galerkin 法](../../01-Lecture-Notes/1-4-FEM-Theory.md#423-galerkin-法)
 
 **题目**：用变分法导出弹性地基梁的微分方程和边界条件，并用 Galerkin 法的一阶近似求解。
 

@@ -30,8 +30,12 @@ FEM-Review/
 │   ├── 2026w/                       # Current year (problem + solution pairs)
 │   │   ├── HW1-Problem.md          # Problem statement
 │   │   ├── HW1-Solution.md         # Full solution
-│   │   ├── HW2-Problem/Solution.md
-│   │   └── HW3-Problem/Solution.md
+│   │   ├── HW2-Problem.md          # Problem statement
+│   │   ├── HW2-Solution.md         # Full solution
+│   │   ├── HW3-Problem.md          # Problem statement
+│   │   ├── HW3-Solution.md         # Full solution
+│   │   ├── HW4-Problem.md          # Problem statement
+│   │   └── HW4-Solution.md         # Full solution
 │   └── past/                        # Past years — for reference & extra practice
 │       ├── HW2/                     # Old HW2 problem + LIU Sai's solution
 │       ├── HW3/                     # Old HW3 (two versions) + LIU Sai's solution
@@ -75,9 +79,9 @@ Apply the theory to concrete problems. The homework solutions are the primary ve
 | Step | Materials | Focus |
 |------|-----------|-------|
 | ① | [Problem-solving guide](03-Problem-Templates/3-1-Solving-Guide.md) | Familiarize yourself with the 5 problem categories and the recommended strategy for each |
-| ② | [HW1 solution](04-Homework-Solutions/HW1-Solution.md) | Tensor identity proofs ($\varepsilon$-$\delta$ identities), index contraction exercises |
-| ③ | [HW2 solution](04-Homework-Solutions/HW2-Solution.md) | Euler equation derivation and ODE solving; Lagrange multiplier method for constrained extrema |
-| ④ | [HW3 solution](04-Homework-Solutions/HW3-Solution.md) | Galerkin method trial-function validity; elastic foundation beam; Hermite beam element shape functions |
+| ② | [HW1 solution](04-Homework-Solutions/2026w/HW1-Solution.md) | Tensor identity proofs ($\varepsilon$-$\delta$ identities), index contraction exercises |
+| ③ | [HW2 solution](04-Homework-Solutions/2026w/HW2-Solution.md) | Euler equation derivation and ODE solving; Lagrange multiplier method for constrained extrema |
+| ④ | [HW3 solution](04-Homework-Solutions/2026w/HW3-Solution.md) | Galerkin method trial-function validity; elastic foundation beam; Hermite beam element shape functions |
 | ⑤ | [Past reference solutions](06-References/往年参考答案-LIU-Sai.md) | Additional practice: Ritz vs Galerkin numerical examples, concept definitions with scoring hints |
 
 **Recommended practice routine**: Attempt each problem independently before consulting the solution. Compare your derivation step-by-step with the solution, paying special attention to:
