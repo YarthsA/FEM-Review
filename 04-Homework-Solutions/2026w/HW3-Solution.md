@@ -45,7 +45,6 @@ $$\varepsilon_b = -\frac{\nu\,\sigma_h}{E} = \frac{\nu P}{EbL} \quad \text{（$b
 
 $$\boxed{\Delta = \varepsilon_L \cdot L = \frac{\nu P }{Eb}}$$
 
-> 维度分析验证：[nu] 无量纲，[P] = N，[E] = N/m^2，[b] = m，所以 [nu*P/(Eb)] = N / (N/m^2 * m) = m，确实是长度。注意结果中不含 h —— 因为加载面积是 b*L（侧面），应力 sigma_h = P/(bL)，乘以长度 L 后 L 恰好消去。如果错误地将加载面积取为 b*h，就会得到含 h 的错误结果。
 
 
 ---
@@ -221,7 +220,7 @@ $$\boxed{w(x) = \frac{4p_0}{\pi\left[EI(\pi/l)^4 + k\right]}\sin\frac{\pi x}{l}}
 
 > 📖 [1-6 §6.1 Lagrange vs Hermite](../../01-Lecture-Notes/1-6-Element-Construction.md#构造单元需确定的因素) · [§6.4 等参元](../../01-Lecture-Notes/1-6-Element-Construction.md#64-等参元与数值积分isoparametric-element-and-numerical-integration)
 
-> 为什么用三次 Hermite 插值？因为两节点梁单元共 4 个自由度（每节点：挠度 w + 转角 theta = dw/dx），需要 4 个待定系数，恰好对应一个三次多项式。同时，三次多项式可以保证 C^1 连续性（位移和一阶导数连续），这是 Euler-Bernoulli 梁理论的要求 —— 因为控制方程是四阶的，至少需要 C^1 连续。
+> 为什么用三次 Hermite 插值？因为两节点梁单元共 4 个自由度（每节点：挠度 u + 转角 u' = du/dx），需要 4 个待定系数，恰好对应一个三次多项式。同时，三次多项式可以保证 C^1 连续性（位移和一阶导数连续），这是 Euler-Bernoulli 梁理论的要求 —— 因为控制方程是四阶的，至少需要 C^1 连续。
 
 **题目**：建立两节点 Euler-Bernoulli 梁单元的形函数（Hermite 插值）。
 
@@ -229,97 +228,78 @@ $$\boxed{w(x) = \frac{4p_0}{\pi\left[EI(\pi/l)^4 + k\right]}\sin\frac{\pi x}{l}}
 
 **Step 1**：单元自由度
 
-两节点 Euler-Bernoulli 梁单元，每个节点有 2 个自由度：
-- $u_1$：节点 1 的挠度 $w_1$
-- $\theta_1$：节点 1 的转角 $\frac{dw}{dx}\big|_1$
-- $u_2$：节点 2 的挠度 $w_2$
-- $\theta_2$：节点 2 的转角 $\frac{dw}{dx}\big|_2$
+两节点 Euler-Bernoulli 梁单元，节点坐标 $x_1$、$x_2$，单元长度 $L = x_2 - x_1$。每个节点有 2 个自由度：
+- $u_1$：节点 1 的挠度
+- $u_1' = \frac{du}{dx}\big|_1$：节点 1 的转角
+- $u_2$：节点 2 的挠度
+- $u_2' = \frac{du}{dx}\big|_2$：节点 2 的转角
 
 共 4 个自由度，需要 4 个条件确定三次多项式。
 
 **Step 2**：位移场假设
 
 每节点 2 个自由度 → 采用**三次 Hermite 插值**（$C^1$ 连续）：
-$$w(x) = a_0 + a_1x + a_2x^2 + a_3x^3$$
+$$u(x) = a_0 + a_1 x + a_2 x^2 + a_3 x^3$$
 
 转角：
-$$\theta(x) = \frac{dw}{dx} = a_1 + 2a_2x + 3a_3x^2$$
+$$u'(x) = \frac{du}{dx} = a_1 + 2a_2 x + 3a_3 x^2$$
 
 **Step 3**：引入自然坐标
 
-设单元长度 $L = x_2 - x_1$，定义自然坐标 $\xi = \frac{x - x_1}{L}$，$\xi \in [0, 1]$：
+定义自然坐标 $\xi = \frac{x - x_1}{L}$，$\xi \in [0, 1]$，则 $x = x_1 + \xi L$，$dx = L\,d\xi$：
 
-$$w(\xi) = c_0 + c_1\xi + c_2\xi^2 + c_3\xi^3$$
+$$u(\xi) = c_0 + c_1\xi + c_2\xi^2 + c_3\xi^3$$
 
-节点条件（$\xi=0$ 和 $\xi=1$）：
-$$w(0) = w_1, \quad \theta(0) = \frac{1}{L}\frac{dw}{d\xi}\bigg|_0 = \theta_1$$
-$$w(1) = w_2, \quad \theta(1) = \frac{1}{L}\frac{dw}{d\xi}\bigg|_1 = \theta_2$$
+节点条件（$\xi=0$ 对应 $x_1$，$\xi=1$ 对应 $x_2$）：
+$$u(0) = u_1, \quad u'(0) = \frac{1}{L}\frac{du}{d\xi}\bigg|_0 = u_1'$$
+$$u(1) = u_2, \quad u'(1) = \frac{1}{L}\frac{du}{d\xi}\bigg|_1 = u_2'$$
 
 **Step 4**：系数求解
 
 由节点条件：
-$$\begin{pmatrix}
-w_1 \\ L\theta_1 \\ w_2 \\ L\theta_2
-\end{pmatrix}
-= \begin{pmatrix}
-1 & 0 & 0 & 0 \\
-0 & 1 & 0 & 0 \\
-1 & 1 & 1 & 1 \\
-0 & 1 & 2 & 3
-\end{pmatrix}
-\begin{pmatrix}
-c_0 \\ c_1 \\ c_2 \\ c_3
-\end{pmatrix}$$
+$$\begin{pmatrix} u_1 \\ Lu_1' \\ u_2 \\ Lu_2' \end{pmatrix}
+= \begin{pmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 1 & 1 & 1 & 1 \\ 0 & 1 & 2 & 3 \end{pmatrix}
+\begin{pmatrix} c_0 \\ c_1 \\ c_2 \\ c_3 \end{pmatrix}$$
 
 求逆得系数：
-$$\begin{pmatrix}
-c_0 \\ c_1 \\ c_2 \\ c_3
-\end{pmatrix}
-= \begin{pmatrix}
-1 & 0 & 0 & 0 \\
-0 & 1 & 0 & 0 \\
--3 & -2 & 3 & -1 \\
-2 & 1 & -2 & 1
-\end{pmatrix}
-\begin{pmatrix}
-w_1 \\ L\theta_1 \\ w_2 \\ L\theta_2
-\end{pmatrix}$$
+$$\begin{pmatrix} c_0 \\ c_1 \\ c_2 \\ c_3 \end{pmatrix}
+= \begin{pmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ -3 & -2 & 3 & -1 \\ 2 & 1 & -2 & 1 \end{pmatrix}
+\begin{pmatrix} u_1 \\ Lu_1' \\ u_2 \\ Lu_2' \end{pmatrix}$$
 
 **Step 5**：形函数表达式
 
-将 $w(\xi) = \sum_{i=1}^4 N_i(\xi) d_i$ 展开，其中 $d = (w_1, \theta_1, w_2, \theta_2)^T$。
+将 $u(\xi) = \sum_{i=1}^4 N_i(\xi)\,d_i$ 展开，其中 $d = (u_1,\, u_1',\, u_2,\, u_2')^T$。
 
 代入各系数得 Hermite 形函数：
-$$\boxed{N_1(\xi) = 1 - 3\xi^2 + 2\xi^3 \quad \text{(对应 $w_1$)}}$$
-$$\boxed{N_2(\xi) = L(\xi - 2\xi^2 + \xi^3) \quad \text{(对应 $\theta_1$)}}$$
-$$\boxed{N_3(\xi) = 3\xi^2 - 2\xi^3 \quad \text{(对应 $w_2$)}}$$
-$$\boxed{N_4(\xi) = L(-\xi^2 + \xi^3) \quad \text{(对应 $\theta_2$)}}$$
+$$\boxed{N_1(\xi) = 1 - 3\xi^2 + 2\xi^3 \quad \text{(对应 $u_1$)}}$$
+$$\boxed{N_2(\xi) = L(\xi - 2\xi^2 + \xi^3) \quad \text{(对应 $u_1'$)}}$$
+$$\boxed{N_3(\xi) = 3\xi^2 - 2\xi^3 \quad \text{(对应 $u_2$)}}$$
+$$\boxed{N_4(\xi) = L(-\xi^2 + \xi^3) \quad \text{(对应 $u_2'$)}}$$
 
-其中 $\xi = \frac{x-x_1}{L} \in [0, 1]$。
+其中 $\xi = \frac{x - x_1}{x_2 - x_1} \in [0, 1]$。
 
-> N2 和 N4 中包含因子 L，这是因为它们对应的是转角自由度 theta（量纲为 rad = m/m），而挠度 w 的量纲是 m。为了让 w = N1*w1 + N2*theta1 + N3*w2 + N4*theta2 的量纲一致（都是 m），转角对应的形函数必须乘以 L 来"补偿量纲"。可以验证：N2'(0) = L（无量纲），而 dw/dx = (1/L)*dw/dxi，所以 theta1 = (1/L)*L = 1，正确反映了转角 DOF 的贡献。
+> N₂ 和 N₄ 中包含因子 L，这是因为它们对应的自由度是转角 u'（量纲为 rad = m/m），而挠度 u 的量纲是 m。为了让 u = N₁·u₁ + N₂·u₁' + N₃·u₂ + N₄·u₂' 的量纲一致（都是 m），转角对应的形函数必须乘以 L 来"补偿量纲"。可以验证：du/dx = (1/L)·du/dξ，所以 N₂'(0)/L = L/L = 1，正确反映了转角 DOF 的贡献。
 
 **Step 6**：形函数性质验证
 
 | 性质 | 验证 |
 |------|------|
-| $N_1(0)=1, N_1(1)=0$ | 节点 1 的挠度在自身节点为 1，在节点 2 为 0 ✓ |
-| $N_1'(0)=0, N_1'(1)=0$ | 对转角无贡献 ✓ |
-| $N_2(0)=0, N_2(1)=0$ | 对挠度无贡献 ✓ |
-| $N_2'(0)=L, N_2'(1)=0$ | 节点 1 的转角在自身为 $L$（因 $\frac{dw}{dx}= \frac{1}{L}\frac{dw}{d\xi}$）✓ |
+| $N_1(0)=1,\, N_1(1)=0$ | 节点 1 的挠度在自身节点为 1，在节点 2 为 0 ✓ |
+| $N_1'(0)=0,\, N_1'(1)=0$ | 对转角无贡献 ✓ |
+| $N_2(0)=0,\, N_2(1)=0$ | 对挠度无贡献 ✓ |
+| $N_2'(0)=L,\, N_2'(1)=0$ | 节点 1 的转角在自身为 $L$（因 $du/dx = \frac{1}{L}du/d\xi$）✓ |
 | 完备性：$\sum N_i = 1$ | 刚体位移（平移）模式 ✓ |
-| $-\sum N_i x_i + \sum N_i'L = 0$... | 刚体转动模式 ✓ |
 
 **Step 7**：位移场插值表示
 
-$$w(\xi) = N_1(\xi)w_1 + N_2(\xi)\theta_1 + N_3(\xi)w_2 + N_4(\xi)\theta_2$$
+$$u(\xi) = N_1(\xi)\,u_1 + N_2(\xi)\,u_1' + N_3(\xi)\,u_2 + N_4(\xi)\,u_2'$$
 
-或写成矩阵形式：
-$$w = \begin{pmatrix} N_1 & N_2 & N_3 & N_4 \end{pmatrix} \begin{pmatrix} w_1 & \theta_1 & w_2 & \theta_2 \end{pmatrix}^T = [N]\{\delta\}_e$$
+写成矩阵形式：
+$$u = \begin{pmatrix} N_1 & N_2 & N_3 & N_4 \end{pmatrix} \begin{pmatrix} u_1 \\ u_1' \\ u_2 \\ u_2' \end{pmatrix} = [N]\{\delta\}_e$$
 
 **Step 8**：单元刚度矩阵
 
-基于 Euler-Bernoulli 梁理论（$M = EI\frac{d^2w}{dx^2}$），单元刚度矩阵：
+基于 Euler-Bernoulli 梁理论（$M = EI\frac{d^2u}{dx^2}$），单元刚度矩阵：
 $$[k]_e = \int_0^L EI [B]^T[B]\,dx$$
 
 其中 $B = \frac{d^2N}{dx^2} = \frac{1}{L^2}\frac{d^2N}{d\xi^2}$。
