@@ -15,7 +15,7 @@
 
 然而如前所述，一旦边界条件相对复杂，选择试函数将变得非常困难。此外试函数随问题不同而异，不便于计算机编码。**有限单元法的发展正是为了克服这些缺点。**
 
-### FEM 的基本思想
+### 5.1.1 FEM 的基本思想
 
 有限单元法首先将连续体划分为有限个单元。在数学意义上，它将求解域划分为子域，并对每个子域采用统一的位移函数。
 
@@ -29,7 +29,7 @@
 
 ## 5.2 二维 Poisson 方程（Two-dimensional Poisson Equations）
 
-### 2.1 The weak form of equivalent integral（等效积分的弱形式）
+### 5.2.1 The weak form of equivalent integral（等效积分的弱形式）
 
 我们之前已用经典变分法（Galerkin 法）求解过二维 Poisson 方程。
 
@@ -50,7 +50,7 @@ u|_{\partial\Omega} = u_0(x,y)
 Poisson 方程的弱形式为：
 $$\iint_\Omega (u_x\varphi_x + u_y\varphi_y)dxdy = \iint_\Omega f\varphi\,dxdy$$
 
-### 2.2 Element Analysis（单元分析）
+### 5.2.2 Element Analysis（单元分析）
 
 #### Element division（单元划分）
 
@@ -106,7 +106,7 @@ k_{mi}^e & k_{mj}^e & k_{mm}^e
 
 单元荷载向量 $\{F\}_e = \iint_e[N]^T f\,dxdy$
 
-### 2.3 Global integration（总体集成）
+### 5.2.3 Global integration（总体集成）
 
 #### 总体刚度矩阵与总体荷载向量
 
@@ -128,7 +128,7 @@ $$u(x,y) = [N]\{\delta\}_{e_n} = u_iN_i + u_jN_j + u_mN_m$$
 
 ## 5.3 FEM 的一般形式（General Format of FEM）
 
-### 3.1 Matrix expression of the basic equations（基本方程的矩阵表达）
+### 5.3.1 Matrix expression of the basic equations（基本方程的矩阵表达）
 
 现在讨论有限元法在弹性力学中的应用。FEM 起源于结构矩阵方法，但其真正的吸引力在于它成功地解决了**连续体（场）问题**。
 
@@ -175,7 +175,7 @@ $$\mathbf{D} = \begin{pmatrix}
 总势能泛函：
 $$\Pi = \int_\Omega \frac12\boldsymbol{\varepsilon}^T\mathbf{D}\boldsymbol{\varepsilon}\,dV - \int_\Omega \mathbf{u}^T\mathbf{f}\,dV - \int_{S_\sigma} \mathbf{u}^T\mathbf{T}\,dS$$
 
-### 3.2 Discretization and the establishment of the element（离散化与单元建立）
+### 5.3.2 Discretization and the establishment of the element（离散化与单元建立）
 
 假设求解域是一个多面体，可以用多面体单元完全表示。四面体单元是三维单元中最简单的。
 
@@ -192,7 +192,7 @@ $$\mathbf{u} = N_i\mathbf{u}_i + N_j\mathbf{u}_j + N_m\mathbf{u}_m + N_l\mathbf{
 
 其中 $N_i = \frac{1}{6V_e}\begin{vmatrix}1 & x & y & z \\ 1 & x_j & y_j & z_j \\ 1 & x_m & y_m & z_m \\ 1 & x_l & y_l & z_l\end{vmatrix}$，$V_e$ 为四面体体积。
 
-### 3.3 Solving process（求解过程）
+### 5.3.3 Solving process（求解过程）
 
 求解 $[K]\{\delta\} = \{F\}$ 得到节点位移后，可以回代计算每个单元的应变和应力。
 
@@ -200,7 +200,7 @@ $$\mathbf{u} = N_i\mathbf{u}_i + N_j\mathbf{u}_j + N_m\mathbf{u}_m + N_l\mathbf{
 
 ## 5.4 弹性力学平面问题（Plane Problems of Elastic Mechanics）
 
-### 4.1 Element analysis（单元分析）
+### 5.4.1 Element analysis（单元分析）
 
 对平面弹性力学问题，采用 3 节点三角形单元。取节点 $P_i, P_j, P_m$，每个节点有 2 个自由度 $(u,v)$。
 

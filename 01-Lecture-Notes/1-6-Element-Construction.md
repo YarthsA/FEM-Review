@@ -9,7 +9,7 @@
 
 ## 6.1 引言（Introduction）
 
-### 1.1 形函数的重要性
+### 6.1.1 形函数的重要性
 
 单元形函数的构造是 FEM 中最重要也最技巧性的环节之一，因为：
 
@@ -23,7 +23,7 @@
 - **节点类型**（Lagrange/Hermite）
 - **节点数目**
 
-### 构造单元需确定的因素
+### 6.1.2 构造单元需确定的因素
 
 **① 单元的几何形状**
 - 一维单元：直线或曲线
@@ -51,7 +51,7 @@
 2. 连接两个单元的不仅是节点，而是共有边——节点处的连续性不能保证整体公共边上的连续性
 3. 插值点可以是顶点、边界点或内点
 
-### 2.1 Triangular element（三角形单元）
+### 6.2.1 Triangular element（三角形单元）
 
 #### 线性插值与面积坐标
 
@@ -98,7 +98,7 @@ $$N_1 = \frac{L_1 - 1/2}{1-1/2}\cdot\frac{L_1}{1} = (2L_1-1)L_1$$
 节点 4：经过节点 1,6 的直线为 $L_2=0$，经过节点 2,5 的直线为 $L_3=0$：
 $$N_4 = \frac{L_2}{1/2}\cdot\frac{L_3}{1/2} = 4L_1L_2$$
 
-### 2.2 Rectangular element（矩形单元）
+### 6.2.2 Rectangular element（矩形单元）
 
 矩形单元对边界形状的适应性不如三角形单元，但精度较高，与其他单元配合时可以发挥优势。
 
@@ -120,7 +120,7 @@ $$N_1 = \frac14(1+\xi)(1+\eta)(\xi+\eta-1)$$
 
 ## 6.3 三维情况（Three-dimensional Situation）
 
-### 3.1 Tetrahedron element（四面体单元）
+### 6.3.1 Tetrahedron element（四面体单元）
 
 采用**体积坐标** $L_1,L_2,L_3,L_4$，积分公式：
 $$\iiint_{V_e} L_1^{\alpha_1}L_2^{\alpha_2}L_3^{\alpha_3}L_4^{\alpha_4}dV = \frac{\alpha_1!\,\alpha_2!\,\alpha_3!\,\alpha_4!}{(\sum\alpha_i+3)!}\,6V_e$$
@@ -129,7 +129,7 @@ $$\iiint_{V_e} L_1^{\alpha_1}L_2^{\alpha_2}L_3^{\alpha_3}L_4^{\alpha_4}dV = \fra
 
 ## 6.4 等参元与数值积分（Isoparametric Element and Numerical Integration）
 
-### 4.1 任意四边形单元
+### 6.4.1 任意四边形单元
 
 结合三角形和矩形单元的优点——内部精度高，边界逼近好。
 
@@ -138,7 +138,7 @@ $$x = \sum_{i=1}^4 x_i N_i(\xi,\eta),\quad y = \sum_{i=1}^4 y_i N_i(\xi,\eta)$$
 
 即坐标变换和插值函数**采用相同的形函数和相同的节点**——称为**等参元**。
 
-### 4.2 等参变换与 Jacobian 矩阵
+### 6.4.2 等参变换与 Jacobian 矩阵
 
 $$\mathbf{J} = \begin{pmatrix}
 \partial x/\partial\xi & \partial y/\partial\xi \\
@@ -150,7 +150,7 @@ $$\begin{pmatrix}\partial N_i/\partial x \\ \partial N_i/\partial y\end{pmatrix}
 
 **坐标变换一对一的充要条件**：$|\mathbf{J}| \neq 0$。
 
-### 4.3 Gauss 数值积分
+### 6.4.3 Gauss 数值积分
 
 对等参元，单元刚度矩阵需要数值积分：
 $$\iint_{\Omega_e} f(x,y)dxdy = \iint_{-1}^1 f(\xi,\eta)|\mathbf{J}|d\xi d\eta \approx \sum_{i=1}^n\sum_{j=1}^n w_i w_j f(\xi_i,\eta_j)$$

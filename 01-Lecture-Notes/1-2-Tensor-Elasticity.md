@@ -17,7 +17,7 @@
 
 ## 2.2 张量引论（Introduction to Tensor）
 
-### 2.1 Index and summation（指标与求和）
+### 2.2.1 Index and summation（指标与求和）
 
 #### Einstein 求和约定
 
@@ -36,7 +36,7 @@ $$c_{ik} = a_{ij}b_{jk} = \sum_{j=1}^3 a_{ij}b_{jk} = a_{i1}b_{1k} + a_{i2}b_{2k
 - $i, j$：自由指标 → 代表 9 个方程
 - $k$：哑指标 → 对 $k=1,2,3$ 求和
 
-### 2.2 Common symbols（常用符号）
+### 2.2.2 Common symbols（常用符号）
 
 #### Kronecker 符号 $\delta_{ij}$
 
@@ -63,7 +63,7 @@ $$e_{ijk}e_{ijk} = 6$$
 向量叉积的张量形式：
 $$(\mathbf{a}\times\mathbf{b})_i = e_{ijk}a_jb_k$$
 
-### 2.3 Revision of linear algebra（线性代数复习）
+### 2.2.3 Revision of linear algebra（线性代数复习）
 
 #### 向量与坐标
 
@@ -95,7 +95,7 @@ $$\Psi\mathbf{a} = \mathbf{e}^T\mathbf{A}\mathbf{a}$$
 
 向量积（cross product）：$(\mathbf{a}\times\mathbf{b})_i = e_{ijk}a_jb_k$
 
-### 2.4 Cartesian tensor（笛卡尔张量）
+### 2.2.4 Cartesian tensor（笛卡尔张量）
 
 #### 标量（零阶张量）
 
