@@ -5,6 +5,21 @@
 > **相关作业**：[HW3 Q4（Hermite 梁单元形函数）](../04-Homework-Solutions/2026w/HW3-Problem.md)
 > **前置知识**：第 5 章（FEM 公式、CST 单元刚度矩阵）、插值理论（Lagrange / Hermite）
 
+> **📋 考试范围覆盖**
+>
+> | 本讲义章节 | 考试大纲考点 |
+> |-----------|-------------|
+> | §6.2.1 长度坐标 | [FEA] Length coordinate for line elements |
+> | §6.2.1-6.2.2 Lagrange 插值 | [FEA] Linear and high-order Lagrange Interpolation for line elements |
+> | §6.2.3 Hermite 三次插值 | [FEA] Hermite cubic interpolation |
+> | §6.3.1.1 面积坐标 | [FEA] Area coordinate for triangular elements |
+> | §6.3.1.5 划线法 | [FEA] Method of "scraping line" |
+> | §6.3.2 矩形单元形函数 | [FEA] Shape functions for rectangular elements |
+> | §6.3.2.4-6.3.2.5 Serendipity 单元 | [FEA] Shape functions for serendipity element |
+> | §6.5.2-6.5.3 等参元 | [FEA] Isoparametric elements |
+> | §6.5.4 Jacobian 矩阵 | [FEA] Jacobian matrix |
+> | §6.5.7 Gauss 数值积分 | [FEA] Numerical integration |
+
 ---
 
 ## 6.1 引言（Introduction）

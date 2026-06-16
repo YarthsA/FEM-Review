@@ -1,153 +1,434 @@
-# 考前冲刺速查 — 一页纸公式 + 证明模板
+# 考前冲刺速查 — 考试范围章节分布 + 核心公式
 
-> 考前 30 分钟快速翻阅，配合 [概念速查](../02-Concepts-Formulas/2-1-Concepts-Glossary.md) 使用
-
----
-
-## 1. 张量与指标记法
-
-| 项目 | 公式 |
-|------|------|
-| Einstein 求和 | $a_i b_i = a_1 b_1 + a_2 b_2 + a_3 b_3$ |
-| Kronecker $\delta$ | $\delta_{ij} = \begin{cases}1 & i=j\\0 & i\neq j\end{cases}$，$\delta_{ii}=3$，$\delta_{ij}a_j = a_i$ |
-| 置换符号 | $e_{ijk}e_{ist} = \delta_{js}\delta_{kt} - \delta_{jt}\delta_{ks}$，$e_{ijk}e_{ijt} = 2\delta_{kt}$ |
-| 向量叉积 | $(\boldsymbol{a}\times\boldsymbol{b})_i = e_{ijk}a_j b_k$ |
-| 张量变换 | $a_{i'j'}' = l_{i'i}l_{j'j}a_{ij}$（$l_{i'j'}$ 为方向余弦矩阵元素），$e_{i'j'k'}' = \det(\boldsymbol{L}) e_{ijk}$（三阶赝张量） |
-
-**恒等式证明模板**：$\varepsilon$-$\delta$ 恒等式 ← 利用 Lagrange 公式 $(\boldsymbol{a}\times\boldsymbol{b})\cdot(\boldsymbol{c}\times\boldsymbol{d}) = (\boldsymbol{a}\cdot\boldsymbol{c})(\boldsymbol{b}\cdot\boldsymbol{d}) - (\boldsymbol{a}\cdot\boldsymbol{d})(\boldsymbol{b}\cdot\boldsymbol{c})$
+> 按考试大纲四大模块排列，每个考点附核心公式。配合 [概念速查](../02-Concepts-Formulas/2-1-Concepts-Glossary.md) 和 [01 讲义笔记](../01-Lecture-Notes/) 使用。
 
 ---
 
-## 2. 变分法
+## 一、Tensor（张量）
 
-| 项目 | 公式 |
-|------|------|
-| 泛函定义 | $Q[f] : D \to \mathbb{R}$，$D$ 为函数集 |
-| 线性泛函 | $Q[c_1 y_1 + c_2 y_2] = c_1 Q[y_1] + c_2 Q[y_2]$ |
-| 变分（Lagrange定义） | $\delta Q = \frac{\partial}{\partial\alpha} Q[y+\alpha\delta y]\big|_{\alpha=0}$ |
-| **Euler 方程** | $\boxed{\frac{\partial F}{\partial y} - \frac{d}{dx}\left(\frac{\partial F}{\partial y'}\right) = 0}$ |
-| 含 $n$ 阶导数的 Euler | $\sum_{k=0}^n (-1)^k\frac{d^k}{dx^k}\left(\frac{\partial F}{\partial y^{(k)}}\right) = 0$ |
-| 多元函数 Euler | $F_{y_i} - \frac{d}{dx}F_{y_i'} = 0\quad(i=1,\ldots,n)$ |
-| 多变量 Euler | $F_z - \frac{\partial}{\partial x}F_p - \frac{\partial}{\partial y}F_q = 0$（$p=z_x, q=z_y$） |
-| $F$ 不显含 $x$ 时 | $F - y'F_{y'} = C$（首次积分） |
+### 1.1 定义（scalar, vector, tensor）
 
----
+- **标量** (scalar)：只有大小，无方向。不随坐标变换改变。零阶张量。
+- **向量** (vector)：有大小和方向。变换律 $a_{i'}' = l_{i'j}a_j$。一阶张量。
+- **张量** (tensor)：高阶推广。二阶张量变换律 $a_{i'j'}' = l_{i'i}l_{j'j}a_{ij}$。
 
-## 3. FEM — 三角形单元刚度矩阵
+### 1.2 证明某量是张量
 
-### 3.1 形函数（CST）
+> 详见 [证明模板 §7.1](#71-证明某量是张量)
 
-$$N_i = \frac{1}{2\Delta}(a_i + b_i x + c_i y),\quad 
-b_i = y_j - y_m,\quad c_i = x_m - x_j$$
+1. 写出旧坐标系中的定义
+2. 坐标变换 $x_{i'} = l_{i'j}x_j$，导数变换 $\frac{\partial}{\partial x_{j'}} = l_{mj'}\frac{\partial}{\partial x_m}$
+3. 代入整理为 $l_{i'i}l_{j'j}\cdots \times \text{原分量}$ 形式
+4. 与张量变换律对比 → 得证
 
-$$\Delta = \frac{1}{2}\begin{vmatrix}1&x_i&y_i\\1&x_j&y_j\\1&x_m&y_m\end{vmatrix}$$
+### 1.3 特殊符号
 
-### 3.2 $[B]$ 矩阵
+| 符号 | 定义 | 关键性质 |
+|------|------|----------|
+| Kronecker $\delta_{ij}$ | $\boxed{\delta_{ij}=\begin{cases}1&i=j\\0&i\neq j\end{cases}}$ | $\boxed{\delta_{ii}=3}$（3D），$\boxed{\delta_{ij}a_j=a_i}$ |
+| Levi-Civita $e_{ijk}$ | $\boxed{\text{置换符号：偶排列+1，奇排列-1，有重复0}}$ | $\boxed{e_{123}=1}$，$\boxed{e_{ijk}e_{ist}=\delta_{js}\delta_{kt}-\delta_{jt}\delta_{ks}}$，$\boxed{e_{ijk}e_{ijt}=2\delta_{kt}}$ |
 
-$$[B] = \frac{1}{2\Delta}\begin{pmatrix}
-b_i & 0 & b_j & 0 & b_m & 0 \\
-0 & c_i & 0 & c_j & 0 & c_m \\
-c_i & b_i & c_j & b_j & c_m & b_m
-\end{pmatrix}$$
+### 1.4 代数与张量的转换
 
-### 3.3 弹性矩阵 $[D]$
+Einstein 求和约定：$a_i b_i = a_1b_1+a_2b_2+a_3b_3$（哑指标自动求和）
 
-**平面应力**（$E$ 为杨氏模量，$\nu$ 为泊松比）：
-$$[D] = \frac{E}{1-\nu^2}\begin{pmatrix}1&\nu&0\\\nu&1&0\\0&0&\frac{1-\nu}{2}\end{pmatrix}$$
+- **自由指标**：不重复出现 → 决定结果的阶数
+- **哑指标**：重复出现 → 隐含求和
 
-**平面应变**（$E$ 为杨氏模量，$\nu$ 为泊松比）：
-$$[D] = \frac{E(1-\nu)}{(1+\nu)(1-2\nu)}\begin{pmatrix}1&\frac{\nu}{1-\nu}&0\\\frac{\nu}{1-\nu}&1&0\\0&0&\frac{1-2\nu}{2(1-\nu)}\end{pmatrix}$$
+### 1.5 坐标旋转（Coordinate rotation）
 
-### 3.4 单元刚度矩阵
+方向余弦矩阵 $[l]$：
 
-$$\boxed{[k]_e = t\Delta_e [B]^T[D][B]}\quad (\text{$t$ 为单元厚度，$\Delta_e$ 为单元面积})$$
+$$l_{ij} = \cos(x_i', x_j),\quad \boxed{l_{ij}l_{ik}=\delta_{jk}},\quad [l]^T[l]=[I]$$
 
-### 3.5 总体集成
+### 1.6 向量/矩阵在不同坐标系下的变换
 
-$$[K] = \sum_{n=1}^{NE} [k]_{e_n},\quad \{F\} = \sum_{n=1}^{NE} \{F\}_{e_n},\quad [K]\{\delta\} = \{F\}\quad (\text{$NE$ 为单元总数})$$
+| 量 | 变换公式 |
+|----|----------|
+| 向量 | $\boxed{a_{i'}' = l_{i'j}a_j}$ |
+| 二阶张量 | $\boxed{a_{i'j'}' = l_{i'i}l_{j'j}a_{ij}}$ |
+| 三阶赝张量 | $\boxed{e_{i'j'k'}' = \det(\boldsymbol{L})\,e_{ijk}}$ |
 
----
+### 1.7 点积与叉积
 
-## 4. Euler-Bernoulli 梁单元（Hermite 形函数）
+$$\boxed{\boldsymbol{a}\cdot\boldsymbol{b}=a_ib_i},\quad \boxed{(\boldsymbol{a}\times\boldsymbol{b})_i=e_{ijk}a_jb_k}$$
 
-$$w(\xi) = N_1 w_1 + N_2 \theta_1 + N_3 w_2 + N_4 \theta_2,\quad \xi = \frac{x-x_1}{L}\quad (\text{$w_i$ 为挠度，$\theta_i$ 为转角})$$
+**$\varepsilon$-$\delta$ 恒等式**（利用 Lagrange 公式）：
 
-$$N_1 = 1-3\xi^2+2\xi^3,\quad N_2 = L(\xi-2\xi^2+\xi^3)$$
-$$N_3 = 3\xi^2-2\xi^3,\quad N_4 = L(-\xi^2+\xi^3)$$
-
-$$[k]_e = \frac{EI}{L^3}\begin{pmatrix}
-12 & 6L & -12 & 6L\\
-6L & 4L^2 & -6L & 2L^2\\
--12 & -6L & 12 & -6L\\
-6L & 2L^2 & -6L & 4L^2
-\end{pmatrix}$$
+$$\boxed{e_{ijk}e_{ist}=\delta_{js}\delta_{kt}-\delta_{jt}\delta_{ks}}$$
 
 ---
 
-## 5. Gauss 积分
+## 二、Elasticity（弹性力学）
 
-$$\int_{-1}^1 f(\xi)d\xi \approx \sum_{i=1}^n w_i f(\xi_i)$$
+### 2.1 Cauchy 公式（Cauchy formula）
 
-| $n$ | $\xi_i$ | $w_i$ | 精确度 |
-|-----|---------|-------|--------|
-| 1 | 0 | 2 | 线性 |
-| 2 | $\pm 1/\sqrt{3}$ | 1 | 三次 |
-| 3 | $\pm\sqrt{0.6},\;0$ | $5/9,\;8/9$ | 五次 |
+斜截面上的应力分量：
 
-**2D**: $\int_{-1}^1\int_{-1}^1 f(\xi,\eta)d\xi d\eta \approx \sum_{i=1}^n\sum_{j=1}^n w_i w_j f(\xi_i,\eta_j)$
+$$\boxed{T_i^n = \sigma_{ji}l_j = \sigma_{ij}l_j}$$
 
-**减缩积分**：用低阶 Gauss 代替精确积分 → 避免剪切自锁
+矩阵形式：
+
+$$\begin{pmatrix} T_1^n \\ T_2^n \\ T_3^n \end{pmatrix} = \begin{pmatrix} \sigma_{11}&\sigma_{21}&\sigma_{31} \\ \sigma_{12}&\sigma_{22}&\sigma_{32} \\ \sigma_{13}&\sigma_{23}&\sigma_{33} \end{pmatrix} \begin{pmatrix} l_1 \\ l_2 \\ l_3 \end{pmatrix}$$
+
+由力矩平衡得**剪应力互等**：$\sigma_{ij}=\sigma_{ji}$（应力张量对称）
+
+### 2.2 应力变换（Stress transformation）
+
+坐标旋转下，新旧坐标系应力关系：
+
+$$\boxed{\sigma_{i'j'}' = l_{i'm}l_{j'n}\sigma_{mn}}$$
+
+### 2.3 主应力与主应变（Principal stress/strain）
+
+**主应力特征方程**：
+
+$$\boxed{|\sigma_{ij}-\sigma\delta_{ij}|=0}$$
+
+展开：
+
+$$\boxed{\sigma^3 - I_1\sigma^2 + I_2\sigma - I_3 = 0}$$
+
+主应力 $\sigma_1,\sigma_2,\sigma_3$ 为特征方程的三个实根，对应主方向两两正交。
+
+主应变 $\varepsilon_1,\varepsilon_2,\varepsilon_3$ 由同样方法求得。
+
+### 2.4 应力/应变张量的不变量（Invariants）
+
+**应力不变量**：
+
+$$\boxed{I_1 = \sigma_{11}+\sigma_{22}+\sigma_{33} = \sigma_1+\sigma_2+\sigma_3}$$
+
+$$\boxed{I_2 = \begin{vmatrix}\sigma_{11}&\sigma_{12}\\\sigma_{21}&\sigma_{22}\end{vmatrix}+\begin{vmatrix}\sigma_{22}&\sigma_{23}\\\sigma_{32}&\sigma_{33}\end{vmatrix}+\begin{vmatrix}\sigma_{33}&\sigma_{31}\\\sigma_{13}&\sigma_{11}\end{vmatrix} = \sigma_1\sigma_2+\sigma_2\sigma_3+\sigma_3\sigma_1}$$
+
+$$\boxed{I_3 = \begin{vmatrix}\sigma_{11}&\sigma_{21}&\sigma_{31}\\\sigma_{12}&\sigma_{22}&\sigma_{32}\\\sigma_{13}&\sigma_{23}&\sigma_{33}\end{vmatrix} = \sigma_1\sigma_2\sigma_3}$$
+
+应变不变量形式相同，将 $\sigma$ 换为 $\varepsilon$。
+
+### 2.5 平衡方程（Equilibrium equation）
+
+$$\boxed{\sigma_{ij,j}+f_i=0 \quad (i=1,2,3)}$$
+
+展开（无体力分量 $b_i$ 写法）：
+
+$$\frac{\partial\sigma_{11}}{\partial x_1}+\frac{\partial\sigma_{21}}{\partial x_2}+\frac{\partial\sigma_{31}}{\partial x_3}+f_1=0$$
+
+（其余 $i=2,3$ 类似，共 3 个方程）
+
+### 2.6 几何方程（Geometric equation）
+
+**小变形应变张量**：
+
+$$\boxed{\varepsilon_{ij}=\frac{1}{2}(u_{i,j}+u_{j,i})}$$
+
+展开：$\varepsilon_{11}=\dfrac{\partial u_1}{\partial x_1}$，$\varepsilon_{12}=\dfrac{1}{2}\left(\dfrac{\partial u_1}{\partial x_2}+\dfrac{\partial u_2}{\partial x_1}\right)=\dfrac{1}{2}\gamma_{12}$
+
+### 2.7 Green 应变（Green strain，大变形）
+
+$$\boxed{E_{ij}=\frac{1}{2}\left(\frac{\partial\xi_k}{\partial x_i}\frac{\partial\xi_k}{\partial x_j}-\delta_{ij}\right)}$$
+
+利用位移 $u_i=\xi_i-x_i$，化简为：
+
+$$\boxed{E_{ij}=\frac{1}{2}(u_{i,j}+u_{j,i}+u_{k,i}u_{k,j})}$$
+
+小变形时忽略二阶项 → 回退到 $\varepsilon_{ij}$
+
+### 2.8 本构关系（Constitutive relation）
+
+**Green 公式**（一般形式，适用于任意弹性材料）：
+
+$$\boxed{\sigma_{ij}=\frac{\partial W}{\partial \varepsilon_{ij}}}$$
+
+**广义 Hooke 定律**（各向同性线弹性）：
+
+$$\boxed{\sigma_{ij}=\lambda\varepsilon_{kk}\delta_{ij}+2G\varepsilon_{ij}}$$
+
+或写为：
+
+$$\sigma_{ij}=2G\varepsilon_{ij}+\lambda\varepsilon_{kk}\delta_{ij}$$
+
+**Lamé 常数**：
+
+$$\boxed{\lambda=\frac{\nu E}{(1+\nu)(1-2\nu)}},\quad \boxed{G=\frac{E}{2(1+\nu)}=\mu}$$
+
+### 2.9 各向同性线弹性材料的本构矩阵
+
+**平面应力**（薄板 $t \ll a,b$）：
+
+$$\boxed{[D]=\frac{E}{1-\nu^2}\begin{pmatrix}1&\nu&0\\\nu&1&0\\0&0&\frac{1-\nu}{2}\end{pmatrix}}$$
+
+**平面应变**（长柱体 $L \gg a,b$）：
+
+$$\boxed{[D]=\frac{E(1-\nu)}{(1+\nu)(1-2\nu)}\begin{pmatrix}1&\frac{\nu}{1-\nu}&0\\\frac{\nu}{1-\nu}&1&0\\0&0&\frac{1-2\nu}{2(1-\nu)}\end{pmatrix}}$$
+
+### 2.10 边界条件（Boundary conditions）
+
+- **位移边界条件**（本质/Dirichlet）：$u_i=\bar{u}_i$ 在 $\Gamma_u$ 上
+- **力边界条件**（自然/Neumann）：$\sigma_{ij}n_j=\bar{T}_i$ 在 $\Gamma_\sigma$ 上
+
+### 2.11 三组方程推导中的假设
+
+1. **连续性**（Continuity）：物体内部由连续介质充满
+2. **均匀性**（Homogeneity）：物体各部分材料性质相同
+3. **各向同性**（Isotropy）：材料性质与方向无关
+4. **完全弹性**（Perfect elasticity）：应力应变满足 Hooke 定律且可逆
+5. **小变形**（Small deformation）：位移远小于物体尺寸
+6. **无初始应力**（No initial stress）：外载荷施加前无预应力
 
 ---
 
-## 6. 弹性力学三大方程
+## 三、Variational Principles（变分原理）
 
-| 方程 | 矩阵形式 | 张量形式 |
-|------|----------|----------|
-| 几何 | $\boldsymbol{\varepsilon} = [\partial]\mathbf{u}$（$[\partial]$ 为微分算子矩阵） | $\varepsilon_{ij} = \frac{1}{2}(u_{i,j}+u_{j,i})$ |
-| 物理 | $\boldsymbol{\sigma} = \mathbf{D}\boldsymbol{\varepsilon}$ | $\sigma_{ij} = \lambda\varepsilon_{kk}\delta_{ij} + 2G\varepsilon_{ij}$ |
-| 平衡 | $[\partial]^T\boldsymbol{\sigma} + \mathbf{f} = \mathbf{0}$（$\mathbf{f}$ 为体力向量） | $\sigma_{ij,j} + f_i = 0$ |
+### 3.1 泛函（Functional）
 
-**Lame 常数**：$\lambda = \frac{\nu E}{(1+\nu)(1-2\nu)},\; G = \frac{E}{2(1+\nu)}$
+$$Q[y]:D\to\mathbb{R}$$
+
+**线性泛函**：$Q[c_1y_1+c_2y_2]=c_1Q[y_1]+c_2Q[y_2]$
+
+### 3.2 泛函的变分（Variation of functional）
+
+Lagrange 定义：$\boxed{\delta Q = \dfrac{\partial}{\partial\alpha}Q[y+\alpha\,\delta y]\bigg|_{\alpha=0}}$
+
+变分与微分可交换：$\boxed{\delta\left(\dfrac{dy}{dx}\right)=\dfrac{d}{dx}(\delta y)}$
+
+### 3.3 泛函极值（Functional extremum）
+
+极值必要条件：$\delta Q=0$
+
+### 3.4 Euler 方程（Euler equation）
+
+$$\boxed{\frac{\partial F}{\partial y}-\frac{d}{dx}\left(\frac{\partial F}{\partial y'}\right)=0}$$
+
+**含高阶导数**：
+
+$$\boxed{\sum_{k=0}^{n}(-1)^k\frac{d^k}{dx^k}\left(\frac{\partial F}{\partial y^{(k)}}\right)=0}$$
+
+**多元函数**：$\boxed{F_{y_i}-\dfrac{d}{dx}F_{y_i'}=0\quad(i=1,\ldots,n)}$
+
+**多变量**（$z=z(x,y)$）：$\boxed{F_z-\dfrac{\partial}{\partial x}F_p-\dfrac{\partial}{\partial y}F_q=0}$（$p=z_x,q=z_y$）
+
+**$F$ 不显含 $x$**：首次积分 $\boxed{F-y'F_{y'}=C}$
+
+### 3.5 本质边界条件与自然边界条件
+
+- **本质（Essential）**：给定函数值 $\delta y|_{\Gamma}=0$，如固定端 $u=0$
+- **自然（Natural）**：由极值条件自动导出，如自由端 $M=0$
+
+### 3.6 泛函的条件极值（Conditional extremum）
+
+**Lagrange 乘子法**：引入 $\lambda$，构造新泛函 $\hat{Q}=Q+\lambda\cdot C$
+
+### 3.7 Euler 方程的推广形式
+
+- 含高阶导数：$n$ 阶导数需 $C^{n-1}$ 连续
+- 多个未知函数：每个函数对应一个 Euler 方程
+- 多个自变量（如 $F(z,z_x,z_y,z_{xx},z_{xy},z_{yy})$）→ Euler-Poisson 方程
+
+### 3.8 变分法在力学中的应用
+
+核心联系：**变分问题 ↔ 微分方程边值问题**（当泛函存在时）
+
+### 3.9 虚功原理（Principle of virtual work）
+
+**可能位移**：满足几何方程和位移 BC 的位移场
+**可能应力**：满足平衡方程和力 BC 的应力场
+**虚位移**：满足位移 BC 的任意微小位移变分
+**虚应力**：满足力 BC 的任意微小应力变分
+
+### 3.10 功的互等定理（Reciprocal theorem）
+
+$$\boxed{\int_V F_i^{(1)} u_i^{(2)}\,dV + \int_S p_i^{(1)} u_i^{(2)}\,dS = \int_V F_i^{(2)} u_i^{(1)}\,dV + \int_S p_i^{(2)} u_i^{(1)}\,dS}$$
+
+状态一的力在状态二的位移上做的功 = 状态二的力在状态一的位移上做的功。
+
+### 3.11 虚位移原理
+
+$\boxed{\displaystyle\int_\Omega \sigma_{ij}\delta\varepsilon_{ij}\,dV=\int_\Omega f_i\delta u_i\,dV+\int_{\Gamma_\sigma}T_i\delta u_i\,dS}$
+
+→ 等价于平衡方程 + 力边界条件
+
+### 3.12 虚应力原理
+
+$\boxed{\displaystyle\int_\Omega \varepsilon_{ij}\delta\sigma_{ij}\,dV=\int_{\Gamma_u}u_i\delta T_i\,dS}$
+
+→ 等价于几何方程 + 位移边界条件
+
+### 3.13 最小势能原理（Principle of minimum potential energy）
+
+在一切**可能位移场**中，真实位移场使总势能 $\Pi$ 取最小值：
+
+$$\boxed{\Pi=\underbrace{\frac{1}{2}\int_\Omega \sigma_{ij}\varepsilon_{ij}\,dV}_{\text{应变能 }U}+\underbrace{\left(-\int_\Omega f_iu_i\,dV-\int_{\Gamma_\sigma}T_iu_i\,dS\right)}_{\text{外力势 }W}}$$
+
+极值条件 $\dfrac{\partial\Pi}{\partial u_i}=0$ → 平衡方程
+
+### 3.14 弹性力学中的 Euler 方程
+
+总势能泛函的极值条件 → 回退到平衡方程（从变分法角度导出弹性力学控制方程）
+
+### 3.15 变分问题的直接法与间接法
+
+- **间接法**：Euler 方程法（将变分问题转化为微分方程）
+- **直接法**：Ritz 法、Galerkin 法、有限差分法（直接近似求解泛函极值）
+
+### 3.16 微分方程的等效变分方程
+
+**等效积分形式**（Galerkin 弱形式）→ 分部积分降低光滑度要求 → $C^1$ → $C^0$
+
+### 3.17 有限差分法（Finite difference method）
+
+用差商代替导数，将泛函转化为多元函数 → 求极值
+
+### 3.18 Ritz 法
+
+1. 选基函数 $\varphi_i$（需满足**本质边界条件**）
+2. 构造 $u_n=\sum a_i\varphi_i$
+3. 代入泛函 $\Pi$，极值条件 $\dfrac{\partial\Pi}{\partial a_i}=0$
+4. 解线性方程组 $\boldsymbol{Ka}=\boldsymbol{b}$
+
+### 3.19 Galerkin 法
+
+加权残量法中取**权函数 = 试函数本身**：
+
+$$\boxed{\int_\Omega N_i\cdot R\,d\Omega=0\quad(i=1,\ldots,n)}$$
+
+- 试函数需满足**全部边界条件**（位移 + 力）
+- 当泛函存在时，与 Ritz 法等价
+
+### 3.20 加权残量法（Weighted residual method）
+
+基本思想：使残差 $R=L(\tilde{u})-f$ 在权函数空间中投影为零
+
+| 方法 | 权函数 | 精度（一阶近似，简支梁） |
+|------|--------|--------------------------|
+| Galerkin | $w_i=N_i$（基函数本身） | **0.38%** |
+| 最小二乘 | $w_i=\partial R/\partial c_i$ | **0.38%** |
+| 配点法 | $w_i=\delta(x-x_i)$ | 21.16% |
+| 子域法 | $w_i=1$（子域内） | 23.85% |
 
 ---
 
-## 7. 常见试题证明模板
+## 四、Basics of FEA（有限元分析基础）
 
-### 7.1 证明某量是张量
-1. 写出在旧坐标系中的定义
-2. 写出坐标变换 $x_{i'} = l_{i'j}x_j$
-3. 利用链式法则变换导数 $\frac{\partial}{\partial x_{j'}} = l_{mj'}\frac{\partial}{\partial x_m}$
-4. 代入新坐标，整理成 $l_{i'i}l_{j'j}\cdots\times\text{原分量}$ 形式
-5. 与张量变换律对比 → 得证
+### 4.1 形函数（Shape functions）
 
-### 7.2 推导 Euler 方程
-1. 写出泛函 $Q[y] = \int F dx$
-2. 一阶变分 $\delta Q = \int(F_y\delta y + F_{y'}\delta y')dx = 0$
-3. 分部积分 $\int F_{y'}\delta y' dx = [F_{y'}\delta y] - \int\frac{d}{dx}F_{y'}\delta y\,dx$
-4. 利用端点条件 $\delta y(a)=\delta y(b)=0$ 消去边界项
-5. 得 $\int(F_y - \frac{d}{dx}F_{y'})\delta y\,dx = 0$
-6. 由 $\delta y$ 任意性 → $F_y - \frac{d}{dx}F_{y'} = 0$
+**一维线性**：$\boxed{N_1=\dfrac{x_2-x}{L}}$，$\boxed{N_2=\dfrac{x-x_1}{L}}$
 
-### 7.3 证明总刚度矩阵对称
-$$\{\delta\}^T[K]\{\delta\} = \sum_e \{\delta\}_e^T[k]_e\{\delta\}_e \quad\text{且 $[k]_e$ 对称}$$
+**三角形（CST）**：$\boxed{N_i=\dfrac{1}{2\Delta}(a_i+b_ix+c_iy)}$
 
-### 7.4 证明位移元下限性
-位移元假设位移场 → 结构比实际刚硬 → 总势能 $\Pi \geq \Pi_{\text{true}}$ → 位移解 $\leq$ 真实解
+其中 $b_i=y_j-y_m$，$c_i=x_m-x_j$，$a_i=x_jy_m-x_my_j$
 
----
+**矩形（双线性，自然坐标）**：$\boxed{N_i=\dfrac{1}{4}(1+\xi\xi_i)(1+\eta\eta_i)}$
 
-## 8. 判断题 / 选择题常考结论
+**形函数性质**：$\boxed{\sum N_i=1}$，$\boxed{N_i(\text{节点}j)=\delta_{ij}}$
 
-- ❌ 有限元解总是比精确解小 → ✓ 位移元满足下限性，但非协调单元可能不成立
-- ✅ Galerkin 法的试探函数必须满足全部边界条件（位移+力）
-- ✅ Ritz 法的试探函数只需满足位移（本质）边界条件
-- ✅ 线性三角形单元（CST）内应力和应变为**常数**
-- ❌ $Q[y] = \int_a^b y^2 dx$ 是线性泛函 → ✓ 不是！（不满足可加性）
-- ✅ 总刚度矩阵 $[K]$ 具有对称性、稀疏性、非负定性
-- ✅ $K_{ij}$ 的物理意义：第 $j$ 个 DOF 为单位位移时在第 $i$ 个 DOF 所需施加的力
-- ✅ 等参元满足收敛条件：坐标与位移用相同形函数 + 形函数满足 $\sum N_i = 1$
+### 4.2 1D 和 2D FEM 的完整流程
 
----
+```
+结构离散 → 形函数 → [B]矩阵 → [D]矩阵 → 单元刚度矩阵[k]e
+→ 总刚组装[K] = Σ[k]e → 引入边界条件 → 求解[K]{δ}={F} → 应力回算
+```
 
-> 祝考试顺利！🎯
+### 4.3 单元、节点、DOF 的概念
+
+- **单元 (element)**：连续体的离散子域
+- **节点 (node)**：单元的顶点/边中点/形心
+- **自由度 (DOF)**：每个节点的独立参数数（Lagrange 型：$n$ 维问题有 $n$ DOF）
+
+### 4.4 单元刚度矩阵的特性
+
+- **对称性**：$[k]^e=[k]^e{}^T$
+- **奇异性**（无约束时）→ 引入边界条件后消失
+- **主元恒正**
+- **带状稀疏性**（总刚）
+
+### 4.5 单元刚度矩阵元素的物理意义
+
+$K_{ij}$ = 第 $j$ 个 DOF 产生**单位位移**，其余位移为零时，第 $i$ 个 DOF 上需要施加的节点力
+
+### 4.6 收敛准则（Convergence criteria）
+
+- **完备性**：试函数包含刚体位移和常应变状态
+- **协调性**：泛函最高阶导数为 $m$ → 单元交界面需 $C^{m-1}$ 连续
+- **分片试验** (Patch Test)：验证新单元是否满足收敛性
+
+### 4.7 长度坐标（Length coordinate，一维）
+
+$$\boxed{\lambda_1=\frac{x_{i+1}-x}{L_i},\quad\lambda_2=\frac{x-x_i}{L_i},\quad\lambda_1+\lambda_2=1}$$
+
+$$\boxed{L_f(x)=f(x_i)\lambda_1+f(x_{i+1})\lambda_2}$$
+
+**长度坐标积分公式**：
+
+$$\boxed{\int_{Q_1}^{Q_2} \lambda_1^{\alpha_1} \lambda_2^{\alpha_2}\,dx = L_i \frac{\alpha_1!\,\alpha_2!}{(\alpha_1 + \alpha_2 + 1)!}}$$
+
+### 4.8 Lagrange 插值（线性与高阶，一维）
+
+**线性**：同 4.7
+
+**二次**：$L_f(x)=\sum_{k=0}^{2}f(x_k)\ell_k(x)$，其中 $\ell_k(x)=\prod_{j\neq k}\dfrac{x-x_j}{x_k-x_j}$
+
+**$n$ 次**：$\boxed{L_f(x)=\sum_{k=0}^{n}f(x_k)\ell_k(x)}$，其中 $\boxed{\ell_k(x)=\prod_{j\neq k}\dfrac{x-x_j}{x_k-x_j}}$
+
+### 4.9 Hermite 三次插值（Euler-Bernoulli 梁单元）
+
+$w(\xi)=N_1w_1+N_2\theta_1+N_3w_2+N_4\theta_2$，$\xi=\dfrac{x-x_1}{L}$
+
+$$\boxed{N_1=1-3\xi^2+2\xi^3,\quad N_2=L(\xi-2\xi^2+\xi^3)}$$
+$$\boxed{N_3=3\xi^2-2\xi^3,\quad N_4=L(-\xi^2+\xi^3)}$$
+
+$$\boxed{[k]_e=\frac{EI}{L^3}\begin{pmatrix}12&6L&-12&6L\\6L&4L^2&-6L&2L^2\\-12&-6L&12&-6L\\6L&2L^2&-6L&4L^2\end{pmatrix}}$$
+
+### 4.10 面积坐标（Area coordinate，三角形）
+
+$$\boxed{L_1=\frac{\Delta_1}{\Delta},\quad L_2=\frac{\Delta_2}{\Delta},\quad L_3=\frac{\Delta_3}{\Delta}}$$
+
+$$L_1+L_2+L_3=1$$
+
+与直角坐标转换：$x=L_1x_1+L_2x_2+L_3x_3$，$y=L_1y_1+L_2y_2+L_3y_3$
+
+线性形函数：$N_i=L_i$
+
+**面积坐标积分公式**（极其实用）：
+
+$$\boxed{\iint_{\Delta_e} L_1^{\alpha_1} L_2^{\alpha_2} L_3^{\alpha_3}\,dxdy = \frac{\alpha_1!\,\alpha_2!\,\alpha_3!}{(\alpha_1 + \alpha_2 + \alpha_3 + 2)!} \cdot 2\Delta_e}$$
+
+### 4.11 Lagrange 插值（三角形，线性与高阶）
+
+**线性**：$N_i=L_i$
+
+**二次**（6 节点）：
+
+$$\boxed{\begin{aligned}
+N_i &= L_i(2L_i-1) & \text{(顶点 } i=1,2,3\text{)} \\
+N_4 &= 4L_1L_2,\quad N_5 = 4L_2L_3,\quad N_6 = 4L_3L_1 & \text{(边中点)}
+\end{aligned}}$$
+
+### 4.12 "划线法"（Method of "scraping line"）
+
+构造形函数的几何方法：令不含某个节点坐标的线族为常数，利用归一化条件确定形函数。适用于非规则单元（如 serendipity 元）。
+
+### 4.13 矩形单元形函数（自然坐标 $\xi,\eta\in[-1,1]$）
+
+**4 节点双线性**（Lagrange 型）：
+
+$$\boxed{N_i=\frac{1}{4}(1+\xi\xi_i)(1+\eta\eta_i)\quad(i=1,2,3,4)}$$
+
+### 4.14 Serendipity 单元形函数
+
+**8 节点 serendipity**（角点）：$\boxed{N_i=\frac{1}{4}(1+\xi\xi_i)(1+\eta\eta_i)(\xi\xi_i+\eta\eta_i-1)}$
+
+**边中点**：$\boxed{N_i=\frac{1}{2}(1-\xi^2)(1+\eta\eta_i)}$ 或 $\boxed{N_i=\frac{1}{2}(1+\xi\xi_i)(1-\eta^2)}$
+
+### 4.15 等参单元（Isoparametric elements）
+
+坐标变换与位移插值使用**相同形函数**和**相同节点**：
+
+$$\boxed{x=\sum N_i(\xi,\eta)x_i},\quad \boxed{u=\sum N_i(\xi,\eta)u_i}$$
+
+### 4.16 Jacobian 矩阵
+
+$$\boxed{[J]=\begin{pmatrix}\dfrac{\partial x}{\partial\xi}&\dfrac{\partial y}{\partial\xi}\\[6pt]\dfrac{\partial x}{\partial\eta}&\dfrac{\partial y}{\partial\eta}\end{pmatrix}=\begin{pmatrix}\sum\dfrac{\partial N_i}{\partial\xi}x_i&\sum\dfrac{\partial N_i}{\partial\xi}y_i\\\sum\dfrac{\partial N_i}{\partial\eta}x_i&\sum\dfrac{\partial N_i}{\partial\eta}y_i\end{pmatrix}}$$
+
+单元刚度矩阵中的积分变换：$\boxed{\displaystyle\int\int f(x,y)\,dxdy=\int_{-1}^{1}\int_{-1}^{1}f(\xi,\eta)|\det[J]|\,d\xi d\eta}$
+
+> 祝考试顺利！

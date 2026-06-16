@@ -9,6 +9,20 @@
 
 > 🔗 **跨章连接**：本章是 FEM 课程的第 2 章，核心任务有两个——(1) 建立张量语言，这是后续所有公式推导的"通用语法"；(2) 导出弹性力学的 15 个方程，这是第 3 章变分法和第 4 章 FEM 求解的物理基础。学本章时重点关注"指标运算熟练度"，因为 HW1 全部是张量运算题，后面的 HW2-HW4 也会持续用到。
 
+> **📋 考试范围覆盖**
+>
+> | 本讲义章节 | 考试大纲考点 |
+> |-----------|-------------|
+> | §2.1 指标与求和 | [Tensor] Conversion between algebra and tensors |
+> | §2.2 常用符号 | [Tensor] Special symbols: Kronecker delta, Levi-Civita |
+> | §2.3 线性代数复习 | [Tensor] Scalar and cross products; [Tensor] Vector/Matrix transformation |
+> | §2.4 笛卡尔张量 | [Tensor] Definition (scalar, vector, tensor); [Tensor] Proving tensors |
+> | §3.1 内力分析 | [Elasticity] Cauchy formula; [Elasticity] Stress transformation; [Elasticity] Principal stress/strain; [Elasticity] Invariant of stress/strain tensors |
+> | §3.1.5 平衡方程 | [Elasticity] Equilibrium equation |
+> | §3.2 变形分析 | [Elasticity] Geometric equation; [Elasticity] Green strain |
+> | §3.3 本构关系 | [Elasticity] Constitutive relation; [Elasticity] Constitutive relation of isotropic linear elastic materials |
+> | §3.4 弹性力学方程汇总 | [Elasticity] Boundary conditions; [Elasticity] Assumptions in deducing three sets of equations |
+
 ## 目录
 
 - [1. 弹性力学发展简介](#1-弹性力学发展简介)
@@ -107,7 +121,7 @@ $$a_{ii} = a_{11} + a_{22} + a_{33} = a_{kk}$$
 
 $\delta_{ij}$ 有 9 个分量，定义如下：
 
-$$\delta_{ij} = \begin{cases} 1, & i=j \\ 0, & i \neq j \end{cases}$$
+$$\boxed{\delta_{ij} = \begin{cases} 1, & i=j \\ 0, & i \neq j \end{cases}}$$
 
 矩阵形式为 $3 \times 3$ 的单位矩阵：
 $$\delta_{ij} = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}$$
@@ -131,17 +145,17 @@ $$a_{ij} = b\delta_{ij} + c_{ij}$$
 
 $e_{ijk}$ 有 27 个分量，也常称为 Levi-Civita 符号：
 
-$$e_{ijk} = \begin{cases}
+$$\boxed{e_{ijk} = \begin{cases}
 0 & \text{任意两指标相等} \\
 +1 & (i,j,k)\text{ 为偶排列：}(1,2,3),(2,3,1),(3,1,2)\text{（顺时针循环）} \\
 -1 & (i,j,k)\text{ 为奇排列：}(1,3,2),(2,1,3),(3,2,1)\text{（逆时针循环）}
-\end{cases}$$
+\end{cases}}$$
 
 > ⚠️ **重难点**：$e_{ijk}$ 有三个指标共 27 个分量，不是矩阵。记忆方法：把 $(1,2,3)$ 的循环看作"顺时针"，偶排列（+1）就是顺时针方向数过去——$(1,2,3)$, $(2,3,1)$, $(3,1,2)$；奇排列（-1）是逆时针——$(1,3,2)$, $(2,1,3)$, $(3,2,1)$。任意两个指标相等时为 0（所以非零分量只有 6 个）。
 
 **核心恒等式**（$\delta$-$e$ 关系）：
 
-$$e_{ijk}e_{ist} = \delta_{js}\delta_{kt} - \delta_{jt}\delta_{ks}$$
+$$\boxed{e_{ijk}e_{ist} = \delta_{js}\delta_{kt} - \delta_{jt}\delta_{ks}}$$
 
 
 由此可推出：
@@ -218,7 +232,7 @@ $$\mathbf{e} = \mathbf{L}^T\mathbf{e}' \quad\text{即}\quad \mathbf{e}_j = l_{ij
 > ⚠️ **重难点**：为什么 $\mathbf{L}$ 是正交阵（$\mathbf{L}^T = \mathbf{L}^{-1}$）？因为新基向量 $\mathbf{e}_1', \mathbf{e}_2', \mathbf{e}_3'$ 也是标准正交基，所以 $\mathbf{e}_i' \cdot \mathbf{e}_j' = \delta_{ij}$。代入 $\mathbf{e}_i' = l_{ik}\mathbf{e}_k$ 可得 $l_{ik}l_{jk} = \delta_{ij}$，即 $\mathbf{L}\mathbf{L}^T = \mathbf{I}$。另一种理解：方向余弦矩阵的每一行是新坐标轴在旧坐标系中的方向分量，行向量是单位向量且两两正交→正交矩阵。
 
 正交性的分量形式：
-$$l_{i'k}l_{j'k} = \delta_{i'j'} \qquad l_{k'i}l_{k'j} = \delta_{ij}$$
+$$\boxed{l_{i'k}l_{j'k} = \delta_{i'j'}} \qquad \boxed{l_{k'i}l_{k'j} = \delta_{ij}}$$
 
 > ❌ **易错点**：注意方向余弦指标中 $l_{i'j}$ 的指标顺序——$i'$（新坐标轴）是第一个指标，$j$（旧坐标轴）是第二个。初学者经常搞混旧到新和新到旧的公式，其实记住一个就好：$a_{i'} = l_{i'j}a_j$（新=方向余弦乘以旧并求和）。$i'$ 是新指标、$j$ 是旧指标、$j$ 是哑指标被消掉——用"新旧指标配对规则"核对：哑指标（j）在右边出现，自由指标（i'）在等号左边和右边都出现。
 
@@ -512,10 +526,10 @@ $$T_i^n = \sigma_{ij}n_j = \sigma n_i \quad \text{即} \quad \sigma_{ij}n_j - \s
 利用 $\delta_{ij}$ 替换：$(\sigma_{ij} - \sigma\delta_{ij})n_j = 0$
 
 这是矩阵特征值问题。非零解的条件是特征行列式为零：
-$$|\sigma_{ij} - \sigma\delta_{ij}| = 0$$
+$$\boxed{|\sigma_{ij} - \sigma\delta_{ij}| = 0}$$
 
 展开得三次方程（特征多项式）：
-$$\sigma^3 - I_1\sigma^2 + I_2\sigma - I_3 = 0$$
+$$\boxed{\sigma^3 - I_1\sigma^2 + I_2\sigma - I_3 = 0}$$
 
 其中 $\sigma_1, \sigma_2, \sigma_3$ 是三个主应力（特征值），$I_1, I_2, I_3$ 分别为第一、第二、第三**应力不变量**（stress invariants）。
 
@@ -523,11 +537,11 @@ $$\sigma^3 - I_1\sigma^2 + I_2\sigma - I_3 = 0$$
 
 **应力不变量的表达式**：
 
-$$I_1 = \sigma_{11} + \sigma_{22} + \sigma_{33} = \sigma_{ii} = \sigma_1 + \sigma_2 + \sigma_3$$
+$$\boxed{I_1 = \sigma_{11} + \sigma_{22} + \sigma_{33} = \sigma_{ii} = \sigma_1 + \sigma_2 + \sigma_3}$$
 
-$$I_2 = \begin{vmatrix} \sigma_{11} & \sigma_{12} \\ \sigma_{21} & \sigma_{22} \end{vmatrix} + \begin{vmatrix} \sigma_{22} & \sigma_{23} \\ \sigma_{32} & \sigma_{33} \end{vmatrix} + \begin{vmatrix} \sigma_{33} & \sigma_{31} \\ \sigma_{13} & \sigma_{11} \end{vmatrix} = \sigma_1\sigma_2 + \sigma_2\sigma_3 + \sigma_3\sigma_1$$
+$$\boxed{I_2 = \begin{vmatrix} \sigma_{11} & \sigma_{12} \\ \sigma_{21} & \sigma_{22} \end{vmatrix} + \begin{vmatrix} \sigma_{22} & \sigma_{23} \\ \sigma_{32} & \sigma_{33} \end{vmatrix} + \begin{vmatrix} \sigma_{33} & \sigma_{31} \\ \sigma_{13} & \sigma_{11} \end{vmatrix} = \sigma_1\sigma_2 + \sigma_2\sigma_3 + \sigma_3\sigma_1}$$
 
-$$I_3 = \begin{vmatrix} \sigma_{11} & \sigma_{12} & \sigma_{13} \\ \sigma_{21} & \sigma_{22} & \sigma_{23} \\ \sigma_{31} & \sigma_{32} & \sigma_{33} \end{vmatrix} = \sigma_1\sigma_2\sigma_3$$
+$$\boxed{I_3 = \begin{vmatrix} \sigma_{11} & \sigma_{12} & \sigma_{13} \\ \sigma_{21} & \sigma_{22} & \sigma_{23} \\ \sigma_{31} & \sigma_{32} & \sigma_{33} \end{vmatrix} = \sigma_1\sigma_2\sigma_3}$$
 
 **不变量验证示例（$I_1$）**：
 $$\sigma_{i'i'} = \sigma_{mn}l_{i'm}l_{i'n} = \sigma_{mn}\delta_{mn} = \sigma_{mm} = \sigma_{ii}$$

@@ -6,6 +6,17 @@
 > **前置知识**：第 1-4 章基础、线性代数、偏微分方程基本概念
 > **记忆辅助**：本章核心是所有 FEM 推导的中枢——Poisson 方程的弱形式 → CST 单元 → 总刚集成 → 数值算例 → 收敛性与误差分析。完整掌握本章，后续的等参元和高阶单元才有坚实基础。
 
+> **📋 考试范围覆盖**
+>
+> | 本讲义章节 | 考试大纲考点 |
+> |-----------|-------------|
+> | §5.1 概述 | [FEA] Concepts of elements, nodes, DOFs |
+> | §5.2 Poisson 弱形式 | [FEA] Formulation of 1D/2D FEA (element analysis, assembling, BC, solving) |
+> | §5.2.2 单元分析 | [FEA] Shape functions of 1D, triangular elements |
+> | §5.3 一般形式 | [FEA] Characteristics of element stiffness matrix; [FEA] Physical representation of each element |
+> | §5.4 平面问题 | [FEA] Formulation of 1D/2D FEA |
+> | §5.5 进一步讨论 | [FEA] Convergence criteria of FEA |
+
 ---
 
 ## 5.1 概述（Summary）
@@ -165,7 +176,7 @@ b_i = y_j - y_m \\
 c_i = x_m - x_j
 \end{cases}\quad\text{（}i,j,m\text{ 轮换）}$$
 
-则 $N_s = \dfrac{1}{2\Delta_e}(a_s x + b_s y + c_s),\;(s = i,j,m)$
+则 $\boxed{N_s = \dfrac{1}{2\Delta_e}(a_s x + b_s y + c_s)},\;(s = i,j,m)$
 
 #### 形函数的六条性质（必须牢记）
 
@@ -208,7 +219,7 @@ $$N_i|_{\overline{P_i P_j}} = 1 - \frac{t}{l},\quad N_j|_{\overline{P_i P_j}} = 
 
 $u$ 的梯度向量：
 
-$$\nabla u = \begin{pmatrix} \frac{\partial u}{\partial x} \\ \frac{\partial u}{\partial y} \end{pmatrix} = \begin{pmatrix} \frac{\partial N_i}{\partial x} & \frac{\partial N_j}{\partial x} & \frac{\partial N_m}{\partial x} \\ \frac{\partial N_i}{\partial y} & \frac{\partial N_j}{\partial y} & \frac{\partial N_m}{\partial y} \end{pmatrix} \{\delta\}_e = \frac{1}{2\Delta_e}\begin{pmatrix} a_i & a_j & a_m \\ b_i & b_j & b_m \end{pmatrix}\{\delta\}_e \equiv [B]\{\delta\}_e$$
+$$\nabla u = \begin{pmatrix} \frac{\partial u}{\partial x} \\ \frac{\partial u}{\partial y} \end{pmatrix} = \begin{pmatrix} \frac{\partial N_i}{\partial x} & \frac{\partial N_j}{\partial x} & \frac{\partial N_m}{\partial x} \\ \frac{\partial N_i}{\partial y} & \frac{\partial N_j}{\partial y} & \frac{\partial N_m}{\partial y} \end{pmatrix} \{\delta\}_e = \boxed{\frac{1}{2\Delta_e}\begin{pmatrix} a_i & a_j & a_m \\ b_i & b_j & b_m \end{pmatrix}}\{\delta\}_e \equiv [B]\{\delta\}_e$$
 
 注意：$[B]$ 是 $2 \times 3$ 的**常数矩阵**（对三角形线性元而言）。这是 CST（Constant Strain Triangle）名称的由来。
 
@@ -462,7 +473,7 @@ $$\begin{aligned}
 \end{aligned}$$
 
 定义：
-- **单元刚度矩阵**：$\mathbf{K}_{(12\times 12)}^e = \int_{\Omega_e} \mathbf{B}^T\mathbf{D}\mathbf{B}\,dV$
+- **单元刚度矩阵**：$\boxed{\mathbf{K}_{(12\times 12)}^e = \int_{\Omega_e} \mathbf{B}^T\mathbf{D}\mathbf{B}\,dV}$
 - **等效节点荷载列阵**：$\mathbf{P}^e = \int_{\Omega_e} \mathbf{N}^T\mathbf{f}\,dV + \int_{S_\sigma^e} \mathbf{N}^T\mathbf{T}\,dS$
 
 则势能化为：
@@ -619,19 +630,19 @@ $$B_s = \frac{1}{2A}\begin{pmatrix} b_s & 0 \\ 0 & c_s \\ c_s & b_s \end{pmatrix
 
 > ❌ **易错点**：平面应力和平面应变的 D 矩阵极易混淆。记住：平面应力是对薄板（$\sigma_z = 0$），用 $E/(1-\mu^2)$；平面应变是对长柱体（$\varepsilon_z = 0$），需要替换 $E \to E/(1-\mu^2)$、$\mu \to \mu/(1-\mu)$。考试时如果不确定，就写清楚"按平面应力计算"或"按平面应变计算"。
 
-$$[D]_{(3\times 3)} = \frac{E}{1-\mu^2}\begin{pmatrix}
+$$\boxed{[D]_{(3\times 3)} = \frac{E}{1-\mu^2}\begin{pmatrix}
 1 & \mu & 0 \\
 \mu & 1 & 0 \\
 0 & 0 & \frac{1-\mu}{2}
-\end{pmatrix}$$
+\end{pmatrix}}$$
 
 对于**平面应变问题**，只需将 $E \to \frac{E}{1-\mu^2}$、$\mu \to \frac{\mu}{1-\mu}$。
 
-$$[D] = \frac{E(1-\mu)}{(1+\mu)(1-2\mu)}\begin{pmatrix}
+$$\boxed{[D] = \frac{E(1-\mu)}{(1+\mu)(1-2\mu)}\begin{pmatrix}
 1 & \frac{\mu}{1-\mu} & 0 \\
 \frac{\mu}{1-\mu} & 1 & 0 \\
 0 & 0 & \frac{1-2\mu}{2(1-\mu)}
-\end{pmatrix}$$
+\end{pmatrix}}$$
 
 应力场：
 

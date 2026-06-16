@@ -5,6 +5,15 @@
 > **相关作业**：[HW3 Q2（试函数合法性）](../04-Homework-Solutions/2026w/HW3-Problem.md) · [HW3 Q3（弹性地基梁）](../04-Homework-Solutions/2026w/HW3-Problem.md)
 > **前置知识**：第 3 章（变分法）、线性代数
 
+> **📋 考试范围覆盖**
+>
+> | 本讲义章节 | 考试大纲考点 |
+> |-----------|-------------|
+> | §4.2.2 有限差分法 | [Var. Princ.] Finite difference method |
+> | §4.2.3 Ritz 法 | [Var. Princ.] Ritz method |
+> | §4.2.7 Galerkin 法 | [Var. Princ.] Galerkin method |
+> | §4.3 加权残量法 | [Var. Princ.] Weighted residual method; Equivalent variation equations |
+
 ---
 
 ## 4.1 引言（Introduction）
@@ -295,7 +304,7 @@ $$\begin{bmatrix}
 \begin{bmatrix}a_1 \\ a_2 \\ \vdots \\ a_n\end{bmatrix}
 = \begin{bmatrix}(f,\varphi_1) \\ (f,\varphi_2) \\ \vdots \\ (f,\varphi_n)\end{bmatrix}$$
 
-简记为 $\mathbf{K}\mathbf{a} = \mathbf{b}$。
+简记为 $\boxed{\mathbf{K}\mathbf{a} = \mathbf{b}}$。
 
 **第 5 步**：解方程组得到 $a_1, \ldots, a_n$，代入 $u_n = \sum a_i\varphi_i$ 得近似解。
 
@@ -557,7 +566,7 @@ $$\delta\Pi = -\int_V (\sigma_{ij,j} + f_i)\delta u_i dV = 0$$
 
 令 $\delta u_i = u_{in}\delta a_{in}$（$n=1,2,\ldots$），由于 $\delta a_{in}$ 相互独立：
 
-$$\int_V (\sigma_{ij,j} + f_i)u_{in}dV = 0,\quad n=1,2,\ldots,N$$
+$$\boxed{\int_V (\sigma_{ij,j} + f_i)u_{in}dV = 0,\quad n=1,2,\ldots,N}$$
 
 这就是 **Galerkin 法的求解方程**——积分后也是线性方程组。
 
@@ -775,7 +784,7 @@ $$= (-F_{y'yx} - y'F_{yy'y'} - y''F_{y'y'y'}) - (F_{y'y'x} + y'F_{yy'y'} + y''F_
 3. 在 M 中设近似解 $u_0 = \sum_{i=1}^n a_i\varphi_i$，$a_i$ 为待定系数
 4. 代入方程得**残量**（residual）：$R = \mathbf{T}u_0 - f \neq 0$
 5. 加权残量法的核心思想：**使残量 R 向权函数空间 W 的投影为零**（几何意义：在 W 中 $Tu_0$ 和 $Tu$ 有相同的投影）：
-   $$(R, \omega_i) = (\mathbf{T}u_0 - f, \omega_i) = 0,\quad i=1,2,\ldots,n$$
+   $$\boxed{(R, \omega_i) = (\mathbf{T}u_0 - f, \omega_i) = 0,\quad i=1,2,\ldots,n}$$
 
    写成积分形式：
    $$\left(\mathbf{T}\sum_{k=1}^n a_k\varphi_k - f,\; \omega_i\right) = 0,\quad i=1,2,\ldots,n$$

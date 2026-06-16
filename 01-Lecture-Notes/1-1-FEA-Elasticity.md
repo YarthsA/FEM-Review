@@ -205,7 +205,7 @@ $$\boldsymbol{\sigma} = \begin{pmatrix} \sigma_x \\ \sigma_y \\ \sigma_z \\ \tau
 三类方程（几何 + 物理 + 平衡）形成**15 个方程 = 15 个未知量**的封闭体系。
 
 #### 几何方程（位移-应变关系）
-$$\boldsymbol{\varepsilon} = [\partial]\mathbf{u}$$
+$$\boxed{\boldsymbol{\varepsilon} = [\partial]\mathbf{u}}$$
 
 > ⚠️ **难点**：微分算子矩阵 $[\partial]$ 的写法是这个方程最容易出错的地方。注意这里 $[\partial]$ 是 6×3 矩阵（因为应变 6 行 × 位移 3 列），等式左边是 6×1 的应变向量，右边是 6×3 的矩阵乘 3×1 的位移向量。对应地，平衡方程中 $[\partial]^T$ 是 3×6 矩阵。两个方程是"共轭"关系——几何方程告诉你"位移的梯度=应变"，平衡方程告诉你"应力的散度=体力"。
 
@@ -227,7 +227,7 @@ $$\gamma_{xy} = \frac{\partial u}{\partial y} + \frac{\partial v}{\partial x},\;
 
 #### 物理方程（应力-应变关系 / 本构方程）
 
-$$\boldsymbol{\sigma} = \mathbf{D}\boldsymbol{\varepsilon}$$
+$$\boxed{\boldsymbol{\sigma} = \mathbf{D}\boldsymbol{\varepsilon}}$$
 
 弹性矩阵 $\mathbf{D}$（Lame 常数形式）：
 $$\mathbf{D} = \begin{pmatrix}
@@ -249,7 +249,7 @@ $$\mathbf{D} = \begin{pmatrix}
 
 其中 $\mathbf{f} = (f_x, f_y, f_z)^T$ 为单位体积上的体力向量（如重力）。
 
-$$[\partial]^T\boldsymbol{\sigma} + \mathbf{f} = \mathbf{0}$$
+$$\boxed{[\partial]^T\boldsymbol{\sigma} + \mathbf{f} = \mathbf{0}}$$
 
 展开为：
 $$\frac{\partial\sigma_x}{\partial x} + \frac{\partial\tau_{xy}}{\partial y} + \frac{\partial\tau_{zx}}{\partial z} + f_x = 0$$
@@ -277,7 +277,7 @@ $$\frac{\partial\tau_{zx}}{\partial x} + \frac{\partial\tau_{yz}}{\partial y} + 
 
 其中 $\Omega$ 为弹性体占据的体积域。
 
-$$\Pi = \int_\Omega \frac12\boldsymbol{\varepsilon}^T\mathbf{D}\boldsymbol{\varepsilon}\,dV - \int_\Omega \mathbf{u}^T\mathbf{f}\,dV - \int_{S_\sigma} \mathbf{u}^T\mathbf{T}\,dS$$
+$$\boxed{\Pi = \int_\Omega \frac12\boldsymbol{\varepsilon}^T\mathbf{D}\boldsymbol{\varepsilon}\,dV - \int_\Omega \mathbf{u}^T\mathbf{f}\,dV - \int_{S_\sigma} \mathbf{u}^T\mathbf{T}\,dS}$$
 
 - 第一项：应变能
 - 第二项：体力势能
@@ -501,7 +501,7 @@ $K_{ij} = K_{ji}$。来源于 **Betti 互等定理**——节点 $i$ 处单位�
 
 将杆单元节点坐标从 $x_i$、$x_j$ 映射到自然坐标 $\xi \in [-1, 1]$：
 
-$$\xi = \frac{2x - (x_i + x_j)}{l}$$
+$$\xi = \frac{(x_i+x_j) - 2x}{l}$$
 
 其中 $l = x_j - x_i$ 为杆长。该映射将 $x_i \to -1$、中点 $(x_i+x_j)/2 \to 0$、$x_j \to 1$。
 

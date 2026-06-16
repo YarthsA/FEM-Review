@@ -4,6 +4,23 @@
 > **相关作业**：[HW2 Q1-Q4](../04-Homework-Solutions/2026w/HW2-Problem.md) · [HW3 Q3（弹性地基梁变分推导）](../04-Homework-Solutions/2026w/HW3-Problem.md)
 > **前置知识**：微积分（微分定义、分部积分、ODE 求解）、线性代数
 
+> **📋 考试范围覆盖**
+>
+> | 本讲义章节 | 考试大纲考点 |
+> |-----------|-------------|
+> | §3.2 泛函 | [Var. Princ.] Functional |
+> | §3.3 变分 | [Var. Princ.] Variation of functional; [Var. Princ.] Functional extremum |
+> | §3.4 最简单的 Euler 方程 | [Var. Princ.] Euler equation |
+> | §3.4.7 本质与自然边界条件 | [Var. Princ.] Essential and natural boundary conditions |
+> | §3.4.9 条件极值与 Lagrange 乘子 | [Var. Princ.] Conditional extremum of functional |
+> | §3.5 更一般的 Euler 方程 | [Var. Princ.] Extended forms of Euler equation |
+> | §3.6 变分法在力学中的应用 | [Var. Princ.] Applications of variation method in mechanics |
+> | §3.8.3 虚功原理 | [Var. Princ.] Principle of virtual work; Permissible/virtual displacement and stress |
+> | §3.8.4 虚位移/虚应力原理 | [Var. Princ.] Principle of virtual displacement / virtual stress |
+> | §3.8.5 最小势能原理 | [Var. Princ.] Principle of minimum potential energy |
+> | §3.8.6 弹性力学 Euler 方程 | [Var. Princ.] Euler equations in elastic mechanics |
+> | §3.8.7 直接法与间接法 | [Var. Princ.] Direct and indirect methods of variation problems |
+
 ---
 
 ## 3.1 引言
@@ -215,7 +232,7 @@ $$\Delta Q = \int_a^b[(y+\delta y)^2 - y^2]dx = \int_a^b 2y\delta y\,dx + \int_a
 **定义二（Lagrange 法）**：
 $$\varphi(\alpha) = Q[y(x)+\alpha\delta y]$$
 则：
-$$\delta Q = \left.\frac{\partial\varphi}{\partial\alpha}\right|_{\alpha=0} = \left.\frac{\partial}{\partial\alpha}Q[y+\alpha\delta y]\right|_{\alpha=0}$$
+$$\boxed{\delta Q = \left.\frac{\partial\varphi}{\partial\alpha}\right|_{\alpha=0} = \left.\frac{\partial}{\partial\alpha}Q[y+\alpha\delta y]\right|_{\alpha=0}}$$
 
 这个定义在计算中非常方便——对参数 $\alpha$ 求导再令 $\alpha=0$ 即可，不需要手动分解。
 
@@ -231,7 +248,7 @@ $$\delta Q = \left.\frac{\partial\varphi}{\partial\alpha}\right|_{\alpha=0} = \l
 **弱极值**：在一阶 $\varepsilon$ 邻域内成立，要求 $|y(x)-y_0(x)|\leq\varepsilon$ **且** $|y'(x)-y_0'(x)|\leq\varepsilon$。
 
 泛函极值的**必要条件**（类比函数极值的 $dy=0$）：
-$$\delta Q = 0$$
+$$\boxed{\delta Q = 0}$$
 
 即泛函的一阶变分为零。
 
@@ -289,7 +306,7 @@ $$\int_a^b F_{y'}\eta' dx = F_{y'}\eta\Big|_a^b - \int_a^b \eta\frac{d}{dx}F_{y'
 $$\int_a^b \left(F_y - \frac{d}{dx}F_{y'}\right)\eta(x)dx = 0$$
 
 由变分法预备定理，被积函数必须恒为零：
-$$F_y - \frac{d}{dx}F_{y'} = 0$$
+$$\boxed{F_y - \frac{d}{dx}F_{y'} = 0}$$
 
 > 注意：Euler 方程只是泛函取极值的**必要条件**而非充分条件。但对于大多数工程问题，物理背景提供了直观判断，不需要验证充分性。
 
@@ -317,7 +334,7 @@ Euler 方程：$x^2 - \frac{d}{dx}(2y') = 0$ → $2y'' = x^2$ → $y'' = \frac12
 
 
 **首次积分**：当 $F=F(y,y')$ 时：
-$$F - y'F_{y'} = C$$
+$$\boxed{F - y'F_{y'} = C}$$
 
 **证明**：
 $$\frac{d}{dx}(F - y'F_{y'}) = F_yy' + F_{y'}y'' - y''F_{y'} - y'(F_{y'y}y' + F_{y'y'}y'') = y'(F_y - \frac{d}{dx}F_{y'}) = 0$$
@@ -439,7 +456,7 @@ $$\boxed{F_y - \frac{d}{dx}F_{y'} + \frac{d^2}{dx^2}F_{y''} - \cdots + (-1)^n\fr
 $$\delta Q = \int_a^b \left[\delta y_1\left(F_{y_1} - \frac{d}{dx}F_{y_1'}\right) + \cdots + \delta y_n\left(F_{y_n} - \frac{d}{dx}F_{y_n'}\right)\right]dx = 0$$
 
 由于 $\delta y_i$ 可独立任意选取，令 $\delta y_2 = \cdots = \delta y_n = 0$，得：
-$$F_{y_i} - \frac{d}{dx}F_{y_i'} = 0,\quad i = 1, 2, \ldots, n$$
+$$\boxed{F_{y_i} - \frac{d}{dx}F_{y_i'} = 0,\quad i = 1, 2, \ldots, n}$$
 
 即每个 $y_i$ 独立满足 Euler 方程。
 
