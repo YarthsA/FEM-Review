@@ -104,7 +104,7 @@ FEM-Review/
 
 ## 考试范围
 
-> 基于课件截图整理，详见 [exam-scope.md](../exam/exam-scope.md)
+> 基于课件截图整理
 
 ### 一、Tensor（张量）
 
@@ -178,9 +178,8 @@ FEM-Review/
 
 ## 补充资料
 
-- **课件全文转录**：`courses/FEM/md_output/` — 6 份课件 PDF 完整转换为 Markdown，含所有公式和图片引用
-- **补充习题**：`courses/FEM/others/md_output/` — 往年作业题目与答案
-- **原始知识库**：`courses/FEM/knowledge_base/` — 本复习资料的原始素材来源
+- **往年参考答案**：[LIU Sai 答案](06-References/往年参考答案-LIU-Sai.md) — 往年作业答案及概念定义
+- **变分原理术语简答**：[宫婷笔记](06-References/变分原理名词简答-宫婷.md) — 术语简答题集
 
 ---
 
