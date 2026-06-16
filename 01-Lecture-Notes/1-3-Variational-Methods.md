@@ -449,6 +449,38 @@ $$\boxed{F_y^* - \frac{d}{dx}F_{y'}^* = 0}$$
 
 通解含 2 个积分常数和 $\lambda$，由 2 个边界条件 + 等周条件确定。
 
+**具体算例：固定周长的最宽围栏**
+
+**问题**：在 $x=0$ 和 $x=1$ 处固定高度 $y(0)=y(1)=0$，围栏总弧长固定为 $L$。求曲线 $y(x)$ 使围出的面积最大。
+
+**泛函**（面积）：$Q[y] = \int_0^1 y\,dx$
+
+**约束**（弧长）：$\int_0^1 \sqrt{1+y'^2}\,dx = L$
+
+**Step 1**：构造增广泛函
+
+$$Q^*[y] = \int_0^1 y\,dx + \lambda\left[\int_0^1 \sqrt{1+y'^2}\,dx - L\right] = \int_0^1 \left(y + \lambda\sqrt{1+y'^2}\right)dx - \lambda L$$
+
+其中 $F^* = y + \lambda\sqrt{1+y'^2}$。
+
+**Step 2**：列 Euler 方程
+
+$F^*_y = 1$，$F^*_{y'} = \dfrac{\lambda y'}{\sqrt{1+y'^2}}$
+
+$$1 - \frac{d}{dx}\left(\frac{\lambda y'}{\sqrt{1+y'^2}}\right) = 0$$
+
+**Step 3**：求解
+
+由于 $F^*$ 不显含 $x$，可用首次积分：$F^* - y'F^*_{y'} = C$
+
+$$y + \lambda\sqrt{1+y'^2} - y'\cdot\frac{\lambda y'}{\sqrt{1+y'^2}} = C$$
+
+化简得：$y + \dfrac{\lambda}{\sqrt{1+y'^2}} = C$
+
+令 $y' = \sinh t$，最终得解为**圆弧**——这正是等周定理的结论：固定周长下面积最大的封闭曲线是圆。
+
+> 💡 **理解关键**：$\lambda$ 的物理意义——它是弧长约束的"代价"。如果 $L$ 增大（允许更长的围栏），$\lambda$ 会变化，解出的圆弧半径也跟着变。在力学中，$\lambda$ 通常对应约束反力。
+
 
 > 💡 理解关键：Lagrange 乘子 $\lambda$ 本身往往有物理意义。在等周问题中 $\lambda$ 是一个常数；在力学约束问题中 $\lambda$ 通常是约束反力。考试时如果用乘子法求出了 $\lambda$，不妨想想它有没有物理解释。
 
