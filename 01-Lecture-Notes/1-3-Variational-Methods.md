@@ -236,6 +236,29 @@ $$\boxed{\delta Q = \left.\frac{\partial\varphi}{\partial\alpha}\right|_{\alpha=
 
 这个定义在计算中非常方便——对参数 $\alpha$ 求导再令 $\alpha=0$ 即可，不需要手动分解。
 
+> ⚠️ **重难点**：Lagrange 法是整个变分法的**核心计算工具**。后续 Euler 方程推导（§3.4）的五步全部基于此定义。考试中计算变分时**必须用 Lagrange 法**，不要用常规法——常规法需要手动分解线性部分和高阶部分，容易出错且效率低。
+
+**Lagrange 法操作步骤**（以 $Q[y]=\int_a^b F(x,y,y')dx$ 为例）：
+
+**Step 1**：构造扰动函数 $y+\alpha\delta y$，代入泛函：
+$$\varphi(\alpha) = Q[y+\alpha\delta y] = \int_a^b F(x,\; y+\alpha\delta y,\; y'+\alpha\delta y')dx$$
+
+**Step 2**：对 $\alpha$ 求导（在积分号下求导，利用链式法则）：
+$$\frac{d\varphi}{d\alpha} = \int_a^b \left[\frac{\partial F}{\partial y}\delta y + \frac{\partial F}{\partial y'}\delta y'\right]dx$$
+
+**Step 3**：令 $\alpha=0$：
+$$\delta Q = \left.\frac{d\varphi}{d\alpha}\right|_{\alpha=0} = \int_a^b \left[F_y\delta y + F_{y'}\delta y'\right]dx$$
+
+> 💡 **理解关键**：Lagrange 法的精髓是**引入参数 $\alpha$ 将泛函变分转化为普通函数求导**。$\alpha=0$ 对应原始函数 $y$，$\alpha\neq 0$ 对应扰动后的函数。对 $\alpha$ 求导再令 $\alpha=0$，等价于提取 $\delta y$ 的线性部分——这就是一阶变分的定义。
+
+**计算示例**：求 $Q[y]=\int_0^1 (y'^2 + xy)dx$ 的变分。
+
+Step 1：$\varphi(\alpha) = \int_0^1 [(y'+\alpha\delta y')^2 + x(y+\alpha\delta y)]dx$
+
+Step 2：$\dfrac{d\varphi}{d\alpha} = \int_0^1 [2(y'+\alpha\delta y')\delta y' + x\,\delta y]dx$
+
+Step 3：令 $\alpha=0$：$\delta Q = \int_0^1 [2y'\delta y' + x\,\delta y]dx$
+
 
 ### 3.3.8 泛函极值
 
