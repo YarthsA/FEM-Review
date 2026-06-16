@@ -1,160 +1,160 @@
-# Variation Method & Finite Element Analysis — Course Review Guide
+# 变分法与有限元分析 — 课程复习指南
 
-> **Shanghai Jiao Tong University · FEM Course (Civil Engineering)**
-> A systematically organized review repository based on lecture notes, homework assignments, and past reference solutions.
+> **上海交通大学 · 有限元方法课程（土木工程方向）**
+> 基于课堂笔记、作业及往年参考资料系统整理的复习资料库。
 
 ---
 
-## Repository Structure
+## 仓库结构
 
 ```
 FEM-Review/
 ├── 00-Cross-Reference/       ← 交叉引用索引（笔记→PDF→作业双向链接）
 │   └── index.md
 │
-├── 01-Lecture-Notes/          ← Chapter summaries (textbook-level depth)
-│   ├── 1-1-FEA-Elasticity.md        # FEA overview + fundamentals of elasticity
-│   ├── 1-2-Tensor-Elasticity.md     # Tensor notation + elasticity in tensor form
-│   ├── 1-3-Variational-Methods.md   # Variational calculus + Euler equations
-│   ├── 1-4-FEM-Theory.md            # Ritz method + weighted residuals + FEM origins
-│   ├── 1-5-FEM-Formulation.md       # CST element stiffness + global assembly
-│   └── 1-6-Element-Construction.md  # Shape functions + isoparametric + Gauss quadrature
+├── 01-Lecture-Notes/          ← 六章讲义笔记（教材级深度）
+│   ├── 1-1-FEA-Elasticity.md        # FEM 概述 + 弹性力学基础
+│   ├── 1-2-Tensor-Elasticity.md     # 张量分析 + 弹性力学张量形式
+│   ├── 1-3-Variational-Methods.md   # 变分法 + Euler 方程
+│   ├── 1-4-FEM-Theory.md            # Ritz 法 + 加权残量法 + FEM 起源
+│   ├── 1-5-FEM-Formulation.md       # CST 单元刚度矩阵 + 总刚组装
+│   └── 1-6-Element-Construction.md  # 形函数 + 等参元 + Gauss 积分
 │
-├── 02-Concepts-Formulas/      ← Glossary + formula reference
-│   └── 2-1-Concepts-Glossary.md     # 70+ definitions, comparison tables
+├── 02-Concepts-Formulas/      ← 概念术语表 + 公式参考
+│   └── 2-1-Concepts-Glossary.md     # 70+ 条定义、对比表
 │
-├── 03-Problem-Templates/      ← Problem taxonomy + solution strategies
-│   └── 3-1-Solving-Guide.md        # 5 problem types, step-by-step templates
+├── 03-Problem-Templates/      ← 题型分类 + 解题策略
+│   └── 3-1-Solving-Guide.md        # 5 类题型、分步解题模板
 │
-├── 04-Homework-Solutions/     ← Problems + solutions (current & past)
-│   ├── 2026w/                       # Current year (problem + solution pairs)
-│   │   ├── HW1-Problem.md          # Problem statement
-│   │   ├── HW1-Solution.md         # Full solution
-│   │   ├── HW2-Problem.md          # Problem statement
-│   │   ├── HW2-Solution.md         # Full solution
-│   │   ├── HW3-Problem.md          # Problem statement
-│   │   ├── HW3-Solution.md         # Full solution
-│   │   ├── HW4-Problem.md          # Problem statement
-│   │   └── HW4-Solution.md         # Full solution
-│   └── past/                        # Past years — for reference & extra practice
-│       ├── HW2/                     # Old HW2 problem + LIU Sai's solution
-│       ├── HW3/                     # Old HW3 (two versions) + LIU Sai's solution
-│       └── comprehensive/           # HowardWoolley's full answer book + HW1.1/1.2
+├── 04-Homework-Solutions/     ← 作业题目与详解
+│   ├── 2026w/                       # 本学年（题目+详解配对）
+│   │   ├── HW1-Problem.md          # 作业题目
+│   │   ├── HW1-Solution.md         # 完整解答
+│   │   ├── HW2-Problem.md          # 作业题目
+│   │   ├── HW2-Solution.md         # 完整解答
+│   │   ├── HW3-Problem.md          # 作业题目
+│   │   ├── HW3-Solution.md         # 完整解答
+│   │   ├── HW4-Problem.md          # 作业题目
+│   │   └── HW4-Solution.md         # 完整解答
+│   └── past/                        # 往年作业 — 参考与补充练习
+│       ├── HW2/                     # 往年 HW2 题目 + LIU Sai 答案
+│       ├── HW3/                     # 往年 HW3（两版）+ LIU Sai 答案
+│       └── comprehensive/           # HowardWoolley 完整答案本 + HW1.1/1.2
 │
-├── 05-Exam-Cram/              ← Condensed reference for last-minute review
-│   └── 5-1-Formula-Sheet.md       # One-page formula summary + proof templates
+├── 05-Exam-Cram/              ← 考前公式速查
+│   └── 5-1-Formula-Sheet.md       # 一页纸公式速查 + 证明模板
 │
-├── 06-References/            ← Historical reference materials
-│   ├── 往年参考答案-LIU-Sai.md       # Past homework solutions with concept definitions
-│   └── 变分原理名词简答-宫婷.md      # Terminology Q&A collection
+├── 06-References/            ← 参考资料
+│   ├── 往年参考答案-LIU-Sai.md       # 往年作业答案 + 概念定义
+│   └── 变分原理名词简答-宫婷.md      # 术语简答题集
 │
-└── README.md                  ← This file
+└── README.md                  ← 本文件
 ```
 
 ---
 
-## Review Strategy
+## 复习策略
 
-The material is organized into three sequential phases. Each phase builds on the previous one; mastery of earlier topics is assumed in later sections.
+资料按三个阶段组织，由浅入深、循序渐进。
 
-### Phase I: Systematic Understanding
+### 第一阶段：系统理解
 
-Work through the six lecture-note chapters in order. Each note is a structured summary that extracts the core concepts, key formulas, and important procedures from the original course slides.
+按顺序通读六章讲义笔记。每章笔记从课件中提炼核心概念、关键公式和重要推导过程。
 
-| Step | Topic | Core Objectives |
-|------|-------|-----------------|
-| ① | [FEA & Elasticity](01-Lecture-Notes/1-1-FEA-Elasticity.md) | — Understand what FEM is and why it is needed<br/>— Know the three fundamental equations of elasticity (geometric, constitutive, equilibrium) in both matrix and tensor forms<br/>— Understand the principle of minimum potential energy |
-| ② | [Tensor Analysis](01-Lecture-Notes/1-2-Tensor-Elasticity.md) | — Master Einstein summation convention and index notation<br/>— Understand Kronecker delta ($\delta_{ij}$) and permutation symbol ($e_{ijk}$) identities<br/>— Know tensor transformation laws under coordinate rotation |
-| ③ | [Variational Calculus](01-Lecture-Notes/1-3-Variational-Methods.md) | — Define functionals, variation, linear functionals<br/>— Derive the Euler-Lagrange equation from $\delta Q=0$<br/>— Generalize to higher-order derivatives and multiple independent functions |
-| ④ | [FEM Theory](01-Lecture-Notes/1-4-FEM-Theory.md) | — Understand Ritz method: trial functions → energy minimization → linear system<br/>— Understand Galerkin method: weighted residuals with basis functions as weights<br/>— Distinguish the three perspectives on FEM (matrix method, variational, weighted residuals) |
-| ⑤ | [FEM Formulation](01-Lecture-Notes/1-5-FEM-Formulation.md) | — Derive the CST (constant strain triangle) element stiffness matrix step by step<br/>— Assemble the global stiffness matrix from element contributions<br/>— Handle boundary conditions and solve $[K]\{\delta\}=\{F\}$ |
-| ⑥ | [Element Construction](01-Lecture-Notes/1-6-Element-Construction.md) | — Construct Lagrange (nodal displacement only) and Hermite (displacement + rotation) shape functions<br/>— Understand the isoparametric concept and Jacobian transformation<br/>— Apply Gauss quadrature for numerical integration |
+| 步骤 | 主题 | 核心目标 |
+|------|------|---------|
+| ① | [FEM 与弹性力学](01-Lecture-Notes/1-1-FEA-Elasticity.md) | 理解 FEM 的本质与必要性；掌握弹性力学三大基本方程（几何、本构、平衡）的矩阵与张量形式；理解最小势能原理 |
+| ② | [张量分析](01-Lecture-Notes/1-2-Tensor-Elasticity.md) | 掌握 Einstein 求和约定与指标记法；理解 Kronecker δ 和 Levi-Civita 置换符号的恒等式；掌握张量在坐标旋转下的变换律 |
+| ③ | [变分法](01-Lecture-Notes/1-3-Variational-Methods.md) | 定义泛函、变分、线性泛函；从 δQ=0 推导 Euler-Lagrange 方程；推广到高阶导数和多变量情形 |
+| ④ | [FEM 理论](01-Lecture-Notes/1-4-FEM-Theory.md) | 理解 Ritz 法：试函数→能量极小→线性方程组；理解 Galerkin 法：以基函数为权函数的加权残量法；区分 FEM 的三种理解途径 |
+| ⑤ | [FEM 公式推导](01-Lecture-Notes/1-5-FEM-Formulation.md) | 逐步推导 CST（常应变三角形）单元刚度矩阵；从单元贡献组装总体刚度矩阵；引入边界条件并求解 [K]{δ}={F} |
+| ⑥ | [单元构造](01-Lecture-Notes/1-6-Element-Construction.md) | 构造 Lagrange（仅位移）和 Hermite（位移+转角）形函数；理解等参元概念与 Jacobian 变换；应用 Gauss 数值积分 |
 
-**Expected outcome after Phase I**: You can explain each core concept in your own words and write down the key formulas from memory.
+**第一阶段目标**：能用自己的语言解释每个核心概念，并能从记忆中写出关键公式。
 
-### Phase II: Problem Solving
+### 第二阶段：解题训练
 
-Apply the theory to concrete problems. The homework solutions are the primary vehicle; past reference solutions provide additional practice and expose alternative solution styles.
+将理论应用于具体题目。以作业详解为主线，往年参考答案提供补充练习。
 
-| Step | Materials | Focus |
-|------|-----------|-------|
-| ① | [Problem-solving guide](03-Problem-Templates/3-1-Solving-Guide.md) | Familiarize yourself with the 5 problem categories and the recommended strategy for each |
-| ② | [HW1 solution](04-Homework-Solutions/2026w/HW1-Solution.md) | Tensor identity proofs ($\varepsilon$-$\delta$ identities), index contraction exercises |
-| ③ | [HW2 solution](04-Homework-Solutions/2026w/HW2-Solution.md) | Euler equation derivation and ODE solving; Lagrange multiplier method for constrained extrema |
-| ④ | [HW3 solution](04-Homework-Solutions/2026w/HW3-Solution.md) | Galerkin method trial-function validity; elastic foundation beam; Hermite beam element shape functions |
-| ⑤ | [Past reference solutions](06-References/往年参考答案-LIU-Sai.md) | Additional practice: Ritz vs Galerkin numerical examples, concept definitions with scoring hints |
+| 步骤 | 资料 | 重点 |
+|------|------|------|
+| ① | [解题指南](03-Problem-Templates/3-1-Solving-Guide.md) | 熟悉 5 类题型及各自的解题策略 |
+| ② | [HW1 解答](04-Homework-Solutions/2026w/HW1-Solution.md) | 张量恒等式证明（ε-δ 恒等式）、指标缩并练习 |
+| ③ | [HW2 解答](04-Homework-Solutions/2026w/HW2-Solution.md) | Euler 方程推导与 ODE 求解；Lagrange 乘子法求条件极值 |
+| ④ | [HW3 解答](04-Homework-Solutions/2026w/HW3-Solution.md) | Galerkin 法试函数合法性验证；弹性地基梁；Hermite 梁单元形函数 |
+| ⑤ | [往年参考答案](06-References/往年参考答案-LIU-Sai.md) | 补充练习：Ritz vs Galerkin 数值算例、概念定义及评分要点 |
 
-**Recommended practice routine**: Attempt each problem independently before consulting the solution. Compare your derivation step-by-step with the solution, paying special attention to:
-- Where integration by parts is applied and how boundary terms vanish
-- How boundary conditions are incorporated (essential vs natural)
-- The handling of non-homogeneous boundary conditions (e.g., $y(1)=1$ in HW2 Q4)
+**练习建议**：先独立尝试每道题，再对照解答。重点关注：
+- 分部积分的应用位置及边界项消失的条件
+- 本质边界条件与自然边界条件的处理方式
+- 非齐次边界条件（如 HW2 Q4 中 y(1)=1）的处理
 
-### Phase III: Consolidation & Exam Preparation
+### 第三阶段：巩固与考前冲刺
 
-Synthesize the material into a compact mental model.
+将知识整合为紧凑的心智模型。
 
-| Step | Materials | Focus |
-|------|-----------|-------|
-| ① | [Concepts glossary](02-Concepts-Formulas/2-1-Concepts-Glossary.md) | Review all definitions systematically. Aim to produce a concise definition and one illustrative example for each entry |
-| ② | [Formula sheet](05-Exam-Cram/5-1-Formula-Sheet.md) | Commit the one-page summary to memory. Verify you can reconstruct each formula from first principles |
-| ③ | Proof templates (within Formula Sheet) | Practice the four canonical derivations until they can be produced without notes |
-
----
-
-## Exam Topic Analysis
-
-Based on lecture content and past exam patterns, the following hierarchy of importance emerges:
-
-### Tier 1 — Core (appear near-universally)
-- **CST element stiffness matrix calculation**: full pipeline $[N] \to [B] \to [k]_e = t\Delta_e[B]^T[D][B]$
-- **Euler-Lagrange equation derivation**: $\delta Q=0 \to$ integration by parts $\to$ fundamental lemma $\to$ $F_y - \frac{d}{dx}F_{y'} = 0$
-- **Ritz method for functional extremum**: trial function selection, energy minimization, linear system solution
-- **Conceptual comparisons**: Ritz vs Galerkin, displacement element lower-bound property, isoparametric/superparametric/subparametric elements
-
-### Tier 2 — High frequency
-- Tensor identities ($\varepsilon$-$\delta$ relations, proving tensor character of a quantity)
-- Weighted residual method family (Galerkin, least squares, collocation, subdomain, moment — accuracy comparison)
-- Shape function construction (Lagrange vs Hermite interpolation)
-- Global stiffness matrix assembly procedure
-- Principle of minimum potential energy and principle of virtual work
-
-### Tier 3 — Moderate frequency
-- Isoparametric element concept and Jacobian matrix
-- Gauss quadrature: point locations, weights, and order of accuracy
-- Strain energy, complementary energy, total potential energy
-- Essential vs natural boundary conditions
+| 步骤 | 资料 | 重点 |
+|------|------|------|
+| ① | [概念速查表](02-Concepts-Formulas/2-1-Concepts-Glossary.md) | 系统回顾所有定义，能为每个条目写出简洁定义和一个示例 |
+| ② | [公式速查表](05-Exam-Cram/5-1-Formula-Sheet.md) | 背诵一页纸公式速查，能从基本原理重建每个公式 |
+| ③ | 证明模板（速查表内） | 练习四个经典推导，做到不看笔记也能写出来 |
 
 ---
 
-## Common Pitfalls
+## 考试重点分析
 
-| Pitfall | Correction | Reference |
-|---------|-----------|-----------|
-| Element node numbering order | Must be **counter-clockwise**; otherwise element area $\Delta_e$ becomes negative | §1-5 |
-| Solving $[K]\{\delta\}=\{F\}$ without boundary conditions | The global stiffness matrix is singular until rigid-body modes are eliminated | §1-5 |
-| Confusing plane stress with plane strain | Thin plate → plane stress ($\sigma_z=0$); thick/long structure → plane strain ($\varepsilon_z=0$) | §1-5 |
-| Ritz vs Galerkin trial-function requirements | Ritz: displacement BC only; Galerkin: **all** BCs (displacement + traction) | §1-4 |
-| Jacobian determinant changing sign | Element is excessively distorted; remesh | §1-6 |
-| Testing linearity of a functional | Must satisfy **both** homogeneity $Q[cy]=cQ[y]$ **and** additivity $Q[y_1+y_2]=Q[y_1]+Q[y_2]$ | §1-3 |
-| Confusing $w'''(l)=0$ (shear-free) condition | Verify all boundary conditions, not just the displacement ones, when assessing trial-function admissibility | §1-4 |
+根据课件内容和往年考题规律，重要性排序如下：
 
----
+### 第一梯队 — 核心（几乎必考）
+- **CST 单元刚度矩阵计算**：完整流程 [N] → [B] → [k]_e = tΔ_e[B]^T[D][B]
+- **Euler-Lagrange 方程推导**：δQ=0 → 分部积分 → 预备定理 → F_y - d/dx(F_{y'}) = 0
+- **Ritz 法求泛函极值**：试函数选取、能量极小化、线性方程组求解
+- **概念对比**：Ritz vs Galerkin、位移元下限性、等参元/超参元/次参元
 
-## Supplementary Materials
+### 第二梯队 — 高频考点
+- 张量恒等式（ε-δ 关系、证明某量是张量）
+- 加权残量法族（Galerkin、最小二乘、配点、子域、矩法 — 精度对比）
+- 形函数构造（Lagrange vs Hermite 插值）
+- 总体刚度矩阵组装过程
+- 最小势能原理与虚功原理
 
-- **Full transcripts from slides**: `courses/FEM/md_output/` — complete conversion of 6 lecture PDFs to Markdown, including all formulas and image references
-- **Additional exercises**: `courses/FEM/others/md_output/` — past homework papers and solutions
-- **Original knowledge base**: `courses/FEM/knowledge_base/` — the working knowledge base from which this review was distilled
-
----
-
-## Notes on Use
-
-- Files are formatted in standard Markdown with LaTeX math delimiters (`$$` for display, `$` for inline). Render with any Markdown-compatible viewer (VS Code, Typora, GitHub).
-- References to `§1-5` etc. refer to sections within the corresponding lecture-note file.
-- This repository reflects the Spring 2026 offering of the course. Syllabi and emphasis may vary between years; consult the current lecture for the definitive topic list.
-- Corrections and additions are welcome. Please open an issue or submit a PR.
+### 第三梯队 — 中频考点
+- 等参元概念与 Jacobian 矩阵
+- Gauss 积分：积分点位置、权系数、代数精度
+- 应变能、余能、总势能
+- 本质边界条件与自然边界条件的区别
 
 ---
 
-> Compiled June 2026 · *Variation Method & FEA — SJTU*
+## 常见易错点
+
+| 易错点 | 正确做法 | 参考章节 |
+|--------|---------|---------|
+| 单元节点编号顺序 | 必须**逆时针**排列，否则面积 Δ_e 为负 | §1-5 |
+| 未加边界条件就求解 [K]{δ}={F} | 总刚在消除刚体位移前是奇异的 | §1-5 |
+| 混淆平面应力与平面应变 | 薄板→平面应力(σ_z=0)；厚/长体→平面应变(ε_z=0) | §1-5 |
+| Ritz vs Galerkin 试函数要求 | Ritz：仅需满足位移 BC；Galerkin：需满足**全部** BC | §1-4 |
+| Jacobian 行列式变号 | 单元过度扭曲，需重新划分网格 | §1-6 |
+| 验证泛函线性性 | 必须同时满足齐次性 Q[cy]=cQ[y] **和** 可加性 Q[y₁+y₂]=Q[y₁]+Q[y₂] | §1-3 |
+| 漏验 w'''(l)=0 条件 | 评估试函数合法性时，必须验证**所有**边界条件，不仅仅是位移条件 | §1-4 |
+
+---
+
+## 补充资料
+
+- **课件全文转录**：`courses/FEM/md_output/` — 6 份课件 PDF 完整转换为 Markdown，含所有公式和图片引用
+- **补充习题**：`courses/FEM/others/md_output/` — 往年作业题目与答案
+- **原始知识库**：`courses/FEM/knowledge_base/` — 本复习资料的原始素材来源
+
+---
+
+## 使用说明
+
+- 文件采用标准 Markdown 格式，数学公式使用 LaTeX 语法（`$$` 显示公式，`$` 行内公式）。可用 VS Code、Typora、GitHub 等任何 Markdown 查看器渲染。
+- `§1-5` 等引用指向对应讲义笔记中的章节。
+- 本仓库基于 2026 年春季学期课程整理，不同年份的考试范围和侧重点可能有所不同，请以当年课堂内容为准。
+- 欢迎纠错和补充，欢迎提 Issue 或 PR。
+
+---
+
+> 整理于 2026 年 6 月 · *上海交通大学 · 变分法与有限元分析*
