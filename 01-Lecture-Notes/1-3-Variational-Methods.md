@@ -381,10 +381,10 @@ $$\int_a^b\left(F_y - \frac{d}{dx}F_{y'}\right)\delta y\,dx = 0 \quad\Rightarrow
 前面讨论的边界条件（$y(a)=y_a$，$y(b)=y_b$）是预先定义和固定的，因此边界值与泛函的一阶变分无关。这类边界条件称为**本质边界条件**。
 
 现在考虑可变边界问题。变分结果为：
-$$\delta Q = \int_a^b\left(F_y - \frac{d}{dx}F_{y'}\right)\delta y\,dx + \left.F_{y'}\delta y\right|_a^b$$
+$$\boxed{\delta Q = \int_a^b\left(F_y - \frac{d}{dx}F_{y'}\right)\delta y\,dx + \left.F_{y'}\delta y\right|_a^b}$$
 
 第一项→Euler 方程必须成立。对于第二项，当 $x=a$ 和 $x=b$ 时，必须有：
-$$\left.\frac{\partial F}{\partial y'}\right|_{x=a} = 0,\quad \left.\frac{\partial F}{\partial y'}\right|_{x=b} = 0$$
+$$\boxed{\left.\frac{\partial F}{\partial y'}\right|_{x=a} = 0,\quad \left.\frac{\partial F}{\partial y'}\right|_{x=b} = 0}$$
 
 否则可以找到 $\delta y$ 使 $\delta Q \neq 0$。这类边界条件称为**自然边界条件**。
 
