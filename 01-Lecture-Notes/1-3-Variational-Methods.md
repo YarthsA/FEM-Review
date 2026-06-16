@@ -262,8 +262,8 @@ $$\boxed{\delta Q = 0}$$
 
 ### 3.4.1 变分法预备定理
 
-若函数 $f(x)$ 在 $[a,b]$ 上连续，且对任意满足 $\eta(a)=\eta(b)=0$ 且 $|\eta(x)|\leq\varepsilon$ 的具有连续导数的非零函数 $\eta(x)$，都有：
-$$\int_a^b f(x)\eta(x)dx = 0$$
+**变分法预备定理**：若函数 $f(x)$ 在 $[a,b]$ 上连续，且对任意满足 $\eta(a)=\eta(b)=0$ 且 $|\eta(x)|\leq\varepsilon$ 的具有连续导数的非零函数 $\eta(x)$，都有：
+$$\boxed{\int_a^b f(x)\eta(x)dx = 0}$$
 则 $f(x)$ 在 $[a,b]$ 上恒等于零。
 
 **描述性证明**（反证法）：若存在 $x_0\in(a,b)$ 使 $f(x_0)>0$，由连续性存在 $\delta>0$ 使当 $|x-x_0|<\delta$ 时 $f(x)>0$。构造一个在该区间内为正、其余为零的光滑函数 $\varphi(x)$，令 $\eta(x)=A\varphi(x)$（$A$ 为足够小的正数使 $|\eta(x)|\leq\varepsilon$）。则 $\int_a^b f(x)\eta(x)dx = \int_{x_0-\delta}^{x_0+\delta}f(x)\eta(x)dx > 0$，与假设矛盾。
@@ -415,12 +415,12 @@ $$\delta^2 Q = \frac12\int_a^b\left(\frac{\partial^2F}{\partial y^2}\delta y^2 +
 **例**：求泛函 $Q[y(x)] = \int_a^b F(x,y,y')dx$ 在等周条件 $\int_a^b \varphi(x,y,y')dx = \alpha$ 下的极值。
 
 构造新泛函：
-$$Q^*[y] = \int_a^b F(x,y,y')dx + \lambda\left[\int_a^b\varphi(x,y,y')dx - \alpha\right] = \int_a^b F^*(x,y,y',\lambda)dx - \lambda\alpha$$
+$$\boxed{Q^*[y] = \int_a^b F(x,y,y')dx + \lambda\left[\int_a^b\varphi(x,y,y')dx - \alpha\right] = \int_a^b F^*(x,y,y',\lambda)dx - \lambda\alpha}$$
 
 其中 $F^* = F + \lambda\varphi$，$\lambda$ 是 Lagrange 乘子。
 
 对应的 Euler 方程为：
-$$F_y^* - \frac{d}{dx}F_{y'}^* = 0$$
+$$\boxed{F_y^* - \frac{d}{dx}F_{y'}^* = 0}$$
 
 通解含 2 个积分常数和 $\lambda$，由 2 个边界条件 + 等周条件确定。
 
@@ -494,7 +494,7 @@ $$\frac{\partial^2 z}{\partial x^2} + \frac{\partial^2 z}{\partial y^2} = 0$$
 ### 3.6.2 Hamilton 原理
 
 当 $t=t_1$ 和 $t=t_2$ 时，质点分别位于 A 和 B。则其真实运动路径应使以下**作用量积分**取极值：
-$$S = \int_{t_1}^{t_2} (T - U)dt$$
+$$\boxed{S = \int_{t_1}^{t_2} (T - U)dt}$$
 
 其中 $T$ 是动能，$U$ 是势能，$T-U$ 称为 **Lagrange 函数**。
 
@@ -511,7 +511,7 @@ Hamilton 原理（1834）是力学的基本原理，可推出 Newton 三定律�
 Lagrange 函数 $L = T - U = L(t, q, \dot{q})$
 
 由 Hamilton 原理和 Euler 方程：
-$$\frac{\partial L}{\partial q_i} - \frac{d}{dt}\frac{\partial L}{\partial \dot{q}_i} = 0,\quad i=1,2,\ldots,K$$
+$$\boxed{\frac{\partial L}{\partial q_i} - \frac{d}{dt}\frac{\partial L}{\partial \dot{q}_i} = 0,\quad i=1,2,\ldots,K}$$
 
 这就是著名的 **Lagrange 方程**——在广义坐标下描述运动基本规律的方程。
 
@@ -635,7 +635,7 @@ $$\boxed{W = \int_{0}^{\varepsilon_{ij}} \sigma_{kl}\,d\varepsilon_{kl}}$$
 **几何意义**（以单向拉伸 $\sigma_x$-$\varepsilon_x$ 曲线为例）：$W$ 是应力-应变曲线与横轴围成的面积。
 
 对线弹性体，应力-应变呈线性关系：
-$$W = \frac{1}{2}\sigma_{kl}\varepsilon_{kl} = \frac{1}{2}C_{ijkl}\,\varepsilon_{ij}\varepsilon_{kl}$$
+$$\boxed{W = \frac{1}{2}\sigma_{kl}\varepsilon_{kl} = \frac{1}{2}C_{ijkl}\,\varepsilon_{ij}\varepsilon_{kl}}$$
 
 #### 3.8.2.2 余能密度 $W^*$
 
@@ -644,7 +644,7 @@ $$\boxed{W^* = \int_{0}^{\sigma_{ij}} \varepsilon_{kl}\,d\sigma_{kl}}$$
 **几何意义**：应力-应变曲线与纵轴围成的面积。
 
 显然有：
-$$W + W^* = \sigma_{kl}\varepsilon_{kl}$$
+$$\boxed{W + W^* = \sigma_{kl}\varepsilon_{kl}}$$
 
 对线弹性体：$W = W^*$（数值相等，但概念不同），且：
 $$W^* = \frac{1}{2}d_{ijkl}\,\sigma_{ij}\sigma_{kl}$$
@@ -677,7 +677,7 @@ $$\boxed{\varepsilon_{ij} = \frac{\partial W^*}{\partial \sigma_{ij}}}$$
 - 面力 $\bar{p}_i$（在力边界 $S_\sigma$ 上）
 
 对于**保守力系统**（力做功只与位移终值有关，与路径无关），外力势能 $V$ 定义为：
-$$V = -\int_V F_i u_i\,dV - \int_{S_\sigma} \bar{p}_i u_i\,dS$$
+$$\boxed{V = -\int_V F_i u_i\,dV - \int_{S_\sigma} \bar{p}_i u_i\,dS}$$
 
 > 保守力的物理意义：力对系统做正功 → 系统势能减少 → $A = -V$
 
@@ -829,7 +829,7 @@ $$\int_V F_i\delta u_i\,dV + \int_{S_\sigma} \bar{p}_i\delta u_i\,dS = \int_V \f
 $$\delta V = \delta\left(-\int_V F_i u_i\,dV - \int_{S_\sigma}\bar{p}_i u_i\,dS\right) = -\left(\int_V F_i\delta u_i\,dV + \int_{S_\sigma}\bar{p}_i\delta u_i\,dS\right)$$
 
 因此：
-$$\delta\Pi = \delta(U + V) = 0$$
+$$\boxed{\delta\Pi = \delta(U + V) = 0}$$
 
 这就是总势能的驻值条件。可进一步证明：
 

@@ -217,9 +217,9 @@ $$[\partial] = \begin{pmatrix}
 \end{pmatrix}^T$$
 
 展开为：
-$$\varepsilon_x = \frac{\partial u}{\partial x},\; \varepsilon_y = \frac{\partial v}{\partial y},\; \varepsilon_z = \frac{\partial w}{\partial z}$$
+$$\boxed{\varepsilon_x = \frac{\partial u}{\partial x}},\; \boxed{\varepsilon_y = \frac{\partial v}{\partial y}},\; \boxed{\varepsilon_z = \frac{\partial w}{\partial z}}$$
 
-$$\gamma_{xy} = \frac{\partial u}{\partial y} + \frac{\partial v}{\partial x},\; \gamma_{yz} = \frac{\partial v}{\partial z} + \frac{\partial w}{\partial y},\; \gamma_{zx} = \frac{\partial w}{\partial x} + \frac{\partial u}{\partial z}$$
+$$\boxed{\gamma_{xy} = \frac{\partial u}{\partial y} + \frac{\partial v}{\partial x}},\; \boxed{\gamma_{yz} = \frac{\partial v}{\partial z} + \frac{\partial w}{\partial y}},\; \boxed{\gamma_{zx} = \frac{\partial w}{\partial x} + \frac{\partial u}{\partial z}}$$
 
 物理意义：**应变是位移的空间梯度**。"正应变"描述线段长度的相对变化，"剪应变"描述夹角的变化。
 
@@ -230,14 +230,14 @@ $$\gamma_{xy} = \frac{\partial u}{\partial y} + \frac{\partial v}{\partial x},\;
 $$\boxed{\boldsymbol{\sigma} = \mathbf{D}\boldsymbol{\varepsilon}}$$
 
 弹性矩阵 $\mathbf{D}$（Lame 常数形式）：
-$$\mathbf{D} = \begin{pmatrix}
+$$\boxed{\mathbf{D} = \begin{pmatrix}
 \lambda+2G & \lambda & \lambda & 0 & 0 & 0 \\
 \lambda & \lambda+2G & \lambda & 0 & 0 & 0 \\
 \lambda & \lambda & \lambda+2G & 0 & 0 & 0 \\
 0 & 0 & 0 & G & 0 & 0 \\
 0 & 0 & 0 & 0 & G & 0 \\
 0 & 0 & 0 & 0 & 0 & G
-\end{pmatrix}$$
+\end{pmatrix}}$$
 
 其中 $E$ 为杨氏模量（弹性模量），$\nu$ 为泊松比（横向收缩系数）。Lame 常数：$\lambda = \frac{\nu E}{(1+\nu)(1-2\nu)}$，$G = \frac{E}{2(1+\nu)}$
 
@@ -252,9 +252,9 @@ $$\mathbf{D} = \begin{pmatrix}
 $$\boxed{[\partial]^T\boldsymbol{\sigma} + \mathbf{f} = \mathbf{0}}$$
 
 展开为：
-$$\frac{\partial\sigma_x}{\partial x} + \frac{\partial\tau_{xy}}{\partial y} + \frac{\partial\tau_{zx}}{\partial z} + f_x = 0$$
-$$\frac{\partial\tau_{xy}}{\partial x} + \frac{\partial\sigma_y}{\partial y} + \frac{\partial\tau_{yz}}{\partial z} + f_y = 0$$
-$$\frac{\partial\tau_{zx}}{\partial x} + \frac{\partial\tau_{yz}}{\partial y} + \frac{\partial\sigma_z}{\partial z} + f_z = 0$$
+$$\boxed{\frac{\partial\sigma_x}{\partial x} + \frac{\partial\tau_{xy}}{\partial y} + \frac{\partial\tau_{zx}}{\partial z} + f_x = 0}$$
+$$\boxed{\frac{\partial\tau_{xy}}{\partial x} + \frac{\partial\sigma_y}{\partial y} + \frac{\partial\tau_{yz}}{\partial z} + f_y = 0}$$
+$$\boxed{\frac{\partial\tau_{zx}}{\partial x} + \frac{\partial\tau_{yz}}{\partial y} + \frac{\partial\sigma_z}{\partial z} + f_z = 0}$$
 
 物理意义：**微元体上的应力散度与体力之和为零**——即微元体在每一方向受力平衡（Newton 第二定律在静力学下的形式）。
 
@@ -507,7 +507,7 @@ $$\xi = \frac{(x_i+x_j) - 2x}{l}$$
 
 形函数 $N_i$、$N_j$ 定义为在自然坐标下满足插值条件的线性函数：
 
-$$N_i(\xi) = \frac{1-\xi}{2},\quad N_j(\xi) = \frac{1+\xi}{2}$$
+$$\boxed{N_i(\xi) = \frac{1-\xi}{2},\quad N_j(\xi) = \frac{1+\xi}{2}}$$
 
 满足：$N_i(-1)=1,\; N_i(1)=0$；$N_j(-1)=0,\; N_j(1)=1$。
 
@@ -524,7 +524,7 @@ $$x = N_i(\xi)x_i + N_j(\xi)x_j$$
 
 ### 1.14.3 应变-位移关系（应变矩阵 B）
 
-$$\varepsilon = \frac{du}{dx} = \begin{bmatrix} \dfrac{dN_i}{dx} & \dfrac{dN_j}{dx} \end{bmatrix} \begin{Bmatrix} u_i \\ u_j \end{Bmatrix}$$
+$$\boxed{\varepsilon = \frac{du}{dx} = \begin{bmatrix} \dfrac{dN_i}{dx} & \dfrac{dN_j}{dx} \end{bmatrix} \begin{Bmatrix} u_i \\ u_j \end{Bmatrix}}$$
 
 计算形函数对 $x$ 的导数（链式法则）：
 
@@ -587,7 +587,7 @@ $$W = -\begin{bmatrix} u_i & u_j \end{bmatrix} \begin{Bmatrix} ql/2 + P_i \\ ql/
 
 总势能 $\Pi = U + W$：
 
-$$\Pi = \frac{1}{2}\mathbf{u}^T \mathbf{k} \mathbf{u} - \mathbf{u}^T \mathbf{f}$$
+$$\boxed{\Pi = \frac{1}{2}\mathbf{u}^T \mathbf{k} \mathbf{u} - \mathbf{u}^T \mathbf{f}}$$
 
 其中 $\mathbf{f} = \begin{Bmatrix} ql/2 + P_i \\ ql/2 + P_j \end{Bmatrix}$ 为等效节点力。
 

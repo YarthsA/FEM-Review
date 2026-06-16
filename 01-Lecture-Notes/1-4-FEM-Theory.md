@@ -295,14 +295,14 @@ $$\frac{\partial F}{\partial a_i} = 0 \;\Rightarrow\; \sum_{j=1}^n (\mathbf{T}\v
 
 写成矩阵形式：
 
-$$\begin{bmatrix}
+$$\boxed{\begin{bmatrix}
 (\mathbf{T}\varphi_1,\varphi_1) & (\mathbf{T}\varphi_1,\varphi_2) & \cdots & (\mathbf{T}\varphi_1,\varphi_n) \\
 (\mathbf{T}\varphi_2,\varphi_1) & (\mathbf{T}\varphi_2,\varphi_2) & \cdots & (\mathbf{T}\varphi_2,\varphi_n) \\
 \vdots & \vdots & \ddots & \vdots \\
 (\mathbf{T}\varphi_n,\varphi_1) & (\mathbf{T}\varphi_n,\varphi_2) & \cdots & (\mathbf{T}\varphi_n,\varphi_n)
 \end{bmatrix}
 \begin{bmatrix}a_1 \\ a_2 \\ \vdots \\ a_n\end{bmatrix}
-= \begin{bmatrix}(f,\varphi_1) \\ (f,\varphi_2) \\ \vdots \\ (f,\varphi_n)\end{bmatrix}$$
+= \begin{bmatrix}(f,\varphi_1) \\ (f,\varphi_2) \\ \vdots \\ (f,\varphi_n)\end{bmatrix}}$$
 
 简记为 $\boxed{\mathbf{K}\mathbf{a} = \mathbf{b}}$。
 

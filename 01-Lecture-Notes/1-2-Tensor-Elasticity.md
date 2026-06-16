@@ -239,10 +239,10 @@ $$\boxed{l_{i'k}l_{j'k} = \delta_{i'j'}} \qquad \boxed{l_{k'i}l_{k'j} = \delta_{
 #### 向量分量变换
 
 **旧到新**：
-$$a_{i'} = l_{i'j}a_j \quad (i' = 1,2,3)$$
+$$\boxed{a_{i'} = l_{i'j}a_j} \quad (i' = 1,2,3)$$
 
 **新到旧**：
-$$a_i = l_{ij'}a_{j'} \quad (i = 1,2,3)$$
+$$\boxed{a_i = l_{ij'}a_{j'}} \quad (i = 1,2,3)$$
 
 **推导**：由向量不变性 $\mathbf{a} = a_i\mathbf{e}_i = a_{i'}\mathbf{e}_{i'}'$，代入 $\mathbf{e}_{i'}' = l_{i'j}\mathbf{e}_j$：
 $$a_i\mathbf{e}_i = a_{i'}l_{i'j}\mathbf{e}_j = a_{i'}l_{i'i}\mathbf{e}_i \;\Rightarrow\; a_i = l_{i'i}a_{i'}$$
@@ -264,7 +264,7 @@ $$\mathbf{e}^T\mathbf{A}\mathbf{a} = \mathbf{e}'^T\mathbf{L}\mathbf{A}\mathbf{L}
 $$\boxed{\mathbf{A}' = \mathbf{L}\mathbf{A}\mathbf{L}^T}$$
 
 用指标记号写出：
-$$a_{i'j'} = a_{mn}l_{i'm}l_{j'n}$$
+$$\boxed{a_{i'j'} = a_{mn}l_{i'm}l_{j'n}}$$
 
 
 > 这就是二阶张量分量变换律的来源！可以说，**满足此变换律的矩阵就是二阶张量**。
@@ -272,13 +272,13 @@ $$a_{i'j'} = a_{mn}l_{i'm}l_{j'n}$$
 #### 标量积与向量积
 
 **标量积（点积）**：
-$$\mathbf{a}\cdot\mathbf{b} = (a_i\mathbf{e}_i)\cdot(b_j\mathbf{e}_j) = a_i b_j (\mathbf{e}_i\cdot\mathbf{e}_j) = a_i b_j \delta_{ij} = a_i b_i$$
+$$\boxed{\mathbf{a}\cdot\mathbf{b} = a_i b_i}$$
 
 **正交基条件**：$\mathbf{e}_i \cdot \mathbf{e}_j = \delta_{ij}$，由此可进一步证明
-$$l_{k'i}l_{k'j} = \delta_{ij}$$
+$$\boxed{l_{k'i}l_{k'j} = \delta_{ij}}$$
 
 **向量积（叉积）**：
-$$(\mathbf{a}\times\mathbf{b})_i = e_{ijk}a_j b_k$$
+$$\boxed{(\mathbf{a}\times\mathbf{b})_i = e_{ijk}a_j b_k}$$
 
 #### $\delta_{ij}$-$e_{ijk}$ 恒等式的证明
 
@@ -1014,11 +1014,11 @@ $$\boxed{G = \mu = \frac{E}{2(1+\nu)}}$$
 **三种边界条件**：
 
 1. **应力边界条件**（在 $S_\sigma$ 上）：
-   $$\sigma_{ij}l_j = \overline{p}_i$$
+   $$\boxed{\sigma_{ij}l_j = \overline{p}_i}$$
    式中 $\overline{p}_i$ 为边界上给定的面力分量。
 
 2. **位移边界条件**（在 $S_u$ 上）：
-   $$u_i = \overline{u}_i$$
+   $$\boxed{u_i = \overline{u}_i}$$
    式中 $\overline{u}_i$ 为边界上给定的位移分布。
 
 3. **混合边界条件**：部分边界给应力条件 $S_\sigma$，其余部分给位移条件 $S_u$。注意：
@@ -1135,11 +1135,11 @@ $$[\partial] = \begin{bmatrix} \frac{\partial}{\partial x} & 0 & 0 \\ 0 & \frac{
 
 则三大基本方程的矩阵算子形式为：
 
-**平衡方程**：$[\partial]^T\{\boldsymbol{\sigma}\} + \{F\} = 0$
+**平衡方程**：$\boxed{[\partial]^T\{\boldsymbol{\sigma}\} + \{F\} = 0}$
 
-**几何方程**：$\{\boldsymbol{\varepsilon}\} = [\partial]\{\mathbf{u}\}$
+**几何方程**：$\boxed{\{\boldsymbol{\varepsilon}\} = [\partial]\{\mathbf{u}\}}$
 
-**本构方程**：$\{\boldsymbol{\sigma}\} = [\mathbf{C}]\{\boldsymbol{\varepsilon}\}$
+**本构方程**：$\boxed{\{\boldsymbol{\sigma}\} = [\mathbf{C}]\{\boldsymbol{\varepsilon}\}}$
 
 > 这组关系在后续的有限元离散中反复使用。注意 $\{\boldsymbol{\sigma}\}$ 和 $\{\boldsymbol{\varepsilon}\}$ 已按 Voigt 规则写为 $6\times 1$ 列向量。
 

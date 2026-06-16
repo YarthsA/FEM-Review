@@ -103,7 +103,7 @@ $$\begin{aligned}
 
 由于 $\varphi$ 在边界 $\partial\Omega$ 上可取为零（齐次边界条件），边界积分项消失，得：
 
-$$\iint_\Omega (u_x\varphi_x + u_y\varphi_y)\,dxdy = \iint_\Omega f\varphi\,dxdy$$
+$$\boxed{\iint_\Omega (u_x\varphi_x + u_y\varphi_y)\,dxdy = \iint_\Omega f\varphi\,dxdy}$$
 
 这就是 Poisson 方程的**等效积分弱形式**。重要特征是：导数阶次从二阶降为一阶，降低了对试函数的连续性要求。
 
@@ -138,11 +138,11 @@ $$u(x,y) = a + bx + cy$$
 
 由节点条件：
 
-$$\begin{cases}
+$$\boxed{\begin{cases}
 a + bx_i + cy_i = u_i \\
 a + bx_j + cy_j = u_j \\
 a + bx_m + cy_m = u_m
-\end{cases}$$
+\end{cases}}$$
 
 **用 Cramer 法则求解系数**（这是理解形函数来源的关键步骤）：
 
@@ -156,13 +156,13 @@ $$c = \frac{1}{2\Delta_e}\left[\begin{vmatrix} x_j & y_j \\ x_m & y_m \end{vmatr
 
 其中单元面积：
 
-$$2\Delta_e = \begin{vmatrix} 1 & x_i & y_i \\ 1 & x_j & y_j \\ 1 & x_m & y_m \end{vmatrix}$$
+$$\boxed{2\Delta_e = \begin{vmatrix} 1 & x_i & y_i \\ 1 & x_j & y_j \\ 1 & x_m & y_m \end{vmatrix}}$$
 
 $P_i, P_j, P_m$ 为逆时针排列，故 $\Delta_e > 0$，即为三角形单元的面积。
 
 代入线性函数的一般形式得单元 e 的插值函数：
 
-$$u = N_i(x,y)u_i + N_j(x,y)u_j + N_m(x,y)u_m = [N]\{\delta\}_e$$
+$$\boxed{u = N_i(x,y)u_i + N_j(x,y)u_j + N_m(x,y)u_m = [N]\{\delta\}_e}$$
 
 **形函数的显式表达式**：
 
@@ -170,11 +170,11 @@ $$N_i = \frac{1}{2\Delta_e}\left[\begin{vmatrix} y_j & 1 \\ y_m & 1 \end{vmatrix
 
 $N_j, N_m$ 的表达式通过**轮换下标**获得。引入记号：
 
-$$\begin{cases}
+$$\boxed{\begin{cases}
 a_i = x_j y_m - x_m y_j \\
 b_i = y_j - y_m \\
 c_i = x_m - x_j
-\end{cases}\quad\text{（}i,j,m\text{ 轮换）}$$
+\end{cases}}\quad\text{（}i,j,m\text{ 轮换）}$$
 
 则 $\boxed{N_s = \dfrac{1}{2\Delta_e}(a_s x + b_s y + c_s)},\;(s = i,j,m)$
 
@@ -244,7 +244,7 @@ $$\begin{aligned}
 
 其中**单元刚度矩阵** $[k]_e$ 为 $3\times 3$ 矩阵：
 
-$$[k]_e = \iint_e [B]^T[B]dxdy = \Delta_e [B]^T[B]$$
+$$\boxed{[k]_e = \iint_e [B]^T[B]dxdy = \Delta_e [B]^T[B]}$$
 
 
 $$[k]_e = \begin{pmatrix}
@@ -255,7 +255,7 @@ k_{mi}^e & k_{mj}^e & k_{mm}^e
 
 **刚度系数的显式公式**：
 
-$$k_{st}^e = \Delta_e\left[\frac{\partial N_s}{\partial x}\frac{\partial N_t}{\partial x} + \frac{\partial N_s}{\partial y}\frac{\partial N_t}{\partial y}\right] = \frac{1}{4\Delta_e}(a_s a_t + b_s b_t),\quad (s,t = i,j,m)$$
+$$\boxed{k_{st}^e = \Delta_e\left[\frac{\partial N_s}{\partial x}\frac{\partial N_t}{\partial x} + \frac{\partial N_s}{\partial y}\frac{\partial N_t}{\partial y}\right] = \frac{1}{4\Delta_e}(a_s a_t + b_s b_t),\quad (s,t = i,j,m)}$$
 
 右端项：
 
@@ -263,7 +263,7 @@ $$\iint_e f\varphi\,dxdy = \iint_e ([N]\{\delta^*\}_e)^T f\,dxdy = \{\delta^*\}_
 
 其中**单元荷载向量**：
 
-$$\{F\}_e = \iint_e [N]^T f\,dxdy = \begin{pmatrix} F_i^e \\ F_j^e \\ F_m^e \end{pmatrix}$$
+$$\boxed{\{F\}_e = \iint_e [N]^T f\,dxdy = \begin{pmatrix} F_i^e \\ F_j^e \\ F_m^e \end{pmatrix}}$$
 
 ---
 
@@ -283,15 +283,11 @@ $$\{\delta^*\}^T\left(\sum_{n=1}^{NE}[k]_{e_n}\right)\{\delta\} = \{\delta^*\}^T
 
 即：
 
-$$\{\delta^*\}^T([K]\{\delta\} - \{F\}) = 0$$
-
-其中：
-
-$$[K] = \sum_{n=1}^{NE}[k]_{e_n},\qquad \{F\} = \sum_{n=1}^{NE}\{F\}_{e_n}$$
+$$\boxed{[K] = \sum_{n=1}^{NE}[k]_{e_n},\qquad \{F\} = \sum_{n=1}^{NE}\{F\}_{e_n}}$$
 
 由于 $\{\delta^*\}$ 是任意 NP 维向量（$\varphi$ 在边界上无约束），得到线性方程组：
 
-$$[K]\{\delta\} = \{F\}$$
+$$\boxed{[K]\{\delta\} = \{F\}}$$
 
 #### $[K]$ 的对称性和非负定性
 
@@ -646,7 +642,7 @@ $$\boxed{[D] = \frac{E(1-\mu)}{(1+\mu)(1-2\mu)}\begin{pmatrix}
 
 应力场：
 
-$$\boldsymbol{\sigma} = [D]\boldsymbol{\varepsilon} = [D][B]\mathbf{q}^e = [S]\mathbf{q}^e$$
+$$\boxed{\boldsymbol{\sigma} = [D]\boldsymbol{\varepsilon} = [D][B]\mathbf{q}^e = [S]\mathbf{q}^e}$$
 
 其中 $[S]$ 称为**应力矩阵**。对 CST 单元，$[B]$ 为常数，因此 $[S]$ 也是常数——单元内应力和应变处处相同（这就是 CST 名称的来源）。
 
@@ -689,7 +685,7 @@ k_4 &= c_r c_s + \frac{1-\mu}{2}b_r b_s
 
 #### (E) 等效节点荷载
 
-$$\mathbf{P}_{(6\times 1)}^e = \int_{\Omega^e} \mathbf{N}^T\mathbf{f}\,dV + \int_{S_\sigma^e} \mathbf{N}^T\mathbf{T}\,dS$$
+$$\boxed{\mathbf{P}_{(6\times 1)}^e = \int_{\Omega^e} \mathbf{N}^T\mathbf{f}\,dV + \int_{S_\sigma^e} \mathbf{N}^T\mathbf{T}\,dS}$$
 
 对均布体力（如重力），可用面积坐标简化积分。对复杂分布，需数值积分。
 
