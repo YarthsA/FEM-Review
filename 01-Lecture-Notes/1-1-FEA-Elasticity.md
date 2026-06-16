@@ -187,12 +187,15 @@ FEM 中最核心的几个概念：
 三维弹性力学的基本变量：
 
 **① 位移（3个分量）**：
+其中 $u, v, w$ 分别表示沿 $x, y, z$ 方向的位移分量。
 $$\mathbf{u} = \begin{pmatrix} u \\ v \\ w \end{pmatrix}$$
 
 **② 应变（6个分量）**：
+其中 $\varepsilon_x,\varepsilon_y,\varepsilon_z$ 为正应变（线应变），$\gamma_{xy},\gamma_{yz},\gamma_{zx}$ 为工程剪应变（角变形量）。
 $$\boldsymbol{\varepsilon} = \begin{pmatrix} \varepsilon_x \\ \varepsilon_y \\ \varepsilon_z \\ \gamma_{xy} \\ \gamma_{yz} \\ \gamma_{zx} \end{pmatrix}$$
 
 **③ 应力（6个分量）**：
+其中 $\sigma_x,\sigma_y,\sigma_z$ 为正应力（法向应力），$\tau_{xy},\tau_{yz},\tau_{zx}$ 为剪应力（切向应力）。
 $$\boldsymbol{\sigma} = \begin{pmatrix} \sigma_x \\ \sigma_y \\ \sigma_z \\ \tau_{xy} \\ \tau_{yz} \\ \tau_{zx} \end{pmatrix}$$
 
 > **注意**：理论上应力/应变张量各 9 个分量，但剪应力互等（$\tau_{xy} = \tau_{yx}$，$\tau_{yz} = \tau_{zy}$，$\tau_{zx} = \tau_{xz}$）使得独立分量各为 6 个，共 15 个未知量。
@@ -236,13 +239,15 @@ $$\mathbf{D} = \begin{pmatrix}
 0 & 0 & 0 & 0 & 0 & G
 \end{pmatrix}$$
 
-Lame 常数：$\lambda = \frac{\nu E}{(1+\nu)(1-2\nu)}$，$G = \frac{E}{2(1+\nu)}$
+其中 $E$ 为杨氏模量（弹性模量），$\nu$ 为泊松比（横向收缩系数）。Lame 常数：$\lambda = \frac{\nu E}{(1+\nu)(1-2\nu)}$，$G = \frac{E}{2(1+\nu)}$
 
 > 对简单拉伸：$\sigma_x = E\varepsilon_x$。但在三维中，一个方向的正应力会影响其他方向的正应变（泊松效应），因此需要完整的刚度矩阵。
 
 > 💡 **理解关键**：$\mathbf{D}$ 矩阵的块状结构有明确的物理含义——左上 3×3 块是"正应力-正应变"耦合（含泊松效应），右下 3×3 块是"剪应力-剪应变"（对角，彼此不耦合）。非对角零块意味着"正应力不产生剪应变，剪应力不产生正应变"——这是各向同性材料特有的性质。
 
 #### 平衡方程
+
+其中 $\mathbf{f} = (f_x, f_y, f_z)^T$ 为单位体积上的体力向量（如重力）。
 
 $$[\partial]^T\boldsymbol{\sigma} + \mathbf{f} = \mathbf{0}$$
 
@@ -257,16 +262,20 @@ $$\frac{\partial\tau_{zx}}{\partial x} + \frac{\partial\tau_{yz}}{\partial y} + 
 
 ### 1.9.3 边界条件
 
-- 位移边界（Dirichlet / essential）：$\mathbf{u}|_{S_u} = \bar{\mathbf{u}}$
-- 外力边界（Neumann / natural）：$[\mathbf{n}]\boldsymbol{\sigma}|_{S_\sigma} = \mathbf{T}$
+弹性体的边界分为两部分：$S = S_u \cup S_\sigma$，其中 $S_u$ 是位移已知的边界，$S_\sigma$ 是外力已知的边界（$S_u$ 和 $S_\sigma$ 互不重叠）。
 
-其中 $[\mathbf{n}]$ 是边界外法线方向的矩阵表示。
+- **位移边界**（Dirichlet / essential）：$\mathbf{u}|_{S_u} = \bar{\mathbf{u}}$，其中 $\bar{\mathbf{u}}$ 是边界 $S_u$ 上给定的已知位移
+- **外力边界**（Neumann / natural）：$[\mathbf{n}]\boldsymbol{\sigma}|_{S_\sigma} = \mathbf{T}$，其中 $\mathbf{T}$ 是边界 $S_\sigma$ 上给定的已知面力
+
+符号 $[\mathbf{n}]$ 是边界外法线方向 $\mathbf{n} = (n_x, n_y, n_z)$ 的矩阵表示，它将应力张量投影到边界面上得到面力矢量：
 
 > ❌ **易错**：Dirichlet 边界又叫"本质边界"（essential），Neumann 边界又叫"自然边界"（natural）。这两个名字的来源——变分法中 Dirichlet 边界必须显式施加（否则不满足），Neumann 边界会被泛函的驻值条件"自动"满足。在 FEM 代码里，Dirichlet 边界通过"划行划列"施加，Neumann 边界通过等效节点力施加——千万不要搞反了！
 
 ### 1.9.4 最小势能原理
 
 总势能泛函（包含应变能 U 和外力功 W）：
+
+其中 $\Omega$ 为弹性体占据的体积域。
 
 $$\Pi = \int_\Omega \frac12\boldsymbol{\varepsilon}^T\mathbf{D}\boldsymbol{\varepsilon}\,dV - \int_\Omega \mathbf{u}^T\mathbf{f}\,dV - \int_{S_\sigma} \mathbf{u}^T\mathbf{T}\,dS$$
 
@@ -492,9 +501,9 @@ $K_{ij} = K_{ji}$。来源于 **Betti 互等定理**——节点 $i$ 处单位�
 
 将杆单元节点坐标从 $x_i$、$x_j$ 映射到自然坐标 $\xi \in [-1, 1]$：
 
-$$\xi = \frac{2x}{l} \quad \text{（原点在杆中点）}$$
+$$\xi = \frac{2x - (x_i + x_j)}{l}$$
 
-其中 $l = x_j - x_i$ 为杆长。
+其中 $l = x_j - x_i$ 为杆长。该映射将 $x_i \to -1$、中点 $(x_i+x_j)/2 \to 0$、$x_j \to 1$。
 
 形函数 $N_i$、$N_j$ 定义为在自然坐标下满足插值条件的线性函数：
 
@@ -664,7 +673,7 @@ FEM 解向精确解收敛的两种基本策略：
 
 $$\mathbf{M}\ddot{\mathbf{D}} + \mathbf{C}\dot{\mathbf{D}} + \mathbf{K}\mathbf{D} = \mathbf{R}^{\text{ext}}$$
 
-其中 $\mathbf{M}$ 为质量矩阵，$\mathbf{C}$ 为阻尼矩阵，$\mathbf{D}$ 为位移向量。
+其中 $\ddot{\mathbf{D}}$ 和 $\dot{\mathbf{D}}$ 分别为节点加速度和速度向量，$\mathbf{M}$ 为质量矩阵，$\mathbf{C}$ 为阻尼矩阵，$\mathbf{K}$ 为刚度矩阵，$\mathbf{R}^{\text{ext}}$ 为外载荷向量。
 
 #### 逐步积分方法
 
@@ -673,6 +682,8 @@ $$\mathbf{M}\ddot{\mathbf{D}} + \mathbf{C}\dot{\mathbf{D}} + \mathbf{K}\mathbf{D
 **隐式积分**（如 Newmark-$\beta$ 法）：需在每个时间步求解联立方程组；无条件稳定（适当参数下），步长只取决于精度要求。
 
 $$\mathbf{K}^{\text{eff}} = \frac{1}{\beta \Delta t^2}\mathbf{M} + \frac{\gamma}{\beta \Delta t}\mathbf{C} + \mathbf{K}$$
+
+其中 $\Delta t$ 为时间步长，$\beta$ 和 $\gamma$ 为 Newmark 逐步积分法的控制参数（$\beta$ 控制加速度在步内的变化规律，$\gamma$ 控制数值阻尼）。
 
 ### 1.16.2 非线性问题分类
 

@@ -70,7 +70,7 @@
 $$\begin{cases}
 -\Delta u = f \\
 u|_{\partial\Omega} = u_0(x,y)
-\end{cases}$$
+\end{cases}$$ 其中 $f = f(x,y)$ 是源项（Source term），代表单位面积内的热源强度或体力等已知函数；$u_0(x,y)$ 是 Dirichlet 边界上给定的边界函数值。
 
 其中 $\Delta = \frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2}$ 是 Laplace 算子。
 
@@ -344,11 +344,11 @@ $$[\partial] = \begin{pmatrix}
 
 **几何方程**（$6\times 1 = (6\times 3)(3\times 1)$）：$\boldsymbol{\varepsilon} = [\partial]\mathbf{u}$
 
-**平衡方程**（$3\times 1 = (3\times 6)(6\times 1) + (3\times 1)$）：$[\partial]^T\boldsymbol{\sigma} + \mathbf{f} = \mathbf{0}$
+**平衡方程**（$3\times 1 = (3\times 6)(6\times 1) + (3\times 1)$）：$[\partial]^T\boldsymbol{\sigma} + \mathbf{f} = \mathbf{0}$，其中 $\mathbf{f} = (f_x, f_y, f_z)^T$ 是体力（Body force）向量，表示单位体积内所受的外力。
 
 **本构方程**：$\boldsymbol{\sigma} = \mathbf{D}\boldsymbol{\varepsilon}$
 
-其中弹性矩阵 $\mathbf{D}$ 用 Lamé 常数表示（$6 \times 6$）：
+其中弹性矩阵 $\mathbf{D}$ 用 Lamé 常数表示（$6 \times 6$），$\lambda$ 和 $G$ 称为 Lamé 常数，与弹性模量 $E$ 和泊松比 $\nu$ 的关系为 $\lambda = \dfrac{E\nu}{(1+\nu)(1-2\nu)}$、$G = \dfrac{E}{2(1+\nu)}$：
 
 $$\mathbf{D} = \begin{pmatrix}
 \lambda+2G & \lambda & \lambda & 0 & 0 & 0 \\
@@ -362,6 +362,8 @@ $$\mathbf{D} = \begin{pmatrix}
 代入得平衡方程用位移表示的形式：
 
 $$[\partial]^T\mathbf{D}[\partial]\mathbf{u} + \mathbf{f} = \mathbf{0}$$
+
+约定边界记号：弹性体的边界 $S$ 分为位移边界 $S_u$ 和外力边界 $S_\sigma$（$S = S_u \cup S_\sigma$，$S_u \cap S_\sigma = \emptyset$）。$\bar{\mathbf{u}}$ 和 $\mathbf{T}$ 分别表示 $S_u$ 和 $S_\sigma$ 上给定的已知位移和已知面力。
 
 **位移边界条件**：$\mathbf{u}|_{S_u} = \bar{\mathbf{u}}$
 
@@ -403,7 +405,7 @@ $$\mathbf{u} = N_i\mathbf{u}_i + N_j\mathbf{u}_j + N_m\mathbf{u}_m + N_l\mathbf{
 
 $$\{\delta\}_e = \begin{pmatrix} u_i & v_i & w_i & u_j & v_j & w_j & u_m & v_m & w_m & u_l & v_l & w_l \end{pmatrix}^T$$
 
-$$[N] = \begin{bmatrix} N_i\mathbf{I}_3 & N_j\mathbf{I}_3 & N_m\mathbf{I}_3 & N_l\mathbf{I}_3 \end{bmatrix}_{3\times 12}$$
+$$[N] = \begin{bmatrix} N_i\mathbf{I}_3 & N_j\mathbf{I}_3 & N_m\mathbf{I}_3 & N_l\mathbf{I}_3 \end{bmatrix}_{3\times 12}$$，其中 $\mathbf{I}_3$ 是 $3\times 3$ 单位矩阵（Identity matrix）。
 
 形函数 $N_s$ 通过行列式表达：
 
@@ -470,6 +472,8 @@ $$\Pi = \frac{1}{2}\sum_e (\{\delta\}_e^T \mathbf{K}^e \{\delta\}_e) - \sum_e (\
 组装得总刚和总荷载：
 
 $$\Pi = \frac{1}{2}\mathbf{a}^T\mathbf{K}\mathbf{a} - \mathbf{a}^T\mathbf{P}$$
+
+此处记号从单元节点位移 $\{\delta\}_e$ 切换为总体节点位移 $\mathbf{a}$（即 $\mathbf{a}$ 是全体节点位移组成的总体位移向量）。
 
 由 $\delta\Pi = 0$（势能极值条件），得 FEM 的基本方程：
 
@@ -578,6 +582,8 @@ c_1 &= \begin{vmatrix} 1 & x_2 \\ 1 & x_3 \end{vmatrix} = x_3 - x_2
 
 $$A = \frac{1}{2}\begin{vmatrix} 1 & x_1 & y_1 \\ 1 & x_2 & y_2 \\ 1 & x_3 & y_3 \end{vmatrix}$$
 
+此处 $A = \Delta_e$（与 5.2 节记号一致），表示三角形单元的面积。
+
 同理可解出 v 方向的 $\beta_4, \beta_5, \beta_6$（将 $u$ 替换为 $v$）。
 
 **整理为形函数形式**：
@@ -638,7 +644,7 @@ $$\boldsymbol{\sigma} = [D]\boldsymbol{\varepsilon} = [D][B]\mathbf{q}^e = [S]\m
 #### (D) 单元刚度矩阵的显式公式
 
 $$\begin{aligned}
-\mathbf{K}_{(6\times 6)}^e &= \int_{\Omega^e} \mathbf{B}^T\mathbf{D}\mathbf{B}\,dV = t\int_{A^e} \mathbf{B}^T\mathbf{D}\mathbf{B}\,dA \\
+\mathbf{K}_{(6\times 6)}^e &= \int_{\Omega^e} \mathbf{B}^T\mathbf{D}\mathbf{B}\,dV = t\int_{A^e} \mathbf{B}^T\mathbf{D}\mathbf{B}\,dA \quad (\text{其中 } t \text{ 是平面单元厚度}) \\
 &= \mathbf{B}^T\mathbf{D}\mathbf{B}\,tA \quad (\text{因 } [B] \text{ 为常数})
 \end{aligned}$$
 
@@ -908,7 +914,7 @@ $$\{\sigma\}^{(2)} = q\begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}\quad\text{（同
 **第 1 步：计算几何参数**
 
 对于单元 1, 2, 4（形状相同）：
-$$b_i = 0,\; b_j = -a,\; b_m = a$$
+$$b_i = 0,\; b_j = -a,\; b_m = a$$ 其中 $a$ 是单元的特征尺寸（此处为等腰直角三角形单元的直角边长）。
 $$c_i = a,\; c_j = -a,\; c_m = 0$$
 $$A = a^2/2$$
 

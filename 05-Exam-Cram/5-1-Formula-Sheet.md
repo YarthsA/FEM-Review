@@ -12,7 +12,7 @@
 | Kronecker $\delta$ | $\delta_{ij} = \begin{cases}1 & i=j\\0 & i\neq j\end{cases}$，$\delta_{ii}=3$，$\delta_{ij}a_j = a_i$ |
 | 置换符号 | $e_{ijk}e_{ist} = \delta_{js}\delta_{kt} - \delta_{jt}\delta_{ks}$，$e_{ijk}e_{ijt} = 2\delta_{kt}$ |
 | 向量叉积 | $(\boldsymbol{a}\times\boldsymbol{b})_i = e_{ijk}a_j b_k$ |
-| 张量变换 | $a_{i'j'}' = l_{i'i}l_{j'j}a_{ij}$（二阶），$e_{i'j'k'}' = \det(\boldsymbol{L}) e_{ijk}$（三阶赝张量） |
+| 张量变换 | $a_{i'j'}' = l_{i'i}l_{j'j}a_{ij}$（$l_{i'j'}$ 为方向余弦矩阵元素），$e_{i'j'k'}' = \det(\boldsymbol{L}) e_{ijk}$（三阶赝张量） |
 
 **恒等式证明模板**：$\varepsilon$-$\delta$ 恒等式 ← 利用 Lagrange 公式 $(\boldsymbol{a}\times\boldsymbol{b})\cdot(\boldsymbol{c}\times\boldsymbol{d}) = (\boldsymbol{a}\cdot\boldsymbol{c})(\boldsymbol{b}\cdot\boldsymbol{d}) - (\boldsymbol{a}\cdot\boldsymbol{d})(\boldsymbol{b}\cdot\boldsymbol{c})$
 
@@ -52,25 +52,25 @@ c_i & b_i & c_j & b_j & c_m & b_m
 
 ### 3.3 弹性矩阵 $[D]$
 
-**平面应力**：
+**平面应力**（$E$ 为杨氏模量，$\nu$ 为泊松比）：
 $$[D] = \frac{E}{1-\nu^2}\begin{pmatrix}1&\nu&0\\\nu&1&0\\0&0&\frac{1-\nu}{2}\end{pmatrix}$$
 
-**平面应变**：
+**平面应变**（$E$ 为杨氏模量，$\nu$ 为泊松比）：
 $$[D] = \frac{E(1-\nu)}{(1+\nu)(1-2\nu)}\begin{pmatrix}1&\frac{\nu}{1-\nu}&0\\\frac{\nu}{1-\nu}&1&0\\0&0&\frac{1-2\nu}{2(1-\nu)}\end{pmatrix}$$
 
 ### 3.4 单元刚度矩阵
 
-$$\boxed{[k]_e = t\Delta_e [B]^T[D][B]}$$
+$$\boxed{[k]_e = t\Delta_e [B]^T[D][B]}\quad (\text{$t$ 为单元厚度，$\Delta_e$ 为单元面积})$$
 
 ### 3.5 总体集成
 
-$$[K] = \sum_{n=1}^{NE} [k]_{e_n},\quad \{F\} = \sum_{n=1}^{NE} \{F\}_{e_n},\quad [K]\{\delta\} = \{F\}$$
+$$[K] = \sum_{n=1}^{NE} [k]_{e_n},\quad \{F\} = \sum_{n=1}^{NE} \{F\}_{e_n},\quad [K]\{\delta\} = \{F\}\quad (\text{$NE$ 为单元总数})$$
 
 ---
 
 ## 4. Euler-Bernoulli 梁单元（Hermite 形函数）
 
-$$w(\xi) = N_1 w_1 + N_2 \theta_1 + N_3 w_2 + N_4 \theta_2,\quad \xi = \frac{x-x_1}{L}$$
+$$w(\xi) = N_1 w_1 + N_2 \theta_1 + N_3 w_2 + N_4 \theta_2,\quad \xi = \frac{x-x_1}{L}\quad (\text{$w_i$ 为挠度，$\theta_i$ 为转角})$$
 
 $$N_1 = 1-3\xi^2+2\xi^3,\quad N_2 = L(\xi-2\xi^2+\xi^3)$$
 $$N_3 = 3\xi^2-2\xi^3,\quad N_4 = L(-\xi^2+\xi^3)$$
@@ -104,9 +104,9 @@ $$\int_{-1}^1 f(\xi)d\xi \approx \sum_{i=1}^n w_i f(\xi_i)$$
 
 | 方程 | 矩阵形式 | 张量形式 |
 |------|----------|----------|
-| 几何 | $\boldsymbol{\varepsilon} = [\partial]\mathbf{u}$ | $\varepsilon_{ij} = \frac{1}{2}(u_{i,j}+u_{j,i})$ |
+| 几何 | $\boldsymbol{\varepsilon} = [\partial]\mathbf{u}$（$[\partial]$ 为微分算子矩阵） | $\varepsilon_{ij} = \frac{1}{2}(u_{i,j}+u_{j,i})$ |
 | 物理 | $\boldsymbol{\sigma} = \mathbf{D}\boldsymbol{\varepsilon}$ | $\sigma_{ij} = \lambda\varepsilon_{kk}\delta_{ij} + 2G\varepsilon_{ij}$ |
-| 平衡 | $[\partial]^T\boldsymbol{\sigma} + \mathbf{f} = \mathbf{0}$ | $\sigma_{ij,j} + f_i = 0$ |
+| 平衡 | $[\partial]^T\boldsymbol{\sigma} + \mathbf{f} = \mathbf{0}$（$\mathbf{f}$ 为体力向量） | $\sigma_{ij,j} + f_i = 0$ |
 
 **Lame 常数**：$\lambda = \frac{\nu E}{(1+\nu)(1-2\nu)},\; G = \frac{E}{2(1+\nu)}$
 

@@ -156,7 +156,7 @@ $$\delta y\big|_{x=a} = 0,\quad \delta y\big|_{x=b} = 0$$
 
 泛函的定义类似：若对任意小的 $\varepsilon>0$，存在 $\delta>0$，使当 $|y(x)-y_1(x)|<\delta, |y'(x)-y_1'(x)|<\delta, \ldots, |y^{(k)}(x)-y_1^{(k)}(x)|<\delta$ 时，总有 $|Q[y(x)]-Q[y_1(x)]|<\varepsilon$，则称泛函 $Q[y(x)]$ 是 K 阶连续的。
 
-**例**：对于泛函 $Q[y(x)]=\int_a^b y(x)dx$，若 $y(x)\in C[a,b]$，则 $Q[y(x)]$ 是连续泛函。
+**例**：对于泛函 $Q[y(x)]=\int_a^b y(x)dx$，若 $y(x)\in C[a,b]$，则 $Q[y(x)]$ 是连续泛函。记号 $C[a,b]$ 表示区间 $[a,b]$ 上全体连续函数构成的集合；$C^1[a,b]$ 表示区间 $[a,b]$ 上全体一阶导数连续的函数构成的集合。
 
 **证明**：对任意 $y(x)$，若 $\max_{a\leq x\leq b}|y(x)-y_0(x)|<\frac{\varepsilon}{b-a}$，则：
 $$|Q[y(x)]-Q[y_0(x)]| = \left|\int_a^b[y(x)-y_0(x)]dx\right| \leq \int_a^b\left|[y(x)-y_0(x)]\right|dx < \frac{\varepsilon}{b-a}\int_a^b dx = \varepsilon$$
@@ -447,7 +447,7 @@ $$F_{y_i} - \frac{d}{dx}F_{y_i'} = 0,\quad i = 1, 2, \ldots, n$$
 
 ### 3.5.3 含多元函数的泛函
 
-对于 $Q[z(x,y)] = \iint_D F[x, y, z(x,y), p, q]\,dxdy$，其中 $p=\partial z/\partial x$，$q=\partial z/\partial y$。
+对于 $Q[z(x,y)] = \iint_D F[x, y, z(x,y), p, q]\,dxdy$，其中 $p=\partial z/\partial x$，$q=\partial z/\partial y$。这里 $D$ 是二维平面上的有界区域，$\partial D$ 是它的边界（一条封闭曲线）。
 
 **Euler 方程**：
 $$\boxed{F_z - \frac{\partial}{\partial x}F_p - \frac{\partial}{\partial y}F_q = 0}$$
@@ -656,7 +656,7 @@ $$\boxed{\varepsilon_{ij} = \frac{\partial W^*}{\partial \sigma_{ij}}}$$
 弹性系统 = **弹性体** + **载荷系统** + **支撑系统**。
 
 载荷系统包括：
-- 体力 $F_i$（在域 $V$ 内）
+- 体力 $F_i$（在域 $V$ 内），其中 $F_i$ 表示单位体积上的体力分量（如重力），$i=1,2,3$ 对应 $x,y,z$ 方向。
 - 面力 $\bar{p}_i$（在力边界 $S_\sigma$ 上）
 
 对于**保守力系统**（力做功只与位移终值有关，与路径无关），外力势能 $V$ 定义为：
@@ -680,13 +680,15 @@ $$\boxed{\Pi = U + V = \int_V W\,dV - \int_V F_i u_i\,dV - \int_{S_\sigma} \bar{
 
 #### 3.8.3.1 可能位移与可能应力
 
+首先约定弹性体的边界划分：$S = S_u \cup S_\sigma$，其中 $S_u$ 是位移已知的边界，$S_\sigma$ 是外力已知的边界（两者互不重叠）。符号 $\bar{u}_i$ 和 $\bar{p}_i$ 分别表示边界上给定的已知位移和已知面力。
+
 FEM 思想的核心逻辑：在"满足部分条件的解"中，找到"满足剩余条件的解"。
 
 **可能位移（几何容许位移）**：满足几何方程 + 位移边界条件，但不一定满足平衡条件。
 $$u_i \in \{u_i \;|\; \varepsilon_{ij} = \tfrac12(u_{i,j}+u_{j,i})\;\text{在}\;V\;\text{内},\; u_i = \bar{u}_i\;\text{在}\;S_u\;\text{上}\}$$
 
 **可能应力（静力容许应力）**：满足平衡方程 + 力边界条件，但不一定满足变形协调。
-$$\sigma_{ij} \in \{\sigma_{ij}\;|\; \sigma_{ij,j}+F_i = 0\;\text{在}\;V\;\text{内},\; \sigma_{ij}l_j = \bar{p}_i\;\text{在}\;S_\sigma\;\text{上}\}$$
+$$\sigma_{ij} \in \{\sigma_{ij}\;|\; \sigma_{ij,j}+F_i = 0\;\text{在}\;V\;\text{内},\; \sigma_{ij}l_j = \bar{p}_i\;\text{在}\;S_\sigma\;\text{上}\}$$ 其中 $l_j$ 是边界外法线方向与 $j$ 坐标轴夹角的方向余弦（$l_1,l_2,l_3$ 即 $n_x,n_y,n_z$）。
 
 > 核心理解：可能位移有无穷多种，可能应力也有无穷多种。只有同时满足所有条件的才是**真实解**。变分法的思路就是：先从大量"可能"解中选取，再通过极值条件筛选出真实解。
 
@@ -787,9 +789,9 @@ $$\sigma_{ij}^{(1)}\varepsilon_{ij}^{(2)} = C_{ijkl}\varepsilon_{kl}^{(1)}\varep
 **应用示例**：任意形状弹性体两端受压力 $P$（作用线长度为 $L$），求体积变化 $\Delta V$。
 - 利用互等定理，假设单位均布压力 $q=1$（产生静水压力状态）
 - 由 Hooke 定律：$\varepsilon_x = \varepsilon_y = \varepsilon_z = -\frac{1}{E}(1-2\nu)$
-- $L$ 的缩短量：$\Delta_L = -\frac{(1-2\nu)}{E}L$
+- $L$ 的缩短量：$\Delta_L = -\frac{(1-2\nu)}{E}L$（$E$ 为杨氏模量，$\nu$ 为泊松比）
 - 由互等定理：$P\cdot\Delta_L = 1\cdot\Delta V$
-- $$\boxed{\Delta V = -\frac{(1-2\nu)}{E}PL}$$
+- $$\boxed{\Delta V = -\frac{(1-2\nu)}{E}PL}$$（$E$ 为杨氏模量，$\nu$ 为泊松比）
 
 
 ---
@@ -863,8 +865,9 @@ $$\boxed{\delta^2\Pi \geq 0}$$
 应变能（用位移表示）：
 $$U = \frac{E}{2(1-\mu^2)}\iint_\Omega \left[\left(\frac{\partial u}{\partial x}\right)^2 + \left(\frac{\partial v}{\partial y}\right)^2 + 2\mu\frac{\partial u}{\partial x}\frac{\partial v}{\partial y} + \frac{1-\mu}{2}\left(\frac{\partial v}{\partial x} + \frac{\partial u}{\partial y}\right)^2\right]dxdy$$
 
+> 注意：此处 $\mu$ 是泊松比，与前文使用的 $\nu$ 含义相同。全文对同一物理量混用了 $\mu$ 和 $\nu$ 两个符号，阅读时请注意。
 总势能：
-$$\Pi = U - \iint_\Omega (F_x u + F_y v)dxdy - \int_{\Gamma_\sigma} (\bar{p}_x u + \bar{p}_y v)ds$$
+$$\Pi = U - \iint_\Omega (F_x u + F_y v)dxdy - \int_{\Gamma_\sigma} (\bar{p}_x u + \bar{p}_y v)ds$$ 此处 $\Omega$ 为平面应力问题的求解域，$\Gamma_\sigma$ 为给定面力的力边界，$\Gamma_u$ 为给定位移的位移边界（记号 $\Gamma_\sigma,\Gamma_u$ 分别等同于前文的 $S_\sigma,S_u$）。
 
 **Step 2 — 取一阶变分，分部积分**
 
@@ -935,7 +938,7 @@ $$u = x(A_1 + A_2x + A_3y + \cdots),\quad v = x(B_1 + B_2x + B_3y + \cdots)$$
 
 位移边界条件（简支）：$w|_{x=0}=w|_{x=l}=0$
 
-力边界条件（简支端弯矩为零）：$w''|_{x=0}=w''|_{x=l}=0$（因为 $M = -EIw''$）
+力边界条件（简支端弯矩为零）：$w''|_{x=0}=w''|_{x=l}=0$（因为 $M = -EIw''$，其中 $EI$ 为梁的抗弯刚度，$E$ 为杨氏模量，$I$ 为截面惯性矩）
 
 **Galerkin 法步骤**：
 

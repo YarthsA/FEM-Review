@@ -29,7 +29,7 @@ $$\sigma_L = 0, \quad \sigma_b = 0$$
 
 **Step 2**：应变分析（广义 Hooke 定律）
 
-对于**单轴应力状态**（仅 $\sigma_h \neq 0$），三个方向的应变为：
+对于**单轴应力状态**（仅 $\sigma_h \neq 0$），三个方向的应变为（$E$ 为杨氏模量，$\nu$ 为泊松比）：
 
 $$\varepsilon_h = \frac{\sigma_h}{E} = -\frac{P}{EbL} \quad \text{（$h$ 方向压缩）}$$
 
@@ -37,7 +37,7 @@ $$\varepsilon_L = -\frac{\nu\,\sigma_h}{E} = \frac{\nu P}{EbL} \quad \text{（$L
 
 $$\varepsilon_b = -\frac{\nu\,\sigma_h}{E} = \frac{\nu P}{EbL} \quad \text{（$b$ 方向因 Poisson 效应伸长）}$$
 
-其中 $\nu$ 为材料的 **Poisson 比**。
+其中 $\nu$ 为材料的 **Poisson 比**（已定义如上）。
 
 **Step 3**：长度变化
 
@@ -94,7 +94,7 @@ $$w'''(l) = -a\left(\frac{\pi}{2l}\right)^3 \sin\frac{\pi}{2} = -a\left(\frac{\p
 在经典 Galerkin 法中（强形式），试探函数必须满足**所有边界条件**（包括本质边界条件和自然边界条件）。这是因为 Galerkin 法要求：
 - 试探函数 $\bar{w}$ 属于容许函数空间，其中所有函数均满足问题的全部边界条件
 
-对于 Euler-Bernoulli 梁控制方程 $EI\,w'''' = q$ 的 Galerkin 弱形式：
+对于 Euler-Bernoulli 梁控制方程 $EI\,w'''' = q$ 的 Galerkin 弱形式（$EI$ 为梁的抗弯刚度，$E$ 为杨氏模量，$I$ 为截面惯性矩）：
 $$\int_0^l EI\,w''\varphi''\,dx = \int_0^l q\varphi\,dx$$
 
 试探函数可只满足**本质边界条件**（$w(0)=0, w'(0)=0$），自然边界条件（$w''(l)=0, w'''(l)=0$）在弱形式中自动包含。

@@ -561,6 +561,7 @@ $$S_{ij} = \sigma_{ij} - \sigma_m\delta_{ij}$$
 **预备：Gauss 公式**（散度定理）
 
 $$\iint_S (P\cos\alpha + Q\cos\beta + R\cos\gamma)dS = \iiint_V \left(\frac{\partial P}{\partial x} + \frac{\partial Q}{\partial y} + \frac{\partial R}{\partial z}\right)dV$$
+（这里 $V$ 是物体所占的**体积域** (volume domain)，$S$ 是包围该体积的**边界面** (bounding surface)。）
 
 用应力记号写为：
 $$\int_S \sigma_{ij}l_j dS = \int_V \sigma_{ij,j} dV \quad (i=1,2,3)$$
@@ -571,6 +572,7 @@ $$\int_S \sigma_{ij}l_j dS = \int_V \sigma_{ij,j} dV \quad (i=1,2,3)$$
 
 取物体内由闭合曲面 $S$ 包围的体积 $V$。面力为 $T_i$，体力为 $F_i$。整体的力平衡条件为：
 $$\int_S T_i dS + \int_V F_i dV = 0 \quad (i=1,2,3)$$
+（$F_i$ 是**体力分量** (body force components)，即单位体积上作用的体力（如重力）在 $i$ 方向上的分量。）
 
 利用 Cauchy 公式 $T_i = \sigma_{ij}l_j$：
 $$\int_S \sigma_{ij}l_j dS + \int_V F_i dV = 0$$
@@ -879,6 +881,7 @@ $$\boxed{\sigma_{ij} = c_{ijkl}\varepsilon_{kl}}$$
 $$W = AI_1^2 + BI_2$$
 
 用 Lame 常数 $\lambda$ 和 $\mu$ 代替 A、B：
+（$\lambda$ 和 $\mu$ 是描述各向同性线弹性材料力学行为的两个独立**Lame 弹性常数**；$\mu$ 即剪切模量 (shear modulus)，反映材料抵抗剪切变形的能力；$\lambda$ 则与材料的体积压缩特性有关。）
 
 $$W = \frac{\lambda}{2}I_1^2 + \mu(\varepsilon_{11}^2 + \varepsilon_{22}^2 + \varepsilon_{33}^2) + \frac{\mu}{2}(\gamma_{12}^2 + \gamma_{23}^2 + \gamma_{31}^2)$$
 
@@ -903,7 +906,8 @@ $$\begin{cases}
 
 #### 3.3.5 Lame 常数与工程常数的关系
 
-工程中更常用的是杨氏模量 $E$ 和泊松比 $\nu$。既然各向同性材料只有两个独立弹性常数，$\lambda,\mu$ 和 $E,\nu$ 之间必然存在确定关系。
+工程中更常用的是杨氏模量 $E$ 和泊松比 $\nu$。
+（$E$ 是**杨氏模量** (Young's modulus)，衡量材料抵抗单向拉伸或压缩变形的刚度；$\nu$ 是**泊松比** (Poisson's ratio)，定义为横向收缩应变与纵向拉伸应变之比的绝对值。）既然各向同性材料只有两个独立弹性常数，$\lambda,\mu$ 和 $E,\nu$ 之间必然存在确定关系。
 
 **简单拉伸试验**：
 $$\sigma_{11} = \sigma, \quad \sigma_{22} = \sigma_{33} = \tau_{12} = \tau_{23} = \tau_{13} = 0$$
