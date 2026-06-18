@@ -553,7 +553,7 @@ $$\boxed{F_{y_i} - \frac{d}{dx}F_{y_i'} = 0,\quad i = 1, 2, \ldots, n}$$
 **Euler 方程**：
 $$\boxed{F_z - \frac{\partial}{\partial x}F_p - \frac{\partial}{\partial y}F_q = 0}$$
 
-**推导要点**：利用 Green 公式将面积分转化为边界积分，利用 $\delta z$ 在边界上为零消去边界项。
+**推导要点**：利用 Green 公式（此处指高斯散度定理 $\int_V(ab)_{,j}dV=\int_S ab\,l_j dS$，非 §3.8.2.3 的本构关系 Green 公式）将面积分转化为边界积分，利用 $\delta z$ 在边界上为零消去边界项。
 
 **例**：$Q[z] = \iint_D (z_x^2 + z_y^2)dxdy$，边界条件 $z|_{\partial D} = \varphi(x,y)$
 
@@ -737,7 +737,9 @@ $$W^* = \frac{1}{2}d_{ijkl}\,\sigma_{ij}\sigma_{kl}$$
 
 > ❌ 易错点：线弹性时 $W = W^*$ 数值相等，但定义不同——$W$ 用应变表示、$W^*$ 用应力表示。考试不要写"余能就是应变能"，而是要区分：$W(\varepsilon)$ 和 $W^*(\sigma)$ 是不同自变量的函数，恰好在 $\sigma = C\varepsilon$ 线性关系下数值相等。
 
-#### 3.8.2.3 Green 公式
+#### 3.8.2.3 Green 公式（本构关系）
+
+> ⚠️ 注意区分：本节的 Green 公式（$\sigma_{ij}=\partial W/\partial\varepsilon_{ij}$）与推导中用到的 Green 公式（高斯散度定理 $\int_V(ab)_{,j}dV=\int_S ab\,l_j dS$）是两个不同的公式，都归功于 George Green。前者用于建立本构关系，后者用于分部积分。
 
 从应变能密度定义可直接导出：
 
@@ -947,15 +949,37 @@ $$\boxed{\Delta V = V\varepsilon_V = -\frac{(1-2\nu)}{E}PL}$$
 
 **方法二：用互等定理**（演示定理用法）
 
-取两个状态：
-- 状态 1（实际）：$\sigma_x^{(1)} = -P/A$，$\varepsilon_x^{(1)} = -\frac{P}{EA}$，$\varepsilon_y^{(1)} = \varepsilon_z^{(1)} = \frac{\nu P}{EA}$
-- 状态 2（虚拟）：静水压力 $\sigma_x^{(2)} = \sigma_y^{(2)} = \sigma_z^{(2)} = -1$，$\varepsilon_x^{(2)} = \varepsilon_y^{(2)} = \varepsilon_z^{(2)} = -\frac{(1-2\nu)}{E}$
+核心思路：选一个虚拟状态，使得 Betti 定理的一端直接给出 $\Delta V$。
 
-由 Betti 互等定理：
+**Step 1**：定义两个状态
 
-$$\underbrace{\int_V \sigma_{ij}^{(1)}\varepsilon_{ij}^{(2)}\,dV}_{\text{状态1应力} \times \text{状态2应变}} = \underbrace{\int_V \sigma_{ij}^{(2)}\varepsilon_{ij}^{(1)}\,dV}_{\text{状态2应力} \times \text{状态1应变}}$$
+| | 实际状态（State 1） | 虚拟状态（State 2） |
+|---|---|---|
+| **载荷** | 轴向压力 $P$ | 全表面单位压力 $q=1$（静水压力） |
+| **应力** | $\sigma_x^{(1)}=-P/A$，其余为 0 | $\sigma_x^{(2)}=\sigma_y^{(2)}=\sigma_z^{(2)}=-1$ |
+| **应变** | $\varepsilon_x^{(1)}=-P/(EA)$，$\varepsilon_y^{(1)}=\varepsilon_z^{(1)}=\nu P/(EA)$ | $\varepsilon_x^{(2)}=\varepsilon_y^{(2)}=\varepsilon_z^{(2)}=-(1-2\nu)/E$ |
 
-两边计算结果相同（均为 $\frac{P(1-2\nu)}{AE}V$），验证了定理。体积变化仍需从应变直接求得。
+**Step 2**：关键观察
+
+体积变化 $\Delta V = V \cdot (\varepsilon_x^{(1)}+\varepsilon_y^{(1)}+\varepsilon_z^{(1)})$，而虚拟状态的应力满足 $\sigma_x^{(2)}=\sigma_y^{(2)}=\sigma_z^{(2)}=-1$，所以：
+
+$$\int_V \sigma_{ij}^{(2)}\varepsilon_{ij}^{(1)}\,dV = \int_V (-1)\cdot(\varepsilon_x^{(1)}+\varepsilon_y^{(1)}+\varepsilon_z^{(1)})\,dV = -\Delta V$$
+
+右端恰好就是 $-\Delta V$！这就是选择静水压力作为虚拟状态的原因。
+
+**Step 3**：计算左端
+
+只有 $\sigma_x^{(1)} \neq 0$，所以：
+
+$$\int_V \sigma_{ij}^{(1)}\varepsilon_{ij}^{(2)}\,dV = \int_V \sigma_x^{(1)}\cdot\varepsilon_x^{(2)}\,dV = \left(-\frac{P}{A}\right)\cdot\left(-\frac{1-2\nu}{E}\right)\cdot V = \frac{P(1-2\nu)}{AE}\cdot V$$
+
+**Step 4**：由 Betti 定理求 $\Delta V$
+
+$$\frac{P(1-2\nu)}{AE}\cdot V = -\Delta V$$
+
+$$\boxed{\Delta V = -\frac{(1-2\nu)}{E}PL}$$
+
+> 💡 **为什么选静水压力？** 因为我们要求的是 $\varepsilon_V = \varepsilon_x+\varepsilon_y+\varepsilon_z$（体积应变），而静水压力 $\sigma_x=\sigma_y=\sigma_z=-1$ 恰好能在 Betti 定理中"提取"出这个和。这是 Betti 定理的精髓——**虚拟状态的选择取决于你想求什么量**。
 
 
 ---
@@ -964,7 +988,7 @@ $$\underbrace{\int_V \sigma_{ij}^{(1)}\varepsilon_{ij}^{(2)}\,dV}_{\text{状态1
 
 > FEM 的理论基石——"FEM 就是用最小势能原理在所有可能位移中找到真实位移"
 
-> ⚠️ 重难点：最小势能原理是本章的最高峰——它把前面所有概念（虚功原理、虚位移原理、Green公式、总势能）串在一起，最终给出 $\delta\Pi = 0$。理解了这个推导，就理解了为什么 FEM 能工作。考试如果出一道大题让你"从虚功原理推导最小势能原理"，本节就是标准答案。
+> ⚠️ 重难点：最小势能原理是本章的最高峰——它把前面所有概念（虚功原理、虚位移原理、Green 公式（本构关系 $\sigma_{ij}=\partial W/\partial\varepsilon_{ij}$）、总势能）串在一起，最终给出 $\delta\Pi = 0$。理解了这个推导，就理解了为什么 FEM 能工作。考试如果出一道大题让你"从虚功原理推导最小势能原理"，本节就是标准答案。
 
 #### 3.8.4.1 从虚位移原理到最小势能原理
 
@@ -1031,11 +1055,13 @@ $$U = \frac{E}{2(1-\mu^2)}\iint_\Omega \left[\left(\frac{\partial u}{\partial x}
 
 > 注意：此处 $\mu$ 是泊松比，与前文使用的 $\nu$ 含义相同。全文对同一物理量混用了 $\mu$ 和 $\nu$ 两个符号，阅读时请注意。
 总势能：
-$$\Pi = U - \iint_\Omega (F_x u + F_y v)dxdy - \int_{\Gamma_\sigma} (\bar{p}_x u + \bar{p}_y v)ds$$ 此处 $\Omega$ 为平面应力问题的求解域，$\Gamma_\sigma$ 为给定面力的力边界，$\Gamma_u$ 为给定位移的位移边界（记号 $\Gamma_\sigma,\Gamma_u$ 分别等同于前文的 $S_\sigma,S_u$）。
+$$\Pi = U - \iint_\Omega (F_x u + F_y v)dxdy - \int_{\Gamma_\sigma} (\bar{p}_x u + \bar{p}_y v)ds$$
+
+此处 $\Omega$ 为平面应力问题的求解域，$\Gamma_\sigma$ 为给定面力的力边界，$\Gamma_u$ 为给定位移的位移边界（记号 $\Gamma_\sigma,\Gamma_u$ 分别等同于前文的 $S_\sigma,S_u$）。
 
 **Step 2 — 取一阶变分，分部积分**
 
-对 $\delta U$ 中的各项利用 Green 公式将面积分转化为边界积分，整理后得：
+对 $\delta U$ 中的各项利用 Green 公式（高斯散度定理）将面积分转化为边界积分，整理后得：
 
 **Step 3 — 结果**
 

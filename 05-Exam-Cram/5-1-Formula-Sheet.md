@@ -135,7 +135,7 @@ $$\boxed{E_{ij}=\frac{1}{2}(u_{i,j}+u_{j,i}+u_{k,i}u_{k,j})}$$
 
 ### 2.8 本构关系（Constitutive relation）
 
-**Green 公式**（一般形式，适用于任意弹性材料）：
+**Green 公式**（本构关系，适用于任意弹性材料；注意与高斯散度定理区分）：
 
 $$\boxed{\sigma_{ij}=\frac{\partial W}{\partial \varepsilon_{ij}}}$$
 
@@ -240,6 +240,18 @@ $$\boxed{\sum_{k=0}^{n}(-1)^k\frac{d^k}{dx^k}\left(\frac{\partial F}{\partial y^
 $$\boxed{\int_V F_i\,\delta u_i\,dV + \int_{S_\sigma} \bar{p}_i\,\delta u_i\,dS = \int_V \sigma_{ij}\,\delta\varepsilon_{ij}\,dV}$$
 
 左端 = 外力虚功，右端 = 内力虚功（应变能变分）。适用于任何小变形体，不依赖本构关系。
+
+**虚位移原理**（$\delta u_i$ 任意 → 检验 $\sigma_{ij}$）：
+
+$$\boxed{\int_V \sigma_{ij}\delta\varepsilon_{ij}\,dV = \int_V F_i\delta u_i\,dV + \int_{S_\sigma}\bar{p}_i\delta u_i\,dS}$$
+
+$\Longleftrightarrow$ 平衡方程 $F_i+\sigma_{ij,j}=0$ + 力边界 $\bar{p}_i=\sigma_{ij}l_j$
+
+**虚应力原理**（$\delta\sigma_{ij}$ 任意 → 检验 $u_i$）：
+
+$$\boxed{\int_V \varepsilon_{ij}\delta\sigma_{ij}\,dV = \int_{S_u}u_i\delta p_i\,dS}$$
+
+$\Longleftrightarrow$ 几何方程 $\varepsilon_{ij}=\frac12(u_{i,j}+u_{j,i})$ + 位移边界 $u_i=\bar{u}_i$
 
 ### 3.10 功的互等定理（Reciprocal theorem）
 
