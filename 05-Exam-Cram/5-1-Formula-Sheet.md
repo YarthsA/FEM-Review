@@ -232,8 +232,14 @@ $$\boxed{\sum_{k=0}^{n}(-1)^k\frac{d^k}{dx^k}\left(\frac{\partial F}{\partial y^
 
 **可能位移**：满足几何方程和位移 BC 的位移场
 **可能应力**：满足平衡方程和力 BC 的应力场
-**虚位移**：满足位移 BC 的任意微小位移变分
-**虚应力**：满足力 BC 的任意微小应力变分
+**虚位移** $\delta u_i$：满足位移 BC 的任意微小位移变分，$\delta\varepsilon_{ij}=\frac12(\delta u_{i,j}+\delta u_{j,i})$
+**虚应力** $\delta\sigma_{ij}$：满足力 BC 的任意微小应力变分，$\delta\sigma_{ij,j}=0$
+
+**虚功方程**（核心公式）：
+
+$$\boxed{\int_V F_i\,\delta u_i\,dV + \int_{S_\sigma} \bar{p}_i\,\delta u_i\,dS = \int_V \sigma_{ij}\,\delta\varepsilon_{ij}\,dV}$$
+
+左端 = 外力虚功，右端 = 内力虚功（应变能变分）。适用于任何小变形体，不依赖本构关系。
 
 ### 3.10 功的互等定理（Reciprocal theorem）
 

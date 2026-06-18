@@ -433,23 +433,53 @@ $$\delta^2 Q = \frac12\int_a^b\left(\frac{\partial^2F}{\partial y^2}\delta y^2 +
 
 ### 3.4.9 条件极值与 Lagrange 乘子法
 
-前面的泛函极值问题要求自变函数光滑且满足给定边界条件，无其他附加条件——称为**无条件极值问题**。
+前面的泛函极值问题要求自变函数光滑且满足给定边界条件，无其他附加条件——称为**无条件极值问题**。具有附加约束条件的泛函极值问题称为**条件极值问题**。本节先回顾熟悉的多元函数条件极值，再推广到泛函情形。
 
-具有附加约束条件的泛函极值问题称为**条件极值问题**。类似于函数的条件极值，可以用 Lagrange 乘子法转化为等价的无条件极值问题。
+#### 一、函数的条件极值（复习）
 
-**例**：求泛函 $Q[y(x)] = \int_a^b F(x,y,y')dx$ 在等周条件 $\int_a^b \varphi(x,y,y')dx = \alpha$ 下的极值。
+**问题**：求函数 $f(x,y,z)$ 在约束 $g_1(x,y,z)=0$、$g_2(x,y,z)=0$ 下的极值。
 
-构造新泛函：
-$$\boxed{Q^*[y] = \int_a^b F(x,y,y')dx + \lambda\left[\int_a^b\varphi(x,y,y')dx - \alpha\right] = \int_a^b F^*(x,y,y',\lambda)dx - \lambda\alpha}$$
+**方法**：引入 Lagrange 乘子 $\lambda_1, \lambda_2$，构造辅助函数：
 
-其中 $F^* = F + \lambda\varphi$，$\lambda$ 是 Lagrange 乘子。
+$$F(x,y,z,\lambda_1,\lambda_2) = f + \lambda_1 g_1 + \lambda_2 g_2$$
 
-对应的 Euler 方程为：
+对所有变量求偏导=0，得到 $n+m$ 个方程（$n$ 个原变量 + $m$ 个乘子），联立求解。
+
+**例**（对应 HW2 Q4）：在椭球面 $16x^2+4y^2+z^2=16$ 与平面 $x+y+z=1$ 的交线上，求 $z$ 的极值。
+
+- $f = z$，$g_1 = x+y+z-1$，$g_2 = 16x^2+4y^2+z^2-16$
+- 构造 $F = z + \lambda_1(x+y+z-1) + \lambda_2(16x^2+4y^2+z^2-16)$
+- 令 $\partial F/\partial x = \partial F/\partial y = \partial F/\partial z = 0$，联立约束求解
+
+> 核心思想：**乘子法将约束问题转化为无条件极值问题**——这一思想可以推广到泛函。
+
+#### 二、泛函的条件极值（推广）
+
+将上述思想从有限维推广到无穷维：函数 → 泛函，代数约束 → 积分约束。
+
+**问题**：求泛函 $Q[y] = \int_a^b F(x,y,y')dx$ 在等周条件 $\int_a^b \varphi(x,y,y')dx = \alpha$ 下的极值。
+
+**方法**：引入乘子 $\lambda$，构造增广泛函：
+
+$$\boxed{Q^*[y] = \int_a^b F^*(x,y,y',\lambda)\,dx - \lambda\alpha, \quad F^* = F + \lambda\varphi}$$
+
+对 $Q^*$ 求变分=0，得到 Euler 方程：
+
 $$\boxed{F_y^* - \frac{d}{dx}F_{y'}^* = 0}$$
 
 通解含 2 个积分常数和 $\lambda$，由 2 个边界条件 + 等周条件确定。
 
-**具体算例：固定周长的最宽围栏**
+**对比**：
+
+| | 函数极值 | 泛函极值 |
+|---|---|---|
+| 对象 | $f(x_1,\ldots,x_n)$ | $Q[y] = \int F\,dx$ |
+| 约束 | $g_i = 0$（代数方程） | $\int \varphi\,dx = \alpha$（积分约束） |
+| 乘子 | $\lambda_i$（常数） | $\lambda$（常数） |
+| 求解 | 偏导=0 → 代数方程组 | 变分=0 → Euler 方程（ODE） |
+| 维度 | 有限维 | 无穷维 |
+
+#### 三、具体算例：固定周长的最宽围栏
 
 **问题**：在 $x=0$ 和 $x=1$ 处固定高度 $y(0)=y(1)=0$，围栏总弧长固定为 $L$。求曲线 $y(x)$ 使围出的面积最大。
 
@@ -480,9 +510,6 @@ $$y + \lambda\sqrt{1+y'^2} - y'\cdot\frac{\lambda y'}{\sqrt{1+y'^2}} = C$$
 令 $y' = \sinh t$，最终得解为**圆弧**——这正是等周定理的结论：固定周长下面积最大的封闭曲线是圆。
 
 > 💡 **理解关键**：$\lambda$ 的物理意义——它是弧长约束的"代价"。如果 $L$ 增大（允许更长的围栏），$\lambda$ 会变化，解出的圆弧半径也跟着变。在力学中，$\lambda$ 通常对应约束反力。
-
-
-> 💡 理解关键：Lagrange 乘子 $\lambda$ 本身往往有物理意义。在等周问题中 $\lambda$ 是一个常数；在力学约束问题中 $\lambda$ 通常是约束反力。考试时如果用乘子法求出了 $\lambda$，不妨想想它有没有物理解释。
 
 ---
 
@@ -762,7 +789,9 @@ FEM 思想的核心逻辑：在"满足部分条件的解"中，找到"满足剩�
 $$u_i \in \{u_i \;|\; \varepsilon_{ij} = \tfrac12(u_{i,j}+u_{j,i})\;\text{在}\;V\;\text{内},\; u_i = \bar{u}_i\;\text{在}\;S_u\;\text{上}\}$$
 
 **可能应力（静力容许应力）**：满足平衡方程 + 力边界条件，但不一定满足变形协调。
-$$\sigma_{ij} \in \{\sigma_{ij}\;|\; \sigma_{ij,j}+F_i = 0\;\text{在}\;V\;\text{内},\; \sigma_{ij}l_j = \bar{p}_i\;\text{在}\;S_\sigma\;\text{上}\}$$ 其中 $l_j$ 是边界外法线方向与 $j$ 坐标轴夹角的方向余弦（$l_1,l_2,l_3$ 即 $n_x,n_y,n_z$）。
+$$\sigma_{ij} \in \{\sigma_{ij}\;|\; \sigma_{ij,j}+F_i = 0\;\text{在}\;V\;\text{内},\; \sigma_{ij}l_j = \bar{p}_i\;\text{在}\;S_\sigma\;\text{上}\}$$
+
+其中 $l_j$ 是边界外法线方向与 $j$ 坐标轴夹角的方向余弦（$l_1,l_2,l_3$ 即 $n_x,n_y,n_z$）。
 
 > 核心理解：可能位移有无穷多种，可能应力也有无穷多种。只有同时满足所有条件的才是**真实解**。变分法的思路就是：先从大量"可能"解中选取，再通过极值条件筛选出真实解。
 
@@ -819,9 +848,30 @@ $$\begin{aligned}
 **证明核心步骤**（仅需理解思路）：
 - 任取两个相邻的可能位移 $u_i^1$、$u_i^2$，令 $\delta u_i = u_i^1 - u_i^2$（虚位移）
 - 虚功方程相减得：
-  $$\int_V F_i\delta u_i\,dV + \int_{S_\sigma}\bar{p}_i\delta u_i\,dS = \int_V \sigma_{ij}\delta\varepsilon_{ij}\,dV$$
-- 对右边分部积分，利用 $\delta u_i|_{S_u} = 0$：
+  $$\int_V F_i\delta u_i\,dV + \int_{S_\sigma}\bar{p}_i\delta u_i\,dS = \int_V \sigma_{ij}\delta\varepsilon_{ij}\,dV \tag{*}$$
+
+- **对右边分部积分**（关键推导）：
+
+  **Step 1**：代入几何关系 $\delta\varepsilon_{ij} = \frac12(\delta u_{i,j} + \delta u_{j,i})$
+
+  $$\int_V \sigma_{ij}\delta\varepsilon_{ij}\,dV = \int_V \sigma_{ij}\cdot\frac12(\delta u_{i,j} + \delta u_{j,i})\,dV$$
+
+  **Step 2**：利用应力对称性 $\sigma_{ij} = \sigma_{ji}$，两项合并
+
+  $$= \int_V \sigma_{ij}\,\delta u_{i,j}\,dV$$
+
+  **Step 3**：分部积分（高斯公式 $\int_V (a\,b)_{,j}\,dV = \int_S a\,b\,l_j\,dS$）
+
+  $$= \int_S \sigma_{ij}l_j\,\delta u_i\,dS - \int_V \sigma_{ij,j}\,\delta u_i\,dV$$
+
+  **Step 4**：分解边界 $S = S_u \cup S_\sigma$，利用 $\delta u_i|_{S_u} = 0$
+
+  $$= \int_{S_\sigma} \sigma_{ij}l_j\,\delta u_i\,dS - \int_V \sigma_{ij,j}\,\delta u_i\,dV$$
+
+- 代回 $(*)$ 式，移项整理：
+
   $$\int_V (F_i + \sigma_{ij,j})\delta u_i\,dV + \int_{S_\sigma}(\bar{p}_i - \sigma_{ij}l_j)\delta u_i\,dS = 0$$
+
 - 由变分法预备定理，被积函数恒为零 → 平衡方程 $F_i + \sigma_{ij,j} = 0$ + 力边界 $\bar{p}_i = \sigma_{ij}l_j$
 
 **结论**：
@@ -836,10 +886,35 @@ $$\boxed{\text{虚位移原理} \;\Longleftrightarrow\; \text{平衡方程} \;+\
 **证明核心**（对偶于虚位移原理）：
 - 任取两个相邻的可能应力 $\sigma_{ij}^1$、$\sigma_{ij}^2$，令 $\delta\sigma_{ij} = \sigma_{ij}^1 - \sigma_{ij}^2$
 - 虚功方程相减，利用 $\delta F_i = 0$、$\delta\bar{p}_i = 0$（外力给定）：
-  $$\int_{S_u} \delta p_i\,\bar{u}_i\,dS = \int_V \delta\sigma_{ij}\,\varepsilon_{ij}\,dV$$
-- 分部积分并利用 $\delta\sigma_{ij,j}=0$、$\delta\sigma_{ij}l_j|_{S_\sigma}=0$，最终得：
+  $$\int_{S_u} \delta p_i\,\bar{u}_i\,dS = \int_V \delta\sigma_{ij}\,\varepsilon_{ij}\,dV \tag{**}$$
+
+- **对左边利用高斯定理**（关键推导，与 3.8.3.5 对偶）：
+
+  **Step 1**：代入 Cauchy 公式 $\delta p_i = \delta\sigma_{ij}l_j$
+
+  $$\int_{S_u} \delta p_i\,\bar{u}_i\,dS = \int_{S_u} \delta\sigma_{ij}l_j\,\bar{u}_i\,dS$$
+
+  **Step 2**：高斯散度定理，将面积分化为体积分
+
+  $$= \int_V (\delta\sigma_{ij}\bar{u}_i)_{,j}\,dV$$
+
+  **Step 3**：乘积求导法则展开
+
+  $$= \int_V \delta\sigma_{ij,j}\,\bar{u}_i\,dV + \int_V \delta\sigma_{ij}\,\bar{u}_{i,j}\,dV$$
+
+  **Step 4**：利用虚应力的平衡约束 $\delta\sigma_{ij,j} = 0$，第一项消失
+
+  $$= \int_V \delta\sigma_{ij}\,\bar{u}_{i,j}\,dV$$
+
+  **Step 5**：利用应力对称性 $\delta\sigma_{ij} = \delta\sigma_{ji}$，改写为应变形式
+
+  $$= \int_V \delta\sigma_{ij}\cdot\frac12(\bar{u}_{i,j} + \bar{u}_{j,i})\,dV$$
+
+- 代回 $(**)$ 式，移项整理：
+
   $$\int_V \delta\sigma_{ij}\left[\varepsilon_{ij} - \frac12(u_{i,j}+u_{j,i})\right]dV + \int_{S_u}\delta p_i(u_i - \bar{u}_i)dS = 0$$
-- 被积函数恒为零 → 几何方程 + 位移边界条件
+
+- 由变分法预备定理，被积函数恒为零 → 几何方程 $\varepsilon_{ij} = \frac12(u_{i,j}+u_{j,i})$ + 位移边界 $u_i = \bar{u}_i$
 
 **结论**：
 $$\boxed{\text{虚应力原理} \;\Longleftrightarrow\; \text{几何方程} \;+\; \text{位移边界条件}}$$
@@ -860,12 +935,27 @@ $$\sigma_{ij}^{(1)}\varepsilon_{ij}^{(2)} = C_{ijkl}\varepsilon_{kl}^{(1)}\varep
 
 > 💡 理解关键：Betti 互等定理的推导只有一行，但这一步用到了一个极深的事实：弹性张量 $C_{ijkl}$ 满足 $C_{ijkl} = C_{klij}$（主对称性）。这说明 $\sigma_{ij}^{(1)}\varepsilon_{ij}^{(2)} = \sigma_{ij}^{(2)}\varepsilon_{ij}^{(1)}$——状态一的应力在状态二应变上做的功 = 状态二的应力在状态一应变上做的功。互等定理在 FEM 中保证刚度矩阵 $K$ 是对称矩阵——这正是有限元计算高效的数学根源。
 
-**应用示例**：任意形状弹性体两端受压力 $P$（作用线长度为 $L$），求体积变化 $\Delta V$。
-- 利用互等定理，假设单位均布压力 $q=1$（产生静水压力状态）
-- 由 Hooke 定律：$\varepsilon_x = \varepsilon_y = \varepsilon_z = -\frac{1}{E}(1-2\nu)$
-- $L$ 的缩短量：$\Delta_L = -\frac{(1-2\nu)}{E}L$（$E$ 为杨氏模量，$\nu$ 为泊松比）
-- 由互等定理：$P\cdot\Delta_L = 1\cdot\Delta V$
-- $$\boxed{\Delta V = -\frac{(1-2\nu)}{E}PL}$$（$E$ 为杨氏模量，$\nu$ 为泊松比）
+**应用示例**：任意形状弹性体两端受压力 $P$（作用线长度为 $L$，横截面积 $A$），求体积变化 $\Delta V$。
+
+**方法一：直接由应变求**（推荐）
+
+- 实际状态：$\sigma_x = -P/A$，$\sigma_y = \sigma_z = 0$
+- 由 Hooke 定律：$\varepsilon_x = -\frac{P}{EA}$，$\varepsilon_y = \varepsilon_z = \frac{\nu P}{EA}$
+- 体积应变：$\varepsilon_V = \varepsilon_x + \varepsilon_y + \varepsilon_z = \frac{P}{EA}(-1+2\nu)$
+
+$$\boxed{\Delta V = V\varepsilon_V = -\frac{(1-2\nu)}{E}PL}$$
+
+**方法二：用互等定理**（演示定理用法）
+
+取两个状态：
+- 状态 1（实际）：$\sigma_x^{(1)} = -P/A$，$\varepsilon_x^{(1)} = -\frac{P}{EA}$，$\varepsilon_y^{(1)} = \varepsilon_z^{(1)} = \frac{\nu P}{EA}$
+- 状态 2（虚拟）：静水压力 $\sigma_x^{(2)} = \sigma_y^{(2)} = \sigma_z^{(2)} = -1$，$\varepsilon_x^{(2)} = \varepsilon_y^{(2)} = \varepsilon_z^{(2)} = -\frac{(1-2\nu)}{E}$
+
+由 Betti 互等定理：
+
+$$\underbrace{\int_V \sigma_{ij}^{(1)}\varepsilon_{ij}^{(2)}\,dV}_{\text{状态1应力} \times \text{状态2应变}} = \underbrace{\int_V \sigma_{ij}^{(2)}\varepsilon_{ij}^{(1)}\,dV}_{\text{状态2应力} \times \text{状态1应变}}$$
+
+两边计算结果相同（均为 $\frac{P(1-2\nu)}{AE}V$），验证了定理。体积变化仍需从应变直接求得。
 
 
 ---
