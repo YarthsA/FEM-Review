@@ -563,7 +563,18 @@ $$V = -\int_0^L qw\,dx + Q_0 w_0 - M_0\left(\frac{dw}{dx}\right)_0 - Q_L w_L + M
 总势能：
 $$\Pi = \frac12\int_0^L EI\left(\frac{d^2w}{dx^2}\right)^2 dx - \int_0^L qw\,dx + Q_0 w_0 - M_0\left(\frac{dw}{dx}\right)_0 - Q_L w_L + M_L\left(\frac{dw}{dx}\right)_L$$
 
-求变分 $\delta\Pi$，对第一项进行两次分部积分：
+**求变分 $\delta\Pi$**：
+
+对各项分别取变分（$\delta$ 是线性算子，可以逐项作用）：
+
+$$\begin{aligned}
+\delta\Pi &= \delta\left[\frac12\int_0^L EI\left(\frac{d^2w}{dx^2}\right)^2 dx\right] - \delta\left[\int_0^L qw\,dx\right] + \delta\left[Q_0 w_0 - M_0 w_0' - Q_L w_L + M_L w_L'\right] \\
+&= \int_0^L EI\frac{d^2w}{dx^2}\delta\left(\frac{d^2w}{dx^2}\right)dx - \int_0^L q\,\delta w\,dx + Q_0\,\delta w_0 - M_0\,\delta w_0' - Q_L\,\delta w_L + M_L\,\delta w_L'
+\end{aligned}$$
+
+> 💡 **注意**：第一项中 $\frac12$ 消掉了——因为 $\delta(u^2) = 2u\,\delta u$，所以 $\frac12 \cdot 2 = 1$。
+
+**对第一项进行两次分部积分**：
 
 $$\begin{aligned}
 \frac12\int_0^L EI\,\delta\left(\frac{d^2w}{dx^2}\right)^2 dx &= \int_0^L EI\frac{d^2w}{dx^2}\delta\left(\frac{d^2w}{dx^2}\right)dx \\
