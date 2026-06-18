@@ -449,4 +449,26 @@ $$\boxed{[J]=\begin{pmatrix}\dfrac{\partial x}{\partial\xi}&\dfrac{\partial y}{\
 
 单元刚度矩阵中的积分变换：$\boxed{\displaystyle\int\int f(x,y)\,dxdy=\int_{-1}^{1}\int_{-1}^{1}f(\xi,\eta)|\det[J]|\,d\xi d\eta}$
 
+### 4.17 常用积分公式（Ritz/Galerkin 法高频）
+
+**三角函数积分**（简支梁/悬臂梁算例必备）：
+
+$$\boxed{\int_0^l \sin^2\frac{n\pi x}{l}\,dx = \frac{l}{2}} \quad (n=1,2,3,\ldots)$$
+
+$$\boxed{\int_0^l \sin\frac{m\pi x}{l}\sin\frac{n\pi x}{l}\,dx = \begin{cases}l/2 & m=n \\ 0 & m\neq n\end{cases}}$$
+
+$$\boxed{\int_0^l \cos^2\frac{n\pi x}{l}\,dx = \frac{l}{2}}$$
+
+$$\boxed{\int_0^l \sin\frac{n\pi x}{l}\,dx = \frac{2l}{n\pi}(1-(-1)^n) = \begin{cases}4l/(n\pi) & n\text{ 奇数} \\ 0 & n\text{ 偶数}\end{cases}}$$
+
+**推导依据**：半角公式 $\sin^2\theta = \frac{1-\cos 2\theta}{2}$，$\cos^2\theta = \frac{1+\cos 2\theta}{2}$
+
+**多项式积分**（Ritz 法常用）：
+
+$$\boxed{\int_0^l x^m(l-x)^n\,dx = \frac{m!\,n!}{(m+n+1)!}l^{m+n+1}}$$
+
+**正交性**：三角函数族 $\{\sin(n\pi x/l)\}$ 在 $[0,l]$ 上正交——这是 Galerkin 法中系数矩阵为对角阵的根本原因。
+
+> 💡 **记忆技巧**：$\int_0^l \sin^2(\cdot)dx = l/2$ 是最常用的，记住即可。其他公式可由正交性和半角公式推导。
+
 > 祝考试顺利！

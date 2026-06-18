@@ -648,7 +648,7 @@ $$\text{误差} = \frac{5/384 - 1/96}{5/384} = \frac{5-4}{5} = 20\%$$
 
 代入计算：
 - $w'' = -a\left(\frac{\pi}{l}\right)^2\sin\left(\frac{\pi x}{l}\right)$
-- $\frac12\int_0^l EI a^2\left(\frac{\pi}{l}\right)^4\sin^2\left(\frac{\pi x}{l}\right)dx = \frac{EI\pi^4}{4l^3}a^2$
+- $\frac12\int_0^l EI a^2\left(\frac{\pi}{l}\right)^4\sin^2\left(\frac{\pi x}{l}\right)dx = \frac{EI\pi^4}{4l^3}a^2$（利用常用公式 $\int_0^l \sin^2\frac{n\pi x}{l}dx = \frac{l}{2}$，详见 [§4.17 常用积分公式](../05-Exam-Cram/5-1-Formula-Sheet.md#417-常用积分公式-ritzgalerkin-法高频)）
 - $\int_0^l q\,a\sin\left(\frac{\pi x}{l}\right)dx = qa\left[-\frac{l}{\pi}\cos\left(\frac{\pi x}{l}\right)\right]_0^l = \frac{2ql}{\pi}a$
 
 $$\Pi = \frac{EI\pi^4}{4l^3}a^2 - \frac{2ql}{\pi}a$$
