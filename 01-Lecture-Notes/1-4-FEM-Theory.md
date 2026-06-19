@@ -720,113 +720,33 @@ $$\boxed{\int_V (\sigma_{ij,j} + f_i)u_{in}dV = 0,\quad n=1,2,\ldots,N}$$
 
 #### 梁的 Galerkin 法算例
 
-**问题**：悬臂梁（左端固定，右端自由），均布荷载 q，长 l。
+> 详细的悬臂梁 Galerkin 法算例（含试函数构造、积分计算、精度对比）见 §4.2.8。
 
-```
-固定端                自由端
-  ┃←——————————————————→┃
-  ┃    q（均布）       ┃
-  x=0                 x=l
-```
+这里用一个简单例子说明 Galerkin 法的基本操作。
 
-**边界条件**：
-- 固定端（$x=0$）：$w(0)=0$，$w'(0)=0$（本质边界条件）
-- 自由端（$x=l$）：$EI w''(l)=0$（弯矩=0），$(EI w'')'(l)=0$（剪力=0）（自然边界条件）
+**问题**：简支梁（两端铰支），均布荷载 $q$，长 $l$。
 
-> 💡 **为什么选悬臂梁？** 因为它有**力边界条件**（自由端弯矩和剪力为零），这是 Ritz 法和 Galerkin 法的关键区别所在。Ritz 法只需满足固定端的位移 BC，Galerkin 法还需满足自由端的力 BC。
+**边界条件**：$w(0)=w(l)=0$，$w''(0)=w''(l)=0$（简支端弯矩为零）
 
-**Galerkin 法要求试函数同时满足本质边界条件和自然边界条件**：
+**Galerkin 法要求试函数满足所有边界条件**。取：
 
-取试函数 $w = a\left(1 - \cos\frac{\pi x}{2l}\right)$
+$$w = a\sin\frac{\pi x}{l}$$
 
-验证：
-- $w(0) = a(1-1) = 0$ ✓（固定端位移为零）
-- $w'(0) = a\cdot\frac{\pi}{2l}\cdot\sin 0 = 0$ ✓（固定端转角为零）
-- $w''(l) = -a\left(\frac{\pi}{2l}\right)^2\cos\frac{\pi}{2} = 0$ ✓（自由端弯矩为零）
-- $w'''(l) = a\left(\frac{\pi}{2l}\right)^3\sin\frac{\pi}{2} \neq 0$ ✗（自由端剪力不为零！）
+验证：$w(0)=w(l)=0$ ✓，$w''(0)=w''(l)=0$ ✓
 
-> ⚠️ **问题发现**：这个试函数**不满足**自由端的剪力边界条件！因此它**不适用于 Galerkin 法**（但适用于 Ritz 法）。这恰好说明了 Galerkin 法对试函数要求更严。
+代入 Galerkin 积分方程 $\int_0^l (EI w'''' - q)w\,dx = 0$：
 
-**正确的 Galerkin 法试函数**需要同时满足所有四个边界条件。
+- $w'''' = a\left(\frac{\pi}{l}\right)^4\sin\frac{\pi x}{l}$
 
-**构造方法**（从高阶导数向低阶积分，参考 §4.2.8）：
+$$EI a\left(\frac{\pi}{l}\right)^4\int_0^l \sin^2\frac{\pi x}{l}\,dx - q\int_0^l \sin\frac{\pi x}{l}\,dx = 0$$
 
-**Step 1**：从 $w''$ 开始构造，保证 $w''(l)=0$ 和 $w'''(l)=0$
+$$EI a\left(\frac{\pi}{l}\right)^4\cdot\frac{l}{2} - q\cdot\frac{2l}{\pi} = 0$$
 
-设 $w'' = a\left(1 - \sin\frac{\pi x}{2l}\right)$
+$$a = \frac{4ql^4}{\pi^5 EI}$$
 
-验证：
-- $w''(l) = a(1 - \sin\frac{\pi}{2}) = a(1-1) = 0$ ✓
-- $w'''(l) = -a\frac{\pi}{2l}\cos\frac{\pi}{2} = 0$ ✓
+跨中挠度：$w_{\max} = \frac{4ql^4}{\pi^5 EI} \approx \frac{ql^4}{76.4EI}$
 
-**Step 2**：积分两次，用位移边界条件确定积分常数
-
-$$w' = a\left(x + \frac{2l}{\pi}\cos\frac{\pi x}{2l}\right) + C_1$$
-
-$$w = a\left(\frac{x^2}{2} + \left(\frac{2l}{\pi}\right)^2\sin\frac{\pi x}{2l}\right) + C_1 x + C_2$$
-
-由 $w'(0) = 0$：$a\left(0 + \frac{2l}{\pi}\right) + C_1 = 0 \Rightarrow C_1 = -\frac{2al}{\pi}$
-
-由 $w(0) = 0$：$a(0 + 0) + 0 + C_2 = 0 \Rightarrow C_2 = 0$
-
-**最终试函数**：
-
-$$w = a\left[\frac{x^2}{2} + \left(\frac{2l}{\pi}\right)^2\sin\frac{\pi x}{2l} - \frac{2l}{\pi}x\right]$$
-
-**Step 3**：验证所有边界条件
-
-| 边界条件 | 验证 |
-|---------|------|
-| $w(0) = 0$ | $a[0 + 0 - 0] = 0$ ✓ |
-| $w'(0) = 0$ | $a[0 + \frac{2l}{\pi} - \frac{2l}{\pi}] = 0$ ✓ |
-| $w''(l) = 0$ | $a[l + 0 - l] = 0$ ✓ |
-| $w'''(l) = 0$ | $a[\frac{\pi}{2l}\cos\frac{\pi}{2}] = 0$ ✓ |
-
-**Step 4**：代入 Galerkin 积分方程
-
-$$\int_0^l (EI w'''' - q)w\,dx = 0$$
-
-计算 $w''''$：
-
-$$w'''' = a\frac{\pi^2}{4l^2}\sin\frac{\pi x}{2l}$$
-
-代入并展开（$a\neq 0$ 可约掉）：
-
-$$EI\frac{\pi^2}{4l^2}\int_0^l \sin\frac{\pi x}{2l}\cdot w\,dx = q\int_0^l w\,dx$$
-
-**Step 5**：计算各积分
-
-令 $u = \frac{\pi x}{2l}$，则 $x = \frac{2lu}{\pi}$，$dx = \frac{2l}{\pi}du$
-
-**左边三个积分**：
-
-$$I_1 = \int_0^l \sin\frac{\pi x}{2l}\cdot\frac{x^2}{2}\,dx = \frac{4l^3}{\pi^3}\int_0^{\pi/2}u^2\sin u\,du = \frac{4l^3}{\pi^3}(\pi-2)$$
-
-$$I_2 = \frac{4l^2}{\pi^2}\int_0^l \sin^2\frac{\pi x}{2l}\,dx = \frac{4l^2}{\pi^2}\cdot\frac{l}{2} = \frac{2l^3}{\pi^2}$$
-
-$$I_3 = \frac{2l}{\pi}\int_0^l x\sin\frac{\pi x}{2l}\,dx = \frac{2l}{\pi}\cdot\frac{4l^2}{\pi^2} = \frac{8l^3}{\pi^3}$$
-
-**右边积分**：
-
-$$I_4 = \int_0^l w\,dx = l^3\left(\frac{1}{6} + \frac{8}{\pi^3} - \frac{1}{\pi}\right)$$
-
-**Step 6**：代入等式
-
-左边：$EI\frac{\pi^2}{4l^2}(I_1+I_2-I_3) = EI l\frac{3\pi-8}{2\pi}$
-
-右边：$qI_4 = ql^2\left(\frac{1}{6}+\frac{8}{\pi^3}-\frac{1}{\pi}\right)$
-
-**最终结果**：
-
-$$\boxed{a = \frac{ql^2}{EI}\cdot\frac{2\pi\left(\frac{1}{6}+\frac{8}{\pi^3}-\frac{1}{\pi}\right)}{3\pi-8} \approx 0.4691\frac{ql^2}{EI}}$$
-
-自由端挠度（$x=l$）：
-
-$$w(l) = al^2\left(\frac{1}{2}+\frac{4}{\pi^2}-\frac{2}{\pi}\right) \approx 0.126\frac{ql^4}{EI}$$
-
-精确解：$w(l) = \frac{ql^4}{8EI} = 0.125\frac{ql^4}{EI}$，**误差约 0.8%**。
-
-> 💡 **关键认识**：这就是 Galerkin 法的"代价"——试函数必须满足所有边界条件，构造更困难（需要从 $w''$ 开始积分）。但好处是精度更高（一阶近似就达到 0.8%）。
+精确解：$\frac{5ql^4}{384EI} \approx \frac{ql^4}{76.8EI}$，**误差约 0.4%**。
 
 Galerkin 法的一个优点：**不需要判断结构是否静定**，因为无论结构静定与否，解法相同。
 
