@@ -81,7 +81,9 @@
 $$\begin{cases}
 -\Delta u = f \\
 u|_{\partial\Omega} = u_0(x,y)
-\end{cases}$$ 其中 $f = f(x,y)$ 是源项（Source term），代表单位面积内的热源强度或体力等已知函数；$u_0(x,y)$ 是 Dirichlet 边界上给定的边界函数值。
+\end{cases}$$
+
+其中 $f = f(x,y)$ 是源项（Source term），代表单位面积内的热源强度或体力等已知函数；$u_0(x,y)$ 是 Dirichlet 边界上给定的边界函数值。
 
 其中 $\Delta = \frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2}$ 是 Laplace 算子。
 
