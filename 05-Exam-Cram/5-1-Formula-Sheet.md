@@ -17,9 +17,11 @@
 > 详见 [证明模板 §7.1](#71-证明某量是张量)
 
 1. 写出旧坐标系中的定义
-2. 坐标变换 $x_{i'} = l_{i'j}x_j$，导数变换 $\frac{\partial}{\partial x_{j'}} = l_{mj'}\frac{\partial}{\partial x_m}$
+2. 坐标变换 $x_{i'} = l_{i'j}x_j$，导数变换 $\dfrac{\partial}{\partial x_{j'}} = l_{mj'}\dfrac{\partial}{\partial x_m}$
 3. 代入整理为 $l_{i'i}l_{j'j}\cdots \times \text{原分量}$ 形式
 4. 与张量变换律对比 → 得证
+
+**关键判据**：若某量满足 $\boxed{a_{i'j'\cdots}' = l_{i'i}l_{j'j}\cdots a_{ij\cdots}}$，则它是张量。
 
 ### 1.3 特殊符号
 
@@ -163,8 +165,10 @@ $$\boxed{[D]=\frac{E(1-\nu)}{(1+\nu)(1-2\nu)}\begin{pmatrix}1&\frac{\nu}{1-\nu}&
 
 ### 2.10 边界条件（Boundary conditions）
 
-- **位移边界条件**（本质/Dirichlet）：$u_i=\bar{u}_i$ 在 $\Gamma_u$ 上
-- **力边界条件**（自然/Neumann）：$\sigma_{ij}n_j=\bar{T}_i$ 在 $\Gamma_\sigma$ 上
+- **位移边界条件**（本质/Dirichlet）：$\boxed{u_i=\bar{u}_i}$ 在 $\Gamma_u$ 上
+- **力边界条件**（自然/Neumann）：$\boxed{\sigma_{ij}n_j=\bar{T}_i}$ 在 $\Gamma_\sigma$ 上
+
+> 两类边界互补：$\Gamma_u \cup \Gamma_\sigma = \Gamma$（整个边界），$\Gamma_u \cap \Gamma_\sigma = \varnothing$
 
 ### 2.11 三组方程推导中的假设
 
@@ -193,7 +197,12 @@ Lagrange 定义：$\boxed{\delta Q = \dfrac{\partial}{\partial\alpha}Q[y+\alpha\
 
 ### 3.3 泛函极值（Functional extremum）
 
-极值必要条件：$\delta Q=0$
+极值必要条件（驻值条件）：$\boxed{\delta Q=0}$
+
+- $\delta Q=0$ 且 $\delta^2 Q>0$ → 极小值
+- $\delta Q=0$ 且 $\delta^2 Q<0$ → 极大值
+
+实际应用中通常只考虑一阶变分，充分性由物理背景保证。
 
 ### 3.4 Euler 方程（Euler equation）
 
@@ -211,22 +220,44 @@ $$\boxed{\sum_{k=0}^{n}(-1)^k\frac{d^k}{dx^k}\left(\frac{\partial F}{\partial y^
 
 ### 3.5 本质边界条件与自然边界条件
 
-- **本质（Essential）**：给定函数值 $\delta y|_{\Gamma}=0$，如固定端 $u=0$
-- **自然（Natural）**：由极值条件自动导出，如自由端 $M=0$
+变分后边界项：
+
+$$\boxed{\delta Q = \int_a^b\left(F_y - \frac{d}{dx}F_{y'}\right)\delta y\,dx + \left.F_{y'}\delta y\right|_a^b}$$
+
+- **本质（Essential）**：预先给定 $\delta y|_{\Gamma}=0$，如固定端 $u=0$
+- **自然（Natural）**：由变分自动导出 $\boxed{\left.\dfrac{\partial F}{\partial y'}\right|_{\text{边界}}=0}$，如自由端 $M=0$
 
 ### 3.6 泛函的条件极值（Conditional extremum）
 
-**Lagrange 乘子法**：引入 $\lambda$，构造新泛函 $\hat{Q}=Q+\lambda\cdot C$
+**Lagrange 乘子法**：引入 $\lambda$，构造新泛函：
+
+$$\boxed{\hat{Q}=Q[y]+\lambda\cdot C[y]}$$
+
+其中 $C[y]=0$ 为约束条件。对 $\hat{Q}$ 取变分 $\delta\hat{Q}=0$，同时解出 $y$ 和 $\lambda$。
 
 ### 3.7 Euler 方程的推广形式
 
-- 含高阶导数：$n$ 阶导数需 $C^{n-1}$ 连续
-- 多个未知函数：每个函数对应一个 Euler 方程
-- 多个自变量（如 $F(z,z_x,z_y,z_{xx},z_{xy},z_{yy})$）→ Euler-Poisson 方程
+**含高阶导数**（$Q=\int_a^b F(x,y,y',y'')dx$）：
+
+$$\boxed{F_y - \frac{d}{dx}F_{y'} + \frac{d^2}{dx^2}F_{y''} = 0}$$
+
+推广到 $n$ 阶：$\boxed{F_y - \frac{d}{dx}F_{y'} + \frac{d^2}{dx^2}F_{y''} - \cdots + (-1)^n\frac{d^n}{dx^n}F_{y^{(n)}} = 0}$
+
+**多个独立函数**（$Q=\int_a^b F(x,y_1,\ldots,y_n,y_1',\ldots,y_n')dx$）：
+
+$$\boxed{F_{y_i} - \frac{d}{dx}F_{y_i'} = 0,\quad i=1,2,\ldots,n}$$
+
+**多元函数**（$Q=\iint_D F(x,y,z,p,q)\,dxdy$，$p=z_x$，$q=z_y$）：
+
+$$\boxed{F_z - \frac{\partial}{\partial x}F_p - \frac{\partial}{\partial y}F_q = 0}$$
 
 ### 3.8 变分法在力学中的应用
 
 核心联系：**变分问题 ↔ 微分方程边值问题**（当泛函存在时）
+
+$$\boxed{\delta Q = 0 \;\Longleftrightarrow\; \text{Euler 方程} + \text{自然边界条件}}$$
+
+力学中：$\delta\Pi=0$（最小势能原理）$\Longleftrightarrow$ 平衡方程 + 边界条件
 
 ### 3.9 虚功原理（Principle of virtual work）
 
@@ -259,19 +290,7 @@ $$\boxed{\int_V F_i^{(1)} u_i^{(2)}\,dV + \int_S p_i^{(1)} u_i^{(2)}\,dS = \int_
 
 状态一的力在状态二的位移上做的功 = 状态二的力在状态一的位移上做的功。
 
-### 3.11 虚位移原理
-
-$\boxed{\displaystyle\int_\Omega \sigma_{ij}\delta\varepsilon_{ij}\,dV=\int_\Omega f_i\delta u_i\,dV+\int_{\Gamma_\sigma}T_i\delta u_i\,dS}$
-
-→ 等价于平衡方程 + 力边界条件
-
-### 3.12 虚应力原理
-
-$\boxed{\displaystyle\int_\Omega \varepsilon_{ij}\delta\sigma_{ij}\,dV=\int_{\Gamma_u}u_i\delta T_i\,dS}$
-
-→ 等价于几何方程 + 位移边界条件
-
-### 3.13 最小势能原理（Principle of minimum potential energy）
+### 3.11 最小势能原理（Principle of minimum potential energy）
 
 在一切**可能位移场**中，真实位移场使总势能 $\Pi$ 取最小值：
 
@@ -279,31 +298,51 @@ $$\boxed{\Pi=\underbrace{\frac{1}{2}\int_\Omega \sigma_{ij}\varepsilon_{ij}\,dV}
 
 极值条件 $\dfrac{\partial\Pi}{\partial u_i}=0$ → 平衡方程
 
-### 3.14 弹性力学中的 Euler 方程
+### 3.12 弹性力学中的 Euler 方程
 
-总势能泛函的极值条件 → 回退到平衡方程（从变分法角度导出弹性力学控制方程）
+从总势能 $\delta\Pi=0$ 出发，对平面应力问题分部积分后得：
 
-### 3.15 变分问题的直接法与间接法
+**域内（Euler 方程 = 平衡方程）**：
+
+$$\boxed{\frac{E}{1-\mu^2}\left(\frac{\partial^2 u}{\partial x^2}+\frac{1-\mu}{2}\frac{\partial^2 u}{\partial y^2}+\frac{1+\mu}{2}\frac{\partial^2 v}{\partial x\partial y}\right)+F_x=0}$$
+
+$$\boxed{\frac{E}{1-\mu^2}\left(\frac{\partial^2 v}{\partial y^2}+\frac{1-\mu}{2}\frac{\partial^2 v}{\partial x^2}+\frac{1+\mu}{2}\frac{\partial^2 u}{\partial x\partial y}\right)+F_y=0}$$
+
+$\Longrightarrow$ 等价于平衡方程 $\sigma_{ij,j}+f_i=0$ + 力边界 $\sigma_{ij}n_j=\bar{T}_i$
+
+### 3.13 变分问题的直接法与间接法
 
 - **间接法**：Euler 方程法（将变分问题转化为微分方程）
 - **直接法**：Ritz 法、Galerkin 法、有限差分法（直接近似求解泛函极值）
 
-### 3.16 微分方程的等效变分方程
+### 3.14 微分方程的等效变分方程
 
-**等效积分形式**（Galerkin 弱形式）→ 分部积分降低光滑度要求 → $C^1$ → $C^0$
+**等效积分形式**（Galerkin 弱形式）：
 
-### 3.17 有限差分法（Finite difference method）
+$$\boxed{\int_\Omega w_i\left(\mathbf{T}u - f\right)d\Omega = 0}$$
 
-用差商代替导数，将泛函转化为多元函数 → 求极值
+分部积分降低光滑度要求：$C^1 \to C^0$（导数阶数减一），使低阶单元可用。
 
-### 3.18 Ritz 法
+### 3.15 有限差分法（Finite difference method）
+
+将区间 $[a,b]$ 等分为 $n+1$ 段，用差商代替导数：
+
+$$\boxed{y' \approx \frac{y_{i+1}-y_i}{\Delta x}}$$
+
+泛函转化为多元函数：
+
+$$\boxed{Q[y] \approx \sum_{i=0}^n F\!\left(x_i,\,y_i,\,\frac{y_{i+1}-y_i}{\Delta x}\right)\Delta x = \Phi(y_1,\ldots,y_n)}$$
+
+由 $\dfrac{\partial\Phi}{\partial y_i}=0\;(i=1,\ldots,n)$ 解出节点值。$n\to\infty$ 得**极小化序列**。
+
+### 3.16 Ritz 法
 
 1. 选基函数 $\varphi_i$（需满足**本质边界条件**）
-2. 构造 $u_n=\sum a_i\varphi_i$
-3. 代入泛函 $\Pi$，极值条件 $\dfrac{\partial\Pi}{\partial a_i}=0$
-4. 解线性方程组 $\boldsymbol{Ka}=\boldsymbol{b}$
+2. 构造 $\boxed{u_n=\sum_{i=1}^n a_i\varphi_i}$
+3. 代入泛函 $\Pi$，极值条件 $\boxed{\dfrac{\partial\Pi}{\partial a_i}=0\;(i=1,\ldots,n)}$
+4. 解线性方程组 $\boxed{\boldsymbol{Ka}=\boldsymbol{b}}$，其中 $K_{ij}=\dfrac{\partial^2\Pi}{\partial a_i\partial a_j}$
 
-### 3.19 Galerkin 法
+### 3.17 Galerkin 法
 
 加权残量法中取**权函数 = 试函数本身**：
 
@@ -312,16 +351,18 @@ $$\boxed{\int_\Omega N_i\cdot R\,d\Omega=0\quad(i=1,\ldots,n)}$$
 - 试函数需满足**全部边界条件**（位移 + 力）
 - 当泛函存在时，与 Ritz 法等价
 
-### 3.20 加权残量法（Weighted residual method）
+### 3.18 加权残量法（Weighted residual method）
 
-基本思想：使残差 $R=L(\tilde{u})-f$ 在权函数空间中投影为零
+基本思想：使残差 $R=L(\tilde{u})-f$ 在权函数空间中投影为零：
 
-| 方法 | 权函数 | 精度（一阶近似，简支梁） |
+$$\boxed{\int_\Omega w_i\cdot R\,d\Omega = 0\quad(i=1,\ldots,n)}$$
+
+| 方法 | 权函数 $w_i$ | 精度（一阶近似，简支梁） |
 |------|--------|--------------------------|
-| Galerkin | $w_i=N_i$（基函数本身） | **0.38%** |
-| 最小二乘 | $w_i=\partial R/\partial c_i$ | **0.38%** |
-| 配点法 | $w_i=\delta(x-x_i)$ | 21.16% |
-| 子域法 | $w_i=1$（子域内） | 23.85% |
+| Galerkin | $N_i$（基函数本身） | **0.38%** |
+| 最小二乘 | $\partial R/\partial c_i$ | **0.38%** |
+| 配点法 | $\delta(x-x_i)$ | 21.16% |
+| 子域法 | $1$（子域内） | 23.85% |
 
 ---
 
@@ -346,6 +387,18 @@ $$\boxed{\int_\Omega N_i\cdot R\,d\Omega=0\quad(i=1,\ldots,n)}$$
 → 总刚组装[K] = Σ[k]e → 引入边界条件 → 求解[K]{δ}={F} → 应力回算
 ```
 
+**单元刚度矩阵**：
+
+$$\boxed{[k]^e = \int_{\Omega_e} [B]^T[D][B]\,d\Omega}$$
+
+**总体刚度矩阵**：
+
+$$\boxed{[K] = \sum_e [k]^e}$$
+
+**求解**：
+
+$$\boxed{[K]\{\delta\} = \{F\}}$$
+
 ### 4.3 单元、节点、DOF 的概念
 
 - **单元 (element)**：连续体的离散子域
@@ -361,11 +414,13 @@ $$\boxed{\int_\Omega N_i\cdot R\,d\Omega=0\quad(i=1,\ldots,n)}$$
 
 ### 4.5 单元刚度矩阵元素的物理意义
 
-$K_{ij}$ = 第 $j$ 个 DOF 产生**单位位移**，其余位移为零时，第 $i$ 个 DOF 上需要施加的节点力
+$$\boxed{K_{ij} = \text{第 }j\text{ 个 DOF 产生单位位移（其余为零）时，第 }i\text{ 个 DOF 上的节点力}}$$
+
+即 $k_{ij}$ = 第 $j$ 个自由度方向施加单位位移时，在第 $i$ 个自由度方向产生的反力。
 
 ### 4.6 收敛准则（Convergence criteria）
 
-- **完备性**：试函数包含刚体位移和常应变状态
+- **完备性**：试函数包含刚体位移和常应变状态 → $\sum N_i=1$（单位分解）
 - **协调性**：泛函最高阶导数为 $m$ → 单元交界面需 $C^{m-1}$ 连续
 - **分片试验** (Patch Test)：验证新单元是否满足收敛性
 
@@ -449,7 +504,33 @@ $$\boxed{[J]=\begin{pmatrix}\dfrac{\partial x}{\partial\xi}&\dfrac{\partial y}{\
 
 单元刚度矩阵中的积分变换：$\boxed{\displaystyle\int\int f(x,y)\,dxdy=\int_{-1}^{1}\int_{-1}^{1}f(\xi,\eta)|\det[J]|\,d\xi d\eta}$
 
-### 4.17 常用积分公式（Ritz/Galerkin 法高频）
+### 4.17 Gauss 数值积分（Numerical integration）
+
+**核心思想**：$n$ 个积分点（不等距），代数精度达 $(2n-1)$ 次。
+
+**正交条件**确定积分点 $\xi_i$（$n$ 阶 Legendre 多项式 $P_n(\xi)$ 的根）：
+
+$$\boxed{\int_{-1}^1 \xi^i P(\xi)\,d\xi = 0, \quad i=0,1,\ldots,n-1}$$
+
+**积分公式**：
+
+$$\boxed{\int_{-1}^1 f(\xi)\,d\xi \approx \sum_{i=1}^n A_i f(\xi_i)}$$
+
+**常用一维 Gauss 积分点和权系数**：
+
+| $n$ | 积分点 $\xi_i$ | 权系数 $A_i$ | 精度 |
+|:---:|---------------|:-----------:|:---:|
+| 1 | $0$ | $2$ | 1 |
+| 2 | $\pm 1/\sqrt{3} \approx \pm 0.577350$ | $1, 1$ | 3 |
+| 3 | $0,\;\pm\sqrt{3/5} \approx \pm 0.774597$ | $8/9,\;5/9,\;5/9$ | 5 |
+
+**二维嵌套法**：
+
+$$\boxed{\int_{-1}^1\int_{-1}^1 f(\xi,\eta)\,d\xi d\eta \approx \sum_{i=1}^n\sum_{j=1}^n A_i A_j f(\xi_i,\eta_j)}$$
+
+> 权系数是乘积 $A_iA_j$（非 $A_i+A_j$）。4 节点等参元用 $2\times2$（4 点），8/9 节点用 $3\times3$（9 点）。
+
+### 4.18 常用积分公式（Ritz/Galerkin 法高频）
 
 **三角函数积分**（简支梁/悬臂梁算例必备）：
 
