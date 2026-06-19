@@ -859,8 +859,35 @@ $$w = a\left[\frac12 x^2 - \frac{2l}{\pi}x + \left(\frac{2l}{\pi}\right)^2\sin\f
 
 代入 Galerkin 积分方程 $\int_0^l (EI w'''' - q)w\,dx = 0$（其中 $w''''$ 是 $w$ 的四阶导数，因为梁的控制方程是 $EI w'''' = q$）：
 
-经过积分计算得：
-$$a = \frac{\frac{1}{6} - \frac{1}{\pi} + \frac{8}{\pi^3}}{\frac{3}{2} - \frac{4}{\pi}} \frac{ql^4}{EI}$$
+**Step 1**：计算 $w''''$
+
+$$w'''' = a\frac{\pi^2}{4l^2}\sin\frac{\pi x}{2l}$$
+
+**Step 2**：展开积分
+
+$$EI\frac{\pi^2}{4l^2}\int_0^l \sin\frac{\pi x}{2l}\cdot w\,dx = q\int_0^l w\,dx$$
+
+**Step 3**：计算左边积分
+
+令 $I_1 = \int_0^l \sin\frac{\pi x}{2l}\cdot\frac{x^2}{2}\,dx = \frac{4l^3}{\pi^3}(\pi-2)$
+
+令 $I_2 = \frac{4l^2}{\pi^2}\int_0^l \sin^2\frac{\pi x}{2l}\,dx = \frac{4l^2}{\pi^2}\cdot\frac{l}{2} = \frac{2l^3}{\pi^2}$
+
+令 $I_3 = \frac{2l}{\pi}\int_0^l x\sin\frac{\pi x}{2l}\,dx = \frac{8l^3}{\pi^3}$
+
+左边 = $EI\frac{\pi^2}{4l^2}(I_1+I_2-I_3) = EI l\frac{3\pi-8}{2\pi}$
+
+**Step 4**：计算右边积分
+
+$$I_4 = \int_0^l w\,dx = l^3\left(\frac{1}{6} + \frac{8}{\pi^3} - \frac{1}{\pi}\right)$$
+
+右边 = $qI_4 = ql^2\left(\frac{1}{6}+\frac{8}{\pi^3}-\frac{1}{\pi}\right)$
+
+**Step 5**：解方程
+
+$$EI l\frac{3\pi-8}{2\pi} = ql^2\left(\frac{1}{6}+\frac{8}{\pi^3}-\frac{1}{\pi}\right)$$
+
+$$\boxed{a = \frac{\frac{1}{6} - \frac{1}{\pi} + \frac{8}{\pi^3}}{\frac{3}{2} - \frac{4}{\pi}} \frac{ql^4}{EI} \approx 0.4691\frac{ql^4}{EI}}$$
 
 自由端挠度 $(x=l)$：
 $$w_{\max} = a l^2\left(\frac12 - \frac{2}{\pi} + \frac{4}{\pi^2}\right) \approx 0.126 \frac{ql^4}{EI}$$
