@@ -87,6 +87,25 @@ u|_{\partial\Omega} = u_0(x,y)
 
 其中 $\Delta = \frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2}$ 是 Laplace 算子。
 
+> 💡 **理解关键**：拆开看这两行——
+>
+> **第一行 $-\Delta u = f$（控制方程，域内）**：$u$ 的二阶空间变化率（弯曲程度）等于已知源项 $f$。如果 $u$ 是温度，$f>0$ 表示该区域有热源在产热，温度曲线会"鼓起来"。
+>
+> | 符号 | 含义 | 物理类比 |
+> |------|------|---------|
+> | $u$ | 未知函数（要求的） | 温度场 / 位移 |
+> | $\Delta$ | Laplace 算子 $\frac{\partial^2}{\partial x^2}+\frac{\partial^2}{\partial y^2}$ | 衡量 $u$ 的"弯曲" |
+> | $f$ | 源项（已知） | 热源强度 / 体力 |
+>
+> **第二行 $u|_{\partial\Omega}=u_0$（边界条件）**：区域边界上 $u$ 的值已给定。
+>
+> | 符号 | 含义 |
+> |------|------|
+> | $\partial\Omega$ | 区域的边界（边界上所有点） |
+> | $u_0(x,y)$ | 边界上给定的值（已知函数） |
+>
+> **物理类比**：一块平板，四周温度固定（如左边 100°C，右边 20°C），内部有热源 $f$，求内部温度分布——这就是 Poisson 方程描述的问题。
+
 这是最简单也是最基本的第一类"边值问题"——椭圆型方程，在物理或力学中很常见。例如面外外力作用下的薄膜平衡问题和稳态温度场问题。无外力作用时 Poisson 方程变为 Laplace 方程。
 
 我们可以直接用 Galerkin 法获得其**等效积分的弱形式**。如前所述，此情况下对试函数的连续性要求很高（需要 $u \in C^2(\Omega) \cap C^1(\bar{\Omega})$），分部积分后可以转化为相应的弱形式。
@@ -414,7 +433,9 @@ $$\mathbf{u} = N_i\mathbf{u}_i + N_j\mathbf{u}_j + N_m\mathbf{u}_m + N_l\mathbf{
 
 $$\{\delta\}_e = \begin{pmatrix} u_i & v_i & w_i & u_j & v_j & w_j & u_m & v_m & w_m & u_l & v_l & w_l \end{pmatrix}^T$$
 
-$$[N] = \begin{bmatrix} N_i\mathbf{I}_3 & N_j\mathbf{I}_3 & N_m\mathbf{I}_3 & N_l\mathbf{I}_3 \end{bmatrix}_{3\times 12}$$，其中 $\mathbf{I}_3$ 是 $3\times 3$ 单位矩阵（Identity matrix）。
+$$[N] = \begin{bmatrix} N_i\mathbf{I}_3 & N_j\mathbf{I}_3 & N_m\mathbf{I}_3 & N_l\mathbf{I}_3 \end{bmatrix}_{3\times 12}$$
+
+其中 $\mathbf{I}_3$ 是 $3\times 3$ 单位矩阵（Identity matrix）。
 
 形函数 $N_s$ 通过行列式表达：
 
