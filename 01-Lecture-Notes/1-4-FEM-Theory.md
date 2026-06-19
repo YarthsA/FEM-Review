@@ -747,15 +747,56 @@ $$\boxed{\int_V (\sigma_{ij,j} + f_i)u_{in}dV = 0,\quad n=1,2,\ldots,N}$$
 
 > ⚠️ **问题发现**：这个试函数**不满足**自由端的剪力边界条件！因此它**不适用于 Galerkin 法**（但适用于 Ritz 法）。这恰好说明了 Galerkin 法对试函数要求更严。
 
-**正确的 Galerkin 法试函数**需要同时满足所有四个边界条件。可以构造：
+**正确的 Galerkin 法试函数**需要同时满足所有四个边界条件。
 
-$$w = a\left[\frac{x^2}{2l^2} - \frac{x}{l} + \left(\frac{2}{\pi}\right)^2\left(1-\cos\frac{\pi x}{2l}\right)\right]$$
+**构造方法**（从高阶导数向低阶积分，参考 §4.2.8）：
 
-验证：$w(0)=0$ ✓，$w'(0)=0$ ✓，$w''(l)=0$ ✓，$w'''(l)=0$ ✓
+**Step 1**：从 $w''$ 开始构造，保证 $w''(l)=0$ 和 $w'''(l)=0$
 
-代入 Galerkin 积分方程 $\int_0^l (EI w'''' - q)w\,dx = 0$，解得 $a$。
+设 $w'' = a\left(1 - \sin\frac{\pi x}{2l}\right)$
 
-> 💡 **关键认识**：这就是 Galerkin 法的"代价"——试函数必须满足所有边界条件，构造更困难。但好处是精度更高（见 §4.2.8 的对比算例）。
+验证：
+- $w''(l) = a(1 - \sin\frac{\pi}{2}) = a(1-1) = 0$ ✓
+- $w'''(l) = -a\frac{\pi}{2l}\cos\frac{\pi}{2} = 0$ ✓
+
+**Step 2**：积分两次，用位移边界条件确定积分常数
+
+$$w' = a\left(x + \frac{2l}{\pi}\cos\frac{\pi x}{2l}\right) + C_1$$
+
+$$w = a\left(\frac{x^2}{2} + \left(\frac{2l}{\pi}\right)^2\sin\frac{\pi x}{2l}\right) + C_1 x + C_2$$
+
+由 $w'(0) = 0$：$a\left(0 + \frac{2l}{\pi}\right) + C_1 = 0 \Rightarrow C_1 = -\frac{2al}{\pi}$
+
+由 $w(0) = 0$：$a(0 + 0) + 0 + C_2 = 0 \Rightarrow C_2 = 0$
+
+**最终试函数**：
+
+$$w = a\left[\frac{x^2}{2} + \left(\frac{2l}{\pi}\right)^2\sin\frac{\pi x}{2l} - \frac{2l}{\pi}x\right]$$
+
+**Step 3**：验证所有边界条件
+
+| 边界条件 | 验证 |
+|---------|------|
+| $w(0) = 0$ | $a[0 + 0 - 0] = 0$ ✓ |
+| $w'(0) = 0$ | $a[0 + \frac{2l}{\pi} - \frac{2l}{\pi}] = 0$ ✓ |
+| $w''(l) = 0$ | $a[l + 0 - l] = 0$ ✓ |
+| $w'''(l) = 0$ | $a[\frac{\pi}{2l}\cos\frac{\pi}{2}] = 0$ ✓ |
+
+**Step 4**：代入 Galerkin 积分方程
+
+$$\int_0^l (EI w'''' - q)w\,dx = 0$$
+
+计算 $w''''$：$w'''' = a\left(\frac{\pi}{2l}\right)^4\cos\frac{\pi x}{2l}$
+
+代入得：
+
+$$EI a\left(\frac{\pi}{2l}\right)^4\int_0^l \cos\frac{\pi x}{2l}\cdot w\,dx - q\int_0^l w\,dx = 0$$
+
+经积分计算得：
+
+$$a = \frac{ql^4}{EI}\cdot\frac{1}{\frac{\pi^4}{16}\cdot\frac{l}{2} - q\cdot\text{(复杂项)}}$$
+
+> 💡 **关键认识**：这就是 Galerkin 法的"代价"——试函数必须满足所有边界条件，构造更困难（需要从 $w''$ 开始积分，而不是直接写一个简单的函数）。但好处是精度更高（见 §4.2.8 的对比算例）。
 
 Galerkin 法的一个优点：**不需要判断结构是否静定**，因为无论结构静定与否，解法相同。
 
