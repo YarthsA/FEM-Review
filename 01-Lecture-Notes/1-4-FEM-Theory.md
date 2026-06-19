@@ -786,17 +786,47 @@ $$w = a\left[\frac{x^2}{2} + \left(\frac{2l}{\pi}\right)^2\sin\frac{\pi x}{2l} -
 
 $$\int_0^l (EI w'''' - q)w\,dx = 0$$
 
-计算 $w''''$：$w'''' = a\left(\frac{\pi}{2l}\right)^4\cos\frac{\pi x}{2l}$
+计算 $w''''$：
 
-代入得：
+$$w'''' = a\frac{\pi^2}{4l^2}\sin\frac{\pi x}{2l}$$
 
-$$EI a\left(\frac{\pi}{2l}\right)^4\int_0^l \cos\frac{\pi x}{2l}\cdot w\,dx - q\int_0^l w\,dx = 0$$
+代入并展开（$a\neq 0$ 可约掉）：
 
-经积分计算得：
+$$EI\frac{\pi^2}{4l^2}\int_0^l \sin\frac{\pi x}{2l}\cdot w\,dx = q\int_0^l w\,dx$$
 
-$$a = \frac{ql^4}{EI}\cdot\frac{1}{\frac{\pi^4}{16}\cdot\frac{l}{2} - q\cdot\text{(复杂项)}}$$
+**Step 5**：计算各积分
 
-> 💡 **关键认识**：这就是 Galerkin 法的"代价"——试函数必须满足所有边界条件，构造更困难（需要从 $w''$ 开始积分，而不是直接写一个简单的函数）。但好处是精度更高（见 §4.2.8 的对比算例）。
+令 $u = \frac{\pi x}{2l}$，则 $x = \frac{2lu}{\pi}$，$dx = \frac{2l}{\pi}du$
+
+**左边三个积分**：
+
+$$I_1 = \int_0^l \sin\frac{\pi x}{2l}\cdot\frac{x^2}{2}\,dx = \frac{4l^3}{\pi^3}\int_0^{\pi/2}u^2\sin u\,du = \frac{4l^3}{\pi^3}(\pi-2)$$
+
+$$I_2 = \frac{4l^2}{\pi^2}\int_0^l \sin^2\frac{\pi x}{2l}\,dx = \frac{4l^2}{\pi^2}\cdot\frac{l}{2} = \frac{2l^3}{\pi^2}$$
+
+$$I_3 = \frac{2l}{\pi}\int_0^l x\sin\frac{\pi x}{2l}\,dx = \frac{2l}{\pi}\cdot\frac{4l^2}{\pi^2} = \frac{8l^3}{\pi^3}$$
+
+**右边积分**：
+
+$$I_4 = \int_0^l w\,dx = l^3\left(\frac{1}{6} + \frac{8}{\pi^3} - \frac{1}{\pi}\right)$$
+
+**Step 6**：代入等式
+
+左边：$EI\frac{\pi^2}{4l^2}(I_1+I_2-I_3) = EI l\frac{3\pi-8}{2\pi}$
+
+右边：$qI_4 = ql^2\left(\frac{1}{6}+\frac{8}{\pi^3}-\frac{1}{\pi}\right)$
+
+**最终结果**：
+
+$$\boxed{a = \frac{ql^2}{EI}\cdot\frac{2\pi\left(\frac{1}{6}+\frac{8}{\pi^3}-\frac{1}{\pi}\right)}{3\pi-8} \approx 0.4691\frac{ql^2}{EI}}$$
+
+自由端挠度（$x=l$）：
+
+$$w(l) = al^2\left(\frac{1}{2}+\frac{4}{\pi^2}-\frac{2}{\pi}\right) \approx 0.126\frac{ql^4}{EI}$$
+
+精确解：$w(l) = \frac{ql^4}{8EI} = 0.125\frac{ql^4}{EI}$，**误差约 0.8%**。
+
+> 💡 **关键认识**：这就是 Galerkin 法的"代价"——试函数必须满足所有边界条件，构造更困难（需要从 $w''$ 开始积分）。但好处是精度更高（一阶近似就达到 0.8%）。
 
 Galerkin 法的一个优点：**不需要判断结构是否静定**，因为无论结构静定与否，解法相同。
 
