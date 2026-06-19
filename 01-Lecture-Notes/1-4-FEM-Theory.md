@@ -866,7 +866,7 @@ $$w = a\left[\frac12 x^2 + \left(\frac{2l}{\pi}\right)^2\sin\frac{\pi x}{2l} + A
 故试函数为：
 $$w = a\left[\frac12 x^2 - \frac{2l}{\pi}x + \left(\frac{2l}{\pi}\right)^2\sin\frac{\pi x}{2l}\right]$$
 
-代入 Galerkin 积分方程 $\int_0^l (EI w'''' - q)w\,dx = 0$（注意此处 $w''''(x) = 0$，因为 $w''$ 不含二次以上分量，但对一阶近似我们直接用 $EI w'''' - q$ 的积分形式）：
+代入 Galerkin 积分方程 $\int_0^l (EI w'''' - q)w\,dx = 0$（其中 $w''''$ 是 $w$ 的四阶导数，因为梁的控制方程是 $EI w'''' = q$）：
 
 经过积分计算得：
 $$a = \frac{\frac{1}{6} - \frac{1}{\pi} + \frac{8}{\pi^3}}{\frac{3}{2} - \frac{4}{\pi}} \frac{ql^4}{EI}$$
