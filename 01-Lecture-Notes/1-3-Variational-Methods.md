@@ -229,36 +229,6 @@ $$\Delta Q = \int_a^b[(y+\delta y)^2 - y^2]dx = \int_a^b 2y\delta y\,dx + \int_a
 
 第一项 $\int_a^b 2y\delta y\,dx$ 对 $\delta y$ 是线性的 → 这就是 $\delta Q$。第二项 $(\delta y)^2$ 比 $\delta y$ 更快趋于零，是高阶小量。
 
-**例**：$Q[y]=\int_a^b y y'^2 dx$，用两种方法分别计算。
-
-**常规法**：
-
-$$\Delta Q = \int_a^b (y+\delta y)(y'+\delta y')^2 dx - \int_a^b y(y')^2 dx$$
-
-展开 $(y'+\delta y')^2 = (y')^2 + 2y'\delta y' + (\delta y')^2$：
-
-$$= \int_a^b \left[y(y')^2 + 2yy'\delta y' + y(\delta y')^2 + \delta y(y')^2 + 2\delta y\cdot y'\delta y' + \delta y(\delta y')^2\right]dx - \int_a^b y(y')^2 dx$$
-
-$$= \int_a^b \left[2yy'\delta y' + y(\delta y')^2 + (\delta y)(y')^2 + 2(\delta y)(y')(\delta y') + \delta y(\delta y')^2\right]dx$$
-
-其中对 $\delta y$ 或 $\delta y'$ 线性的项：$\int_a^b (2yy'\delta y' + (y')^2\delta y)\,dx$
-
-其余项含 $(\delta y)^2$、$(\delta y')^2$、$\delta y\cdot\delta y'$ → 高阶小量，丢掉。
-
-$$\boxed{\delta Q = \int_a^b (2yy'\delta y' + (y')^2\delta y)\,dx}$$
-
-**Lagrange 法**：
-
-$$\varphi(\alpha) = Q[y+\alpha\delta y] = \int_a^b (y+\alpha\delta y)(y'+\alpha\delta y')^2 dx$$
-
-$$\frac{d\varphi}{d\alpha} = \int_a^b \left[\delta y\cdot(y'+\alpha\delta y')^2 + (y+\alpha\delta y)\cdot 2(y'+\alpha\delta y')\delta y'\right]dx$$
-
-令 $\alpha=0$：
-
-$$\boxed{\delta Q = \int_a^b \left[(y')^2\delta y + 2yy'\delta y'\right]dx}$$
-
-> 两种方法结果相同，但 Lagrange 法不需要手动展开和判断哪些是高阶小量，直接对 $\alpha$ 求导即可。
-
 **定义二（Lagrange 法）**：
 $$\varphi(\alpha) = Q[y(x)+\alpha\delta y]$$
 则：
