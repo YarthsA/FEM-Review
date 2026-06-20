@@ -197,7 +197,7 @@ b_i = y_j - y_m \\
 c_i = x_m - x_j
 \end{cases}}\quad\text{（}i,j,m\text{ 轮换）}$$
 
-则 $\boxed{N_s = \dfrac{1}{2\Delta_e}(a_s x + b_s y + c_s)},\;(s = i,j,m)$
+则 $\boxed{N_s = \dfrac{1}{2\Delta_e}(a_s + b_s x + c_s y)},\;(s = i,j,m)$
 
 #### 形函数的六条性质（必须牢记）
 
