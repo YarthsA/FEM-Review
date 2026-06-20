@@ -199,9 +199,19 @@ $$Q[y]:D\to\mathbb{R}$$
 
 ### 3.2 泛函的变分 Variation of functional
 
-Lagrange 定义：$\boxed{\delta Q = \dfrac{\partial}{\partial\alpha}Q[y+\alpha\,\delta y]\bigg|_{\alpha=0}}$
+**定义一（常规法）**：泛函增量 $\Delta Q = Q[y+\delta y] - Q[y]$ 中，对 $\delta y$ 线性的部分即为一阶变分。
 
-变分与微分可交换：$\boxed{\delta\left(\dfrac{dy}{dx}\right)=\dfrac{d}{dx}(\delta y)}$
+例：$Q[y]=\int y^2 dx$，$\Delta Q = \int[(y+\delta y)^2 - y^2]dx = \underbrace{\int 2y\delta y\,dx}_{\delta Q} + \underbrace{\int(\delta y)^2 dx}_{\text{高阶小量}}$
+
+**定义二（Lagrange 法，推荐）**：
+
+$$\boxed{\delta Q = \dfrac{\partial}{\partial\alpha}Q[y+\alpha\,\delta y]\bigg|_{\alpha=0}}$$
+
+即：引入参数 $\alpha$，对 $\alpha$ 求导再令 $\alpha=0$。不需要手动判断线性项和高阶项。
+
+> 考试推荐用 Lagrange 法，操作简单不易出错。
+
+**基本性质**：变分与微分可交换 $\boxed{\delta\left(\dfrac{dy}{dx}\right)=\dfrac{d}{dx}(\delta y)}$
 
 ### 3.3 泛函极值 Functional extremum
 
