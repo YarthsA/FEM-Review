@@ -163,11 +163,11 @@ $$\boxed{[D]=\begin{pmatrix}\lambda+2G&\lambda&\lambda&0&0&0\\\lambda&\lambda+2G
 
 **平面应力**（薄板 $\sigma_z=0$，从三维退化为 3×3）：
 
-$$\boxed{[D]=\frac{E}{1-\nu^2}\begin{pmatrix}1&\nu&0\\\nu&1&0\\0&0&\frac{1-\nu}{2}\end{pmatrix}}$$
+$$\boxed{[D]=\begin{pmatrix}\frac{2G}{1-\nu}&\frac{2G\nu}{1-\nu}&0\\\frac{2G\nu}{1-\nu}&\frac{2G}{1-\nu}&0\\0&0&G\end{pmatrix} = \frac{E}{1-\nu^2}\begin{pmatrix}1&\nu&0\\\nu&1&0\\0&0&\frac{1-\nu}{2}\end{pmatrix}}$$
 
 **平面应变**（长柱体 $\varepsilon_z=0$，从三维退化为 3×3）：
 
-$$\boxed{[D]=\frac{E(1-\nu)}{(1+\nu)(1-2\nu)}\begin{pmatrix}1&\frac{\nu}{1-\nu}&0\\\frac{\nu}{1-\nu}&1&0\\0&0&\frac{1-2\nu}{2(1-\nu)}\end{pmatrix}}$$
+$$\boxed{[D]=\begin{pmatrix}\lambda+2G&\lambda&0\\\lambda&\lambda+2G&0\\0&0&G\end{pmatrix} = \frac{E(1-\nu)}{(1+\nu)(1-2\nu)}\begin{pmatrix}1&\frac{\nu}{1-\nu}&0\\\frac{\nu}{1-\nu}&1&0\\0&0&\frac{1-2\nu}{2(1-\nu)}\end{pmatrix}}$$
 
 > 💡 **关系**：三维 6×6 矩阵 → 施加约束（$\sigma_z=0$ 或 $\varepsilon_z=0$）→ 退化为 2D 3×3 矩阵。平面应力和平面应变不是并列的，都是三维的特例。
 
