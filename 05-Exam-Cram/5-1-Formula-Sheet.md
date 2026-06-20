@@ -155,13 +155,21 @@ $$\boxed{\lambda=\frac{\nu E}{(1+\nu)(1-2\nu)}},\quad \boxed{G=\frac{E}{2(1+\nu)
 
 ### 2.9 各向同性线弹性材料的本构矩阵 Constitutive matrix of isotropic linear elastic materials
 
-**平面应力**（薄板 $t \ll a,b$）：
+**用 Lamé 常数表示**（一般形式）：
+
+$$\boxed{[D]=\begin{pmatrix}\lambda+2G&\lambda&0\\\lambda&\lambda+2G&0\\0&0&G\end{pmatrix}}$$
+
+其中 $\lambda = \frac{\nu E}{(1+\nu)(1-2\nu)}$，$G = \frac{E}{2(1+\nu)}$
+
+**平面应力**（薄板 $t \ll a,b$，$\sigma_z=0$）：
 
 $$\boxed{[D]=\frac{E}{1-\nu^2}\begin{pmatrix}1&\nu&0\\\nu&1&0\\0&0&\frac{1-\nu}{2}\end{pmatrix}}$$
 
-**平面应变**（长柱体 $L \gg a,b$）：
+**平面应变**（长柱体 $L \gg a,b$，$\varepsilon_z=0$）：
 
 $$\boxed{[D]=\frac{E(1-\nu)}{(1+\nu)(1-2\nu)}\begin{pmatrix}1&\frac{\nu}{1-\nu}&0\\\frac{\nu}{1-\nu}&1&0\\0&0&\frac{1-2\nu}{2(1-\nu)}\end{pmatrix}}$$
+
+> 💡 **记忆技巧**：平面应力和平面应变的区别只在 $[D]$ 矩阵的系数。平面应力用 $E/(1-\nu^2)$，平面应变用 $E(1-\nu)/[(1+\nu)(1-2\nu)]$。考试时如果不确定，就写清楚"按平面应力计算"或"按平面应变计算"。
 
 ### 2.10 边界条件 Boundary conditions
 
