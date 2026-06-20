@@ -440,9 +440,9 @@ $$\boxed{L_1 = \frac{\triangle QQ_2Q_3}{\triangle Q_1Q_2Q_3},\quad L_2 = \frac{\
 
 **直角坐标 → 面积坐标**：
 $$\begin{pmatrix}L_1 \\ L_2 \\ L_3\end{pmatrix} = \frac{1}{2\Delta_e}\begin{pmatrix}
-a_1 & b_1 & c_1 \\
-a_2 & b_2 & c_2 \\
-a_3 & b_3 & c_3
+b_1 & c_1 & a_1 \\
+b_2 & c_2 & a_2 \\
+b_3 & c_3 & a_3
 \end{pmatrix}\begin{pmatrix}x \\ y \\ 1\end{pmatrix}$$
 
 **面积坐标 → 直角坐标**：
