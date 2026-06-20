@@ -155,21 +155,21 @@ $$\boxed{\lambda=\frac{\nu E}{(1+\nu)(1-2\nu)}},\quad \boxed{G=\frac{E}{2(1+\nu)
 
 ### 2.9 各向同性线弹性材料的本构矩阵 Constitutive matrix of isotropic linear elastic materials
 
-**用 Lamé 常数表示**（一般形式）：
+**三维一般形式**（用 Lamé 常数）：
 
-$$\boxed{[D]=\begin{pmatrix}\lambda+2G&\lambda&0\\\lambda&\lambda+2G&0\\0&0&G\end{pmatrix}}$$
+$$\boxed{[D]=\begin{pmatrix}\lambda+2G&\lambda&\lambda&0&0&0\\\lambda&\lambda+2G&\lambda&0&0&0\\\lambda&\lambda&\lambda+2G&0&0&0\\0&0&0&G&0&0\\0&0&0&0&G&0\\0&0&0&0&0&G\end{pmatrix}}$$
 
 其中 $\lambda = \frac{\nu E}{(1+\nu)(1-2\nu)}$，$G = \frac{E}{2(1+\nu)}$
 
-**平面应力**（薄板 $t \ll a,b$，$\sigma_z=0$）：
+**平面应力**（薄板 $\sigma_z=0$，从三维退化为 3×3）：
 
 $$\boxed{[D]=\frac{E}{1-\nu^2}\begin{pmatrix}1&\nu&0\\\nu&1&0\\0&0&\frac{1-\nu}{2}\end{pmatrix}}$$
 
-**平面应变**（长柱体 $L \gg a,b$，$\varepsilon_z=0$）：
+**平面应变**（长柱体 $\varepsilon_z=0$，从三维退化为 3×3）：
 
 $$\boxed{[D]=\frac{E(1-\nu)}{(1+\nu)(1-2\nu)}\begin{pmatrix}1&\frac{\nu}{1-\nu}&0\\\frac{\nu}{1-\nu}&1&0\\0&0&\frac{1-2\nu}{2(1-\nu)}\end{pmatrix}}$$
 
-> 💡 **记忆技巧**：平面应力和平面应变的区别只在 $[D]$ 矩阵的系数。平面应力用 $E/(1-\nu^2)$，平面应变用 $E(1-\nu)/[(1+\nu)(1-2\nu)]$。考试时如果不确定，就写清楚"按平面应力计算"或"按平面应变计算"。
+> 💡 **关系**：三维 6×6 矩阵 → 施加约束（$\sigma_z=0$ 或 $\varepsilon_z=0$）→ 退化为 2D 3×3 矩阵。平面应力和平面应变不是并列的，都是三维的特例。
 
 ### 2.10 边界条件 Boundary conditions
 
