@@ -403,7 +403,7 @@ $$\boxed{L_1 = \frac{\triangle QQ_2Q_3}{\triangle Q_1Q_2Q_3},\quad L_2 = \frac{\
 
 其中 $\triangle Q_1Q_2Q_3$ 为三角形总面积（也记为 $2\Delta_e$）。
 
-**面积坐标就是线性 Lagrange 单元的形函数本身**：$L_i = N_i = \frac{1}{2\Delta_e}(a_i x + b_i y + c_i)$。
+**面积坐标就是线性 Lagrange 单元的形函数本身**：$L_i = N_i = \frac{1}{2\Delta_e}(a_i + b_i x + c_i y)$。
 
 > 🔗 **与前文的对应**：这就是 §1-5 CST 单元中用到的形函数 $N_i = \frac{1}{2\Delta_e}(a_i + b_i x + c_i y)$，只是那里没解释为什么 $N_i$ 要写成这个形式。现在知道了：$N_i$ 就是面积坐标 $L_i$，它的几何意义是"点到对边的归一化距离"。同理，一维的 $\lambda_i = N_i$（§6.2.1），二维的 $L_i = N_i$（本节），三维的体积坐标 $M_i = N_i$，都是同一个思路的推广。
 
