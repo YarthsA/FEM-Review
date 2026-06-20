@@ -103,6 +103,8 @@ $$\lambda_1(x) = \frac{x_{i+1} - x}{L_i} = \frac{|Q Q_2|}{|Q_1 Q_2|}, \quad \lam
 
 其中 $Q_1$ 对应 $x_i$，$Q_2$ 对应 $x_{i+1}$，$Q$ 为任意点 $x$。$\lambda_1$ 和 $\lambda_2$ 就是单元 $e_i$ 上线性插值的基函数。
 
+> 🔗 **与前文的对应关系**：$\lambda_1 = N_1$，$\lambda_2 = N_2$。这就是 §1-5 和 HW4 中用到的形函数 $N_i = (x_{i+1}-x)/L$、$N_j = (x-x_i)/L$，只是换了个符号。本章用 $\lambda$ 是为了和后面二维的面积坐标 $L_1,L_2,L_3$、三维的体积坐标统一命名。
+
 长度坐标满足以下关系：
 
 $$\begin{cases} x = x_1\lambda_1 + x_2\lambda_2 \\ 1 = \lambda_1 + \lambda_2 \end{cases}$$
