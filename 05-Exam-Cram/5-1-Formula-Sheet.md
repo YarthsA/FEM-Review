@@ -224,6 +224,8 @@ $$\boxed{\delta Q = \dfrac{\partial}{\partial\alpha}Q[y+\alpha\,\delta y]\bigg|_
 
 ### 3.4 Euler 方程 Euler equation
 
+> **应用背景**：泛函极值问题 $\delta Q=0$ 转化为微分方程的工具。给定泛函 $Q[y]=\int F(x,y,y')dx$，Euler 方程就是其极值函数必须满足的微分方程。FEM 中反过来用：先建立泛函，变分得 Euler 方程（=控制方程），再用 Ritz/Galerkin 法近似求解。
+
 $$\boxed{\frac{\partial F}{\partial y}-\frac{d}{dx}\left(\frac{\partial F}{\partial y'}\right)=0}$$
 
 **含高阶导数**：
