@@ -353,7 +353,13 @@ $$\int_V \delta\sigma_{ij}\,\varepsilon_{ij}\,dV = \int_V \delta\sigma_{ij}\,u_{
 
 $$= \int_{S_u} \delta\sigma_{ij}l_j\,u_i\,dS - \int_V \delta\sigma_{ij,j}\,u_i\,dV = \int_{S_u} \delta p_i\,u_i\,dS$$
 
-代回得 $\int_{S_u} \delta p_i\,u_i\,dS = \int_{S_u} \delta p_i\,\bar{u}_i\,dS$，由 $\delta p_i$ 任意 → 几何方程 + 位移边界。
+代回得 $\int_{S_u} \delta p_i\,u_i\,dS = \int_{S_u} \delta p_i\,\bar{u}_i\,dS$。完整方程为：
+
+$$\int_V \delta\sigma_{ij}\left[\varepsilon_{ij} - \frac12(u_{i,j}+u_{j,i})\right]dV + \int_{S_u} \delta p_i(u_i - \bar{u}_i)dS = 0$$
+
+由变分法预备定理：
+- $\delta\sigma_{ij}$ 在 $V$ 内任意 → $\varepsilon_{ij} = \frac12(u_{i,j}+u_{j,i})$（几何方程）
+- $\delta p_i$ 在 $S_u$ 上任意 → $u_i = \bar{u}_i$（位移边界条件）
 
 ### 3.10 功的互等定理 Reciprocal theorem (Betti's formula)
 
