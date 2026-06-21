@@ -627,6 +627,18 @@ $w(\xi)=N_1w_1+N_2\theta_1+N_3w_2+N_4\theta_2$，$\xi=\dfrac{x-x_1}{L}$
 $$\boxed{N_1=1-3\xi^2+2\xi^3,\quad N_2=L(\xi-2\xi^2+\xi^3)}$$
 $$\boxed{N_3=3\xi^2-2\xi^3,\quad N_4=L(-\xi^2+\xi^3)}$$
 
+**[B] 矩阵**（形函数二阶导，$\xi=x/L$）：
+
+$$[B] = \frac{1}{L^2}\begin{pmatrix}-6+12\xi & L(-4+6\xi) & 6-12\xi & L(-2+6\xi)\end{pmatrix}$$
+
+**刚度矩阵推导**：$[k]_e = \int_0^L EI [B]^T[B]\,dx$
+
+代入 $[B]$，利用 $\int_0^1 \xi^m d\xi = \frac{1}{m+1}$ 积分：
+
+$$[k]_e = EI\int_0^1 \frac{1}{L^4}\begin{pmatrix}-6+12\xi \\ L(-4+6\xi) \\ 6-12\xi \\ L(-2+6\xi)\end{pmatrix}\begin{pmatrix}-6+12\xi & L(-4+6\xi) & 6-12\xi & L(-2+6\xi)\end{pmatrix}L\,d\xi$$
+
+逐项积分（例：$\int_0^1(-6+12\xi)^2d\xi = \int_0^1(36-144\xi+144\xi^2)d\xi = 36-72+48 = 12$），整理得：
+
 $$\boxed{[k]_e=\frac{EI}{L^3}\begin{pmatrix}12&6L&-12&6L\\6L&4L^2&-6L&2L^2\\-12&-6L&12&-6L\\6L&2L^2&-6L&4L^2\end{pmatrix}}$$
 
 ### 4.10 面积坐标 Area coordinate (三角形)
