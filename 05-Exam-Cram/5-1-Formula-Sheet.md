@@ -347,7 +347,7 @@ $$\int_V (F_i+\sigma_{ij,j})\delta u_i\,dV + \int_{S_\sigma}(\bar{p}_i-\sigma_{i
 
 $$\int_{S_u} \delta p_i\,u_i\,dS = \int_V \delta\sigma_{ij}\,\varepsilon_{ij}\,dV \tag{*}$$
 
-**左边处理**（不使用几何方程）：
+**左边**：
 
 $\delta p_i = \delta\sigma_{ij}l_j$（Cauchy 公式），高斯公式化为体积分：
 
@@ -366,8 +366,7 @@ $$\int_V \delta\sigma_{ij}\left[\varepsilon_{ij} - \frac12(u_{i,j}+u_{j,i})\righ
 $$\varepsilon_{ij} = \frac12(u_{i,j}+u_{j,i})$$
 
 **补充位移边界条件**：在 $S_u$ 上，$\delta p_i$ 任意，由 (*) 式的边界项可得 $u_i = \bar{u}_i$。
-
-> 注意：推导过程中没有使用几何方程，而是通过左右对比推导出几何方程。
+。
 
 ### 3.10 功的互等定理 Reciprocal theorem (Betti's formula)
 
@@ -387,7 +386,7 @@ $$\boxed{\Pi=\underbrace{\frac{1}{2}\int_\Omega \sigma_{ij}\varepsilon_{ij}\,dV}
 
 从总势能 $\delta\Pi=0$ 出发，对平面应力问题分部积分后得：
 
-**域内（Euler 方程 = 平衡方程）**：
+**域内（Euler 方程 = 平衡方程，以平面应力为例）**：
 
 $$\boxed{\frac{E}{1-\mu^2}\left(\frac{\partial^2 u}{\partial x^2}+\frac{1-\mu}{2}\frac{\partial^2 u}{\partial y^2}+\frac{1+\mu}{2}\frac{\partial^2 v}{\partial x\partial y}\right)+F_x=0}$$
 
