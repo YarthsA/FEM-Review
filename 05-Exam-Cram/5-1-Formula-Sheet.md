@@ -339,17 +339,21 @@ $$\int_V (F_i+\sigma_{ij,j})\delta u_i\,dV + \int_{S_\sigma}(\bar{p}_i-\sigma_{i
 
 **虚应力原理**（取 $\delta\sigma_{ij}$ 为独立变分）：
 
-左边 $\int_V F_i\delta u_i\,dV + \int_{S_\sigma}\bar{p}_i\delta u_i\,dS$：$F_i$ 和 $\bar{p}_i$ 给定，$\delta F_i=0$，$\delta\bar{p}_i=0$。
+取两个都满足平衡的应力场 $\sigma_{ij}^1$、$\sigma_{ij}^2$，令 $\delta\sigma_{ij}=\sigma_{ij}^1-\sigma_{ij}^2$。虚功方程对两个状态分别成立，相减得：
 
-右边利用 $\delta\varepsilon_{ij}=\frac12(\delta u_{i,j}+\delta u_{j,i})$ 和 $\delta\sigma_{ij}$ 对称性：
+$$\int_{S_u} \delta p_i\,\bar{u}_i\,dS = \int_V \delta\sigma_{ij}\,\varepsilon_{ij}\,dV$$
 
-$$\int_V \delta\sigma_{ij}\varepsilon_{ij}\,dV = \int_V \delta\sigma_{ij}u_{i,j}\,dV$$
+（$F_i$ 和 $\bar{p}_i$ 给定，$\delta F_i=0$，$\delta\bar{p}_i=0$，故左端只剩 $S_u$ 项）
+
+右边利用 $\varepsilon_{ij}=\frac12(u_{i,j}+u_{j,i})$ 和 $\delta\sigma_{ij}$ 对称性：
+
+$$\int_V \delta\sigma_{ij}\,\varepsilon_{ij}\,dV = \int_V \delta\sigma_{ij}\,u_{i,j}\,dV$$
 
 分部积分 + 利用 $\delta\sigma_{ij,j}=0$：
 
-$$= \int_{S_u} \delta\sigma_{ij}l_j u_i\,dS = \int_{S_u} \delta p_i u_i\,dS$$
+$$= \int_{S_u} \delta\sigma_{ij}l_j\,u_i\,dS - \int_V \delta\sigma_{ij,j}\,u_i\,dV = \int_{S_u} \delta p_i\,u_i\,dS$$
 
-由 $\delta\sigma_{ij}$ 任意 → 几何方程 + 位移边界。
+代回得 $\int_{S_u} \delta p_i\,u_i\,dS = \int_{S_u} \delta p_i\,\bar{u}_i\,dS$，由 $\delta p_i$ 任意 → 几何方程 + 位移边界。
 
 ### 3.10 功的互等定理 Reciprocal theorem (Betti's formula)
 
