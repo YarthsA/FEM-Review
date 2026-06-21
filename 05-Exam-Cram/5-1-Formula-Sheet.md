@@ -596,10 +596,15 @@ $$\boxed{L_f(x)=f(x_i)\lambda_1+f(x_{i+1})\lambda_2}$$
 
 $$\boxed{\int_{Q_1}^{Q_2} \lambda_1^{\alpha_1} \lambda_2^{\alpha_2}\,dx = L_i \frac{\alpha_1!\,\alpha_2!}{(\alpha_1 + \alpha_2 + 1)!}}$$
 
+> **用途**：
+> - **荷载向量** $[F]^e = \int [N]^T f\,dx$：需要积分形函数本身，如 $\int \lambda_1\,dx = L/2$
+> - **质量矩阵** $[M]^e = \int [N]^T \rho [N]\,dx$：需要积分形函数乘积，如 $\int \lambda_1\lambda_2\,dx = L/6$
+> - **高阶单元刚度矩阵**：$B$ 矩阵含变量时，需要用此公式积分
+>
+> **注意**：线性杆单元的 $[k]^e = \frac{EA}{L}\begin{pmatrix}1&-1\\-1&1\end{pmatrix}$ 中 $B$ 是常数，**不需要**用此公式。
+
 > **举例**：计算 $\int_0^L \lambda_1\lambda_2^2\,dx$（$\alpha_1=1, \alpha_2=2$）
 > $$\int_0^L \lambda_1\lambda_2^2\,dx = L\cdot\frac{1!\cdot 2!}{(1+2+1)!} = L\cdot\frac{2}{24} = \frac{L}{12}$$
->
-> **用途**：计算单元刚度矩阵中的形函数积分时，把形函数用 $\lambda_1, \lambda_2$ 表示后直接套公式，不用真的做定积分。例如 $\int N_1 N_2\,dx = \int \lambda_1\lambda_2\,dx = L\cdot\frac{1!\cdot 1!}{3!} = \frac{L}{6}$
 
 ### 4.8 Lagrange 插值 Linear and high-order Lagrange interpolation (一维)
 
