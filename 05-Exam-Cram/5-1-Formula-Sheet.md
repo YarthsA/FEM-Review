@@ -543,6 +543,26 @@ $$\boxed{[K] = \sum_e [k]^e}$$
 
 $$\boxed{[K]\{\delta\} = \{F\}}$$
 
+> **各矩阵的来源和含义**：
+>
+> | 矩阵 | 来源 | 含义 | 举例 |
+> |------|------|------|------|
+> | $[N]$ | 形函数 | 节点值→单元内场 | $N_i = \frac{1}{2\Delta}(a_i+b_ix+c_iy)$ |
+> | $[B]$ | $[N]$ 对坐标求导 | 位移→应变 | $B_{ij} = \frac{\partial N_i}{\partial x_j}$ |
+> | $[D]$ | 材料本构 | 应变→应力 | 1D: $D=EA$；平面应力: $\frac{E}{1-\nu^2}\begin{pmatrix}1&\nu&0\\\nu&1&0\\0&0&\frac{1-\nu}{2}\end{pmatrix}$ |
+> | $[k]^e$ | $[B]^T[D][B]$ 积分 | 节点力→节点位移 | $[k]^e = t\Delta_e[B]^T[D][B]$（CST） |
+> | $[K]$ | 总装 | 整体刚度 | $[K]=\sum[k]^e$ |
+> | $\{F\}$ | 外力 | 节点力向量 | 体力+面力 |
+>
+> **一维杆单元示例**（最简单）：
+> - $[B] = \frac{1}{L}\begin{pmatrix}-1&1\end{pmatrix}$，$[D] = EA$，$t=1$
+> - $[k]^e = \frac{EA}{L}\begin{pmatrix}1&-1\\-1&1\end{pmatrix}$
+>
+> **二维 CST 单元示例**：
+> - $[B] = \frac{1}{2\Delta}\begin{pmatrix}b_1&0&b_2&0&b_3&0\\0&c_1&0&c_2&0&c_3\\c_1&b_1&c_2&b_2&c_3&b_3\end{pmatrix}$
+> - $[D]$ 见 §2.9（平面应力/应变）
+> - $[k]^e = t\Delta[B]^T[D][B]$（$B$ 是常数矩阵，无需积分）
+
 ### 4.4 单元刚度矩阵的特性 Characteristics of element stiffness matrix
 
 - **对称性**：$[k]^e=[k]^e{}^T$
