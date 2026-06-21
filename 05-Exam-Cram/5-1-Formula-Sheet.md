@@ -494,6 +494,12 @@ $$\boxed{\int_\Omega w_i\cdot R\,d\Omega = 0\quad(i=1,\ldots,n)}$$
 - **节点 (node)**：单元的顶点/边中点/形心
 - **自由度 (DOF)**：每个节点的独立参数数（Lagrange 型：$n$ 维问题有 $n$ DOF）
 
+> **举例**：
+> - **一维杆单元**：2 个节点，每节点 1 个 DOF（轴向位移 $u$）→ 共 2 DOF
+> - **二维平面 CST**：3 个节点，每节点 2 个 DOF（$u, v$）→ 共 6 DOF
+> - **三维四面体**：4 个节点，每节点 3 个 DOF（$u, v, w$）→ 共 12 DOF
+> - **梁单元（Hermite）**：2 个节点，每节点 2 个 DOF（挠度 $w$ + 转角 $\theta$）→ 共 4 DOF
+
 ### 4.2 形函数 Shape functions
 
 **一维线性**：$\boxed{N_1=\dfrac{x_2-x}{L}}$，$\boxed{N_2=\dfrac{x-x_1}{L}}$
