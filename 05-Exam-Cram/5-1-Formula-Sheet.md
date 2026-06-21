@@ -419,6 +419,57 @@ $$\boxed{Q[y] \approx \sum_{i=0}^n F\!\left(x_i,\,y_i,\,\frac{y_{i+1}-y_i}{\Delt
 
 由 $\dfrac{\partial\Phi}{\partial y_i}=0\;(i=1,\ldots,n)$ 解出节点值。$n\to\infty$ 得**极小化序列**。
 
+### 3.16-3.18 Ritz / Galerkin / 加权残量法 解题套路
+
+> 三种方法的核心都是：**选试函数 → 代入方程 → 解系数**。区别只在于怎么"代入"和"解"。
+
+#### 通用步骤（5 步走）
+
+**Step 1**：识别问题类型
+
+| 有泛函？ | 用什么方法 |
+|---------|-----------|
+| 有，且泛函已知 | Ritz 法 或 Galerkin 法（等价） |
+| 没有泛函 | Galerkin 法 或其他加权残量法 |
+
+**Step 2**：选试函数 $u_n = \sum a_i \varphi_i$
+
+- Ritz 法：$\varphi_i$ 需满足**本质边界条件**（位移 BC）
+- Galerkin 法：$\varphi_i$ 需满足**全部边界条件**（位移 + 力 BC）
+- 常用选择：$\sin(n\pi x/l)$（简支）、多项式 $x^k(l-x)$（固定端）
+
+**Step 3**：代入
+
+| 方法 | 代入什么 | 得到什么 |
+|------|---------|---------|
+| Ritz | 代入泛函 $\Pi$ | $\Pi(a_1,\ldots,a_n)$ |
+| Galerkin | 代入微分方程余量 $R$ | $\int R\cdot\varphi_i\,dx=0$ |
+
+**Step 4**：求极值/消残
+
+- Ritz：$\partial\Pi/\partial a_i = 0$ → 线性方程组
+- Galerkin：$\int R\cdot\varphi_i\,dx = 0$ → 线性方程组
+
+**Step 5**：解方程组，得 $a_i$，写出近似解
+
+#### Galerkin 法速算模板
+
+给定微分方程 $Lu = f$，边界条件 $B(u)=0$：
+
+1. 选试函数 $u_n = \sum a_i\varphi_i$（满足全部 BC）
+2. 算残量 $R = Lu_n - f$
+3. 列方程：$\int_0^l R\cdot\varphi_i\,dx = 0$（$i=1,\ldots,n$）
+4. 解出 $a_1,\ldots,a_n$
+
+#### Ritz 法速算模板
+
+给定泛函 $\Pi[u]$，边界条件 $u|_{\Gamma}=g$：
+
+1. 选试函数 $u_n = u_0 + \sum a_i\varphi_i$（$u_0$ 满足非齐次 BC，$\varphi_i$ 满足齐次 BC）
+2. 代入泛函 $\Pi$，化为 $\Pi(a_1,\ldots,a_n)$
+3. 列方程：$\partial\Pi/\partial a_i = 0$（$i=1,\ldots,n$）
+4. 解出 $a_1,\ldots,a_n$
+
 ### 3.16 Ritz 法 Ritz method
 
 1. 选基函数 $\varphi_i$（需满足**本质边界条件**）
