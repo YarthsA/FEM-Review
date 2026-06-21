@@ -706,11 +706,36 @@ $$\boxed{N_i=\frac{1}{4}(1+\xi\xi_i)(1+\eta\eta_i)\quad(i=1,2,3,4)}$$
 
 $$\boxed{x=\sum N_i(\xi,\eta)x_i},\quad \boxed{u=\sum N_i(\xi,\eta)u_i}$$
 
+> **算例**：4 节点四边形，节点坐标 $1(2,0)$，$2(4,0)$，$3(4,2)$，$4(2,2)$。形函数 $N_i = \frac{1}{4}(1+\xi\xi_i)(1+\eta\eta_i)$。
+>
+> 求形心 $(\xi,\eta)=(0,0)$ 对应的物理坐标 $(x,y)$：
+> $$x = \frac{1}{4}[2+4+4+2] = 3, \quad y = \frac{1}{4}[0+0+2+2] = 1$$
+>
+> 验证：物理坐标的形心 $(3,1)$ 确实对应自然坐标的原点 $(0,0)$。
+
 ### 4.16 Jacobian 矩阵 Jacobian matrix
 
 $$\boxed{[J]=\begin{pmatrix}\dfrac{\partial x}{\partial\xi}&\dfrac{\partial y}{\partial\xi}\\[6pt]\dfrac{\partial x}{\partial\eta}&\dfrac{\partial y}{\partial\eta}\end{pmatrix}=\begin{pmatrix}\sum\dfrac{\partial N_i}{\partial\xi}x_i&\sum\dfrac{\partial N_i}{\partial\xi}y_i\\\sum\dfrac{\partial N_i}{\partial\eta}x_i&\sum\dfrac{\partial N_i}{\partial\eta}y_i\end{pmatrix}}$$
 
 单元刚度矩阵中的积分变换：$\boxed{\displaystyle\int\int f(x,y)\,dxdy=\int_{-1}^{1}\int_{-1}^{1}f(\xi,\eta)|\det[J]|\,d\xi d\eta}$
+
+> **算例**：同一 4 节点四边形，节点坐标 $1(2,0)$，$2(4,0)$，$3(4,2)$，$4(2,2)$。
+>
+> **Step 1**：计算形函数偏导（$\xi_i, \eta_i$ 为节点自然坐标）
+>
+> $\frac{\partial N_1}{\partial\xi} = \frac{1}{4}(-1)(1-\eta) = -\frac{1-\eta}{4}$，$\frac{\partial N_2}{\partial\xi} = \frac{1-\eta}{4}$，$\frac{\partial N_3}{\partial\xi} = \frac{1+\eta}{4}$，$\frac{\partial N_4}{\partial\xi} = -\frac{1+\eta}{4}$
+>
+> **Step 2**：计算 $\frac{\partial x}{\partial\xi}$ 和 $\frac{\partial y}{\partial\xi}$
+>
+> $\frac{\partial x}{\partial\xi} = \sum \frac{\partial N_i}{\partial\xi} x_i = -\frac{1-\eta}{4}\cdot 2 + \frac{1-\eta}{4}\cdot 4 + \frac{1+\eta}{4}\cdot 4 - \frac{1+\eta}{4}\cdot 2 = \frac{1-\eta}{4}\cdot 2 + \frac{1+\eta}{4}\cdot 2 = 1$
+>
+> 同理 $\frac{\partial x}{\partial\eta} = 0$，$\frac{\partial y}{\partial\xi} = 0$，$\frac{\partial y}{\partial\eta} = 1$
+>
+> **Step 3**：Jacobian 矩阵
+>
+> $$[J] = \begin{pmatrix}1&0\\0&1\end{pmatrix}, \quad \det[J] = 1$$
+>
+> **结论**：本例是矩形，Jacobian 是单位矩阵，$\det[J]=1$，积分时不需要修正。对于非矩形四边形，$\det[J]$ 会变化，需要乘上 $|\det[J]|$ 来修正积分权重。
 
 ### 4.17 Gauss 数值积分 Numerical integration
 
