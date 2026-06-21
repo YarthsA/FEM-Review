@@ -345,29 +345,27 @@ $$\int_V (F_i+\sigma_{ij,j})\delta u_i\,dV + \int_{S_\sigma}(\bar{p}_i-\sigma_{i
 
 取两个都满足平衡的应力场 $\sigma_{ij}^1$、$\sigma_{ij}^2$，令 $\delta\sigma_{ij}=\sigma_{ij}^1-\sigma_{ij}^2$。虚功方程对两个状态分别成立，相减得（$F_i$、$\bar{p}_i$ 给定，故左端只剩 $S_u$ 项）：
 
-$$\int_{S_u} \delta p_i\,\bar{u}_i\,dS = \int_V \delta\sigma_{ij}\,\varepsilon_{ij}\,dV \tag{*}$$
+$$\int_{S_u} \delta p_i\,u_i\,dS = \int_V \delta\sigma_{ij}\,\varepsilon_{ij}\,dV \tag{*}$$
 
 **左边处理**（不使用几何方程）：
 
 $\delta p_i = \delta\sigma_{ij}l_j$（Cauchy 公式），高斯公式化为体积分：
 
-$$\int_{S_u} \delta\sigma_{ij}l_j\,\bar{u}_i\,dS = \int_V (\delta\sigma_{ij}\bar{u}_i)_{,j}\,dV = \int_V \delta\sigma_{ij,j}\,\bar{u}_i\,dV + \int_V \delta\sigma_{ij}\,\bar{u}_{i,j}\,dV$$
+$$\int_{S_u} \delta\sigma_{ij}l_j\,u_i\,dS = \int_V (\delta\sigma_{ij}u_i)_{,j}\,dV = \int_V \delta\sigma_{ij,j}\,u_i\,dV + \int_V \delta\sigma_{ij}\,u_{i,j}\,dV$$
 
 利用 $\delta\sigma_{ij,j}=0$（虚应力满足平衡），第一项消失。利用 $\delta\sigma_{ij}$ 对称性：
 
-$$= \int_V \delta\sigma_{ij}\cdot\frac12(\bar{u}_{i,j}+\bar{u}_{j,i})\,dV$$
-
-**修正项**：上述用了 $\bar{u}_i$（边界给定值），但我们要检验的是实际位移 $u_i$。补差值：
-
-$$\int_{S_u} \delta p_i\,u_i\,dS = \int_{S_u} \delta p_i\,\bar{u}_i\,dS + \int_{S_u} \delta p_i\,(u_i-\bar{u}_i)\,dS$$
+$$= \int_V \delta\sigma_{ij}\cdot\frac12(u_{i,j}+u_{j,i})\,dV$$
 
 **代回 (*) 式**，移项得完整方程：
 
-$$\int_V \delta\sigma_{ij}\left[\varepsilon_{ij} - \frac12(u_{i,j}+u_{j,i})\right]dV + \int_{S_u} \delta p_i(u_i-\bar{u}_i)\,dS = 0$$
+$$\int_V \delta\sigma_{ij}\left[\varepsilon_{ij} - \frac12(u_{i,j}+u_{j,i})\right]dV = 0$$
 
-由变分法预备定理：
-- $\delta\sigma_{ij}$ 在 $V$ 内任意 → $\varepsilon_{ij} = \frac12(u_{i,j}+u_{j,i})$（推导出几何方程）
-- $\delta p_i$ 在 $S_u$ 上任意 → $u_i = \bar{u}_i$（位移边界条件）
+由变分法预备定理，$\delta\sigma_{ij}$ 在 $V$ 内任意：
+
+$$\varepsilon_{ij} = \frac12(u_{i,j}+u_{j,i})$$
+
+**补充位移边界条件**：在 $S_u$ 上，$\delta p_i$ 任意，由 (*) 式的边界项可得 $u_i = \bar{u}_i$。
 
 > 注意：推导过程中没有使用几何方程，而是通过左右对比推导出几何方程。
 
