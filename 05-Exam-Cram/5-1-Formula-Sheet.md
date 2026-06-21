@@ -502,15 +502,27 @@ $$\boxed{\int_\Omega w_i\cdot R\,d\Omega = 0\quad(i=1,\ldots,n)}$$
 
 ### 4.2 形函数 Shape functions
 
-**一维线性**：$\boxed{N_1=\dfrac{x_2-x}{L}}$，$\boxed{N_2=\dfrac{x-x_1}{L}}$
+**定义**：形函数 $N_i$ 是定义在单元上的插值函数，用于将节点值 $u_i$ 插值为单元内任意点的值：
 
-**三角形（CST）**：$\boxed{N_i=\dfrac{1}{2\Delta}(a_i+b_ix+c_iy)}$
+$$u(x,y) = \sum_{i=1}^n N_i(x,y)\,u_i$$
 
-其中 $b_i=y_j-y_m$，$c_i=x_m-x_j$，$a_i=x_jy_m-x_my_j$
+**核心性质**：
 
-**矩形（双线性，自然坐标）**：$\boxed{N_i=\dfrac{1}{4}(1+\xi\xi_i)(1+\eta\eta_i)}$
+| 性质 | 表达式 | 含义 |
+|------|--------|------|
+| **Kronecker 性** | $N_i(\text{节点}j) = \delta_{ij}$ | 在自身节点为 1，其他节点为 0 |
+| **单位分解性** | $\sum_{i=1}^n N_i = 1$ | 所有形函数之和恒等于 1 |
+| **完备性** | 含刚体位移和常应变模态 | 保证收敛 |
 
-**形函数性质**：$\boxed{\sum N_i=1}$，$\boxed{N_i(\text{节点}j)=\delta_{ij}}$
+**几何含义**：形函数就是自然坐标的推广——一维的 $\lambda_i$、二维的面积坐标 $L_i$、三维的体积坐标，都是形函数本身。
+
+**各单元形函数**：
+
+- **一维线性**：$\boxed{N_1=\dfrac{x_2-x}{L}}$，$\boxed{N_2=\dfrac{x-x_1}{L}}$
+
+- **三角形（CST）**：$\boxed{N_i=\dfrac{1}{2\Delta}(a_i+b_ix+c_iy)}$，其中 $b_i=y_j-y_m$，$c_i=x_m-x_j$，$a_i=x_jy_m-x_my_j$
+
+- **矩形（双线性，自然坐标）**：$\boxed{N_i=\dfrac{1}{4}(1+\xi\xi_i)(1+\eta\eta_i)}$
 
 ### 4.3 1D 和 2D FEM 的完整流程 Formulation of 1D and 2D FEA
 
