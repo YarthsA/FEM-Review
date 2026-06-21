@@ -359,7 +359,11 @@ $$= \int_V \delta\sigma_{ij}\,\bar{u}_{i,j}\,dV$$
 
 $$= \int_V \delta\sigma_{ij}\cdot\frac12(\bar{u}_{i,j}+\bar{u}_{j,i})\,dV$$
 
-**代回 (*) 式**，移项：
+**Step 3**：检验的是实际位移 $u_i$，不是给定的 $\bar{u}_i$。需要补修正项：
+
+$$\int_{S_u} \delta p_i\,u_i\,dS = \int_{S_u} \delta p_i\,\bar{u}_i\,dS + \int_{S_u} \delta p_i\,(u_i - \bar{u}_i)\,dS$$
+
+**Step 4**：代回 (*) 式，移项：
 
 $$\int_V \delta\sigma_{ij}\left[\varepsilon_{ij} - \frac12(u_{i,j}+u_{j,i})\right]dV + \int_{S_u} \delta p_i(u_i - \bar{u}_i)dS = 0$$
 
