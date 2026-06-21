@@ -423,14 +423,20 @@ $$\boxed{Q[y] \approx \sum_{i=0}^n F\!\left(x_i,\,y_i,\,\frac{y_{i+1}-y_i}{\Delt
 
 1. 选基函数 $\varphi_i$（需满足**本质边界条件**）
 2. 构造 $\boxed{u_n=\sum_{i=1}^n a_i\varphi_i}$
-3. 代入泛函 $\Pi$，极值条件 $\boxed{\dfrac{\partial\Pi}{\partial a_i}=0\;(i=1,\ldots,n)}$
-4. 解线性方程组 $\boxed{\boldsymbol{Ka}=\boldsymbol{b}}$，其中 $K_{ij}=\dfrac{\partial^2\Pi}{\partial a_i\partial a_j}$
+3. 代入泛函 $Q$，极值条件 $\boxed{\dfrac{\partial Q}{\partial a_i}=0\;(i=1,\ldots,n)}$
+4. 解线性方程组 $\boxed{\boldsymbol{Ka}=\boldsymbol{b}}$，其中 $K_{ij}=\dfrac{\partial^2 Q}{\partial a_i\partial a_j}$
 
-> **解题套路**：给定泛函 $\Pi[u]$，边界条件 $u|_{\Gamma}=g$
-> 1. 选试函数 $u_n = u_0 + \sum a_i\varphi_i$（$u_0$ 满足非齐次 BC，$\varphi_i$ 满足齐次 BC）
-> 2. 代入泛函 $\Pi$，化为 $\Pi(a_1,\ldots,a_n)$
-> 3. 列方程：$\partial\Pi/\partial a_i = 0$（$i=1,\ldots,n$）
-> 4. 解出 $a_1,\ldots,a_n$
+> **解题套路**：给定泛函 $Q[u]$，边界条件 $u|_{\Gamma}=g$
+> 1. 若 $g=0$（齐次 BC）：直接选 $u_n = \sum a_i\varphi_i$，$\varphi_i$ 满足齐次 BC
+> 2. 若 $g\neq 0$（非齐次 BC）：令 $u_n = u_0 + \sum a_i\varphi_i$，其中 $u_0$ 满足非齐次 BC（如 $u_0=x$ 满足 $u(1)=1$），$\varphi_i$ 满足齐次 BC（如 $\varphi_i$ 在边界为 0）
+> 3. 代入泛函 $Q$，化为 $Q(a_1,\ldots,a_n)$
+> 4. 列方程：$\partial Q/\partial a_i = 0$（$i=1,\ldots,n$）
+> 5. 解出 $a_1,\ldots,a_n$
+
+> **齐次 vs 非齐次边界条件**：
+> - **齐次 BC**：$u|_{\Gamma}=0$（边界值为零），如简支梁 $w(0)=w(l)=0$
+> - **非齐次 BC**：$u|_{\Gamma}=g\neq 0$（边界值不为零），如 $u(1)=1$
+> - Ritz 法中，试函数只需满足齐次 BC 部分，非齐次部分用 $u_0$ 单独处理
 
 ### 3.17 Galerkin 法 Galerkin method
 
