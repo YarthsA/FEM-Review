@@ -608,11 +608,17 @@ $$\boxed{\int_{Q_1}^{Q_2} \lambda_1^{\alpha_1} \lambda_2^{\alpha_2}\,dx = L_i \f
 
 ### 4.8 Lagrange 插值 Linear and high-order Lagrange interpolation (一维)
 
-**线性**：同 4.7
+> **应用场景**：构造高阶单元（如 3 节点二次杆单元、4 节点三次杆单元）的形函数。线性单元直接用 §4.7 的 $\lambda_1, \lambda_2$ 即可，不需要这个公式。考试主要考**理解**（为什么这样构造），手算时通常用线性或二次就够了。
 
-**二次**：$L_f(x)=\sum_{k=0}^{2}f(x_k)\ell_k(x)$，其中 $\ell_k(x)=\prod_{j\neq k}\dfrac{x-x_j}{x_k-x_j}$
+**线性**（2 节点）：$N_1 = \lambda_1 = 1-x/L$，$N_2 = \lambda_2 = x/L$（同 §4.7）
 
-**$n$ 次**：$\boxed{L_f(x)=\sum_{k=0}^{n}f(x_k)\ell_k(x)}$，其中 $\boxed{\ell_k(x)=\prod_{j\neq k}\dfrac{x-x_j}{x_k-x_j}}$
+**二次**（3 节点，含中点）：
+
+$$\boxed{N_1 = \lambda_1(2\lambda_1-1),\quad N_2 = \lambda_2(2\lambda_2-1),\quad N_3 = 4\lambda_1\lambda_2}$$
+
+**$n$ 次通式**：$\boxed{L_f(x)=\sum_{k=0}^{n}f(x_k)\ell_k(x)}$，其中 $\boxed{\ell_k(x)=\prod_{j\neq k}\dfrac{x-x_j}{x_k-x_j}}$
+
+> **考试重点**：知道 $\ell_k(x)$ 是"经过除 $k$ 外所有节点的直线方程之积"，归一化后在节点 $k$ 处为 1，其他节点为 0。这就是"划线法"的数学原理。
 
 ### 4.9 Hermite 三次插值 Hermite cubic interpolation (Euler-Bernoulli 梁单元)
 
