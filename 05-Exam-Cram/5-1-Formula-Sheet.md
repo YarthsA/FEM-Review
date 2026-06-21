@@ -308,10 +308,48 @@ $$\boxed{\int_V \varepsilon_{ij}\delta\sigma_{ij}\,dV = \int_{S_u}u_i\delta p_i\
 
 $\Longleftrightarrow$ 几何方程 $\varepsilon_{ij}=\frac12(u_{i,j}+u_{j,i})$ + 位移边界 $u_i=\bar{u}_i$
 
-> 💡 **虚位移原理 vs 虚应力原理**：完美对偶。
+> 💡 **虚位移原理 vs 虚应力原理**：对偶。
 > - **虚位移原理**：独立变分 $\delta u_i$ → 检验 $\sigma_{ij}$ → 输出平衡方程+力边界
 > - **虚应力原理**：独立变分 $\delta\sigma_{ij}$ → 检验 $u_i$ → 输出几何方程+位移边界
 > - FEM 中主要用虚位移原理（从位移出发求应力）；虚应力原理用于应力分析和混合元
+
+**推导**（从虚功原理到两个原理）：
+
+**虚功原理**：$\int_V F_i\delta u_i\,dV + \int_{S_\sigma} \bar{p}_i\delta u_i\,dS = \int_V \sigma_{ij}\delta\varepsilon_{ij}\,dV$
+
+**虚位移原理**（取 $\delta u_i$ 为独立变分）：
+
+右边利用 $\delta\varepsilon_{ij}=\frac12(\delta u_{i,j}+\delta u_{j,i})$ 和 $\sigma_{ij}$ 对称性：
+
+$$\int_V \sigma_{ij}\delta\varepsilon_{ij}\,dV = \int_V \sigma_{ij}\delta u_{i,j}\,dV$$
+
+分部积分（高斯公式）：
+
+$$= \int_S \sigma_{ij}l_j\delta u_i\,dS - \int_V \sigma_{ij,j}\delta u_i\,dV$$
+
+分解边界 $S = S_u \cup S_\sigma$，利用 $\delta u_i|_{S_u}=0$：
+
+$$= \int_{S_\sigma} \sigma_{ij}l_j\delta u_i\,dS - \int_V \sigma_{ij,j}\delta u_i\,dV$$
+
+代回虚功原理，移项：
+
+$$\int_V (F_i+\sigma_{ij,j})\delta u_i\,dV + \int_{S_\sigma}(\bar{p}_i-\sigma_{ij}l_j)\delta u_i\,dS = 0$$
+
+由 $\delta u_i$ 任意 → 平衡方程 + 力边界。
+
+**虚应力原理**（取 $\delta\sigma_{ij}$ 为独立变分）：
+
+左边 $\int_V F_i\delta u_i\,dV + \int_{S_\sigma}\bar{p}_i\delta u_i\,dS$：$F_i$ 和 $\bar{p}_i$ 给定，$\delta F_i=0$，$\delta\bar{p}_i=0$。
+
+右边利用 $\delta\varepsilon_{ij}=\frac12(\delta u_{i,j}+\delta u_{j,i})$ 和 $\delta\sigma_{ij}$ 对称性：
+
+$$\int_V \delta\sigma_{ij}\varepsilon_{ij}\,dV = \int_V \delta\sigma_{ij}u_{i,j}\,dV$$
+
+分部积分 + 利用 $\delta\sigma_{ij,j}=0$：
+
+$$= \int_{S_u} \delta\sigma_{ij}l_j u_i\,dS = \int_{S_u} \delta p_i u_i\,dS$$
+
+由 $\delta\sigma_{ij}$ 任意 → 几何方程 + 位移边界。
 
 ### 3.10 功的互等定理 Reciprocal theorem (Betti's formula)
 
