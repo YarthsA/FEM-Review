@@ -308,6 +308,11 @@ $$\boxed{\int_V \varepsilon_{ij}\delta\sigma_{ij}\,dV = \int_{S_u}u_i\delta p_i\
 
 $\Longleftrightarrow$ 几何方程 $\varepsilon_{ij}=\frac12(u_{i,j}+u_{j,i})$ + 位移边界 $u_i=\bar{u}_i$
 
+> 💡 **虚位移原理 vs 虚应力原理**：完美对偶。
+> - **虚位移原理**：独立变分 $\delta u_i$ → 检验 $\sigma_{ij}$ → 输出平衡方程+力边界
+> - **虚应力原理**：独立变分 $\delta\sigma_{ij}$ → 检验 $u_i$ → 输出几何方程+位移边界
+> - FEM 中主要用虚位移原理（从位移出发求应力）；虚应力原理用于应力分析和混合元
+
 ### 3.10 功的互等定理 Reciprocal theorem (Betti's formula)
 
 $$\boxed{\int_V F_i^{(1)} u_i^{(2)}\,dV + \int_S p_i^{(1)} u_i^{(2)}\,dS = \int_V F_i^{(2)} u_i^{(1)}\,dV + \int_S p_i^{(2)} u_i^{(1)}\,dS}$$
