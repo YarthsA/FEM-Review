@@ -209,7 +209,6 @@ $$\boxed{\delta Q = \dfrac{\partial}{\partial\alpha}Q[y+\alpha\,\delta y]\bigg|_
 
 即：引入参数 $\alpha$，对 $\alpha$ 求导再令 $\alpha=0$。不需要手动判断线性项和高阶项。
 
-> 考试推荐用 Lagrange 法，操作简单不易出错。
 
 **基本性质**：变分与微分可交换 $\boxed{\delta\left(\dfrac{dy}{dx}\right)=\dfrac{d}{dx}(\delta y)}$
 
@@ -224,7 +223,7 @@ $$\boxed{\delta Q = \dfrac{\partial}{\partial\alpha}Q[y+\alpha\,\delta y]\bigg|_
 
 ### 3.4 Euler 方程 Euler equation
 
-> **应用背景**：泛函极值问题 $\delta Q=0$ 转化为微分方程的工具。给定泛函 $Q[y]=\int F(x,y,y')dx$，Euler 方程就是其极值函数必须满足的微分方程。FEM 中反过来用：先建立泛函，变分得 Euler 方程（=控制方程），再用 Ritz/Galerkin 法近似求解。
+泛函极值问题 $\delta Q=0$ 转化为微分方程的工具。给定泛函 $Q[y]=\int F(x,y,y')dx$，Euler 方程就是其极值函数必须满足的微分方程。FEM 中反过来用：先建立泛函，变分得 Euler 方程（=控制方程），再用 Ritz/Galerkin 法近似求解。
 
 $$\boxed{\frac{\partial F}{\partial y}-\frac{d}{dx}\left(\frac{\partial F}{\partial y'}\right)=0}$$
 
@@ -297,6 +296,11 @@ $$\boxed{\int_V F_i\,\delta u_i\,dV + \int_{S_\sigma} \bar{p}_i\,\delta u_i\,dS 
 $$\boxed{\int_V \sigma_{ij}\delta\varepsilon_{ij}\,dV = \int_V F_i\delta u_i\,dV + \int_{S_\sigma}\bar{p}_i\delta u_i\,dS}$$
 
 $\Longleftrightarrow$ 平衡方程 $F_i+\sigma_{ij,j}=0$ + 力边界 $\bar{p}_i=\sigma_{ij}l_j$
+
+> 💡 **虚功方程 vs 虚位移原理**：数学表达式相同，逻辑方向相反。
+> - **虚功方程**：已知应力满足平衡 → 等式自动成立（从因到果）
+> - **虚位移原理**：等式对所有 $\delta u$ 成立 → 应力必然平衡（从果到因）
+> - FEM 中主要用虚位移原理：用它导出弱形式，再离散为 $[K]\{u\}=\{F\}$
 
 **虚应力原理**（$\delta\sigma_{ij}$ 任意 → 检验 $u_i$）：
 
