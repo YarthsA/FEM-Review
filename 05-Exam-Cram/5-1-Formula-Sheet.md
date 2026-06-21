@@ -488,7 +488,13 @@ $$\boxed{\int_\Omega w_i\cdot R\,d\Omega = 0\quad(i=1,\ldots,n)}$$
 
 ## 四、Basics of FEA（有限元分析基础）
 
-### 4.1 形函数 Shape functions
+### 4.1 单元、节点、DOF 的概念 Concepts of elements, nodes, DOFs
+
+- **单元 (element)**：连续体的离散子域
+- **节点 (node)**：单元的顶点/边中点/形心
+- **自由度 (DOF)**：每个节点的独立参数数（Lagrange 型：$n$ 维问题有 $n$ DOF）
+
+### 4.2 形函数 Shape functions
 
 **一维线性**：$\boxed{N_1=\dfrac{x_2-x}{L}}$，$\boxed{N_2=\dfrac{x-x_1}{L}}$
 
@@ -500,7 +506,7 @@ $$\boxed{\int_\Omega w_i\cdot R\,d\Omega = 0\quad(i=1,\ldots,n)}$$
 
 **形函数性质**：$\boxed{\sum N_i=1}$，$\boxed{N_i(\text{节点}j)=\delta_{ij}}$
 
-### 4.2 1D 和 2D FEM 的完整流程 Formulation of 1D and 2D FEA
+### 4.3 1D 和 2D FEM 的完整流程 Formulation of 1D and 2D FEA
 
 ```
 结构离散 → 形函数 → [B]矩阵 → [D]矩阵 → 单元刚度矩阵[k]e
@@ -518,12 +524,6 @@ $$\boxed{[K] = \sum_e [k]^e}$$
 **求解**：
 
 $$\boxed{[K]\{\delta\} = \{F\}}$$
-
-### 4.3 单元、节点、DOF 的概念 Concepts of elements, nodes, DOFs
-
-- **单元 (element)**：连续体的离散子域
-- **节点 (node)**：单元的顶点/边中点/形心
-- **自由度 (DOF)**：每个节点的独立参数数（Lagrange 型：$n$ 维问题有 $n$ DOF）
 
 ### 4.4 单元刚度矩阵的特性 Characteristics of element stiffness matrix
 
