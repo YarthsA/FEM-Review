@@ -706,6 +706,8 @@ $$\boxed{N_i=\frac{1}{4}(1+\xi\xi_i)(1+\eta\eta_i)\quad(i=1,2,3,4)}$$
 
 $$\boxed{x=\sum N_i(\xi,\eta)x_i},\quad \boxed{u=\sum N_i(\xi,\eta)u_i}$$
 
+> **用途**：形函数在自然坐标 $(\xi,\eta)$ 上定义，但积分需要在物理坐标 $(x,y)$ 上做。等参元用同一套形函数同时做几何映射和场变量插值，解决"定义域不同"的矛盾。
+
 > **算例**（HW4 Q3）：4 节点正方形单元，节点坐标 $1(1,1)$，$2(-1,1)$，$3(-1,-1)$，$4(1,-1)$（自然坐标系，边长 2）。形函数 $N_i = \frac{1}{4}(1+\xi\xi_i)(1+\eta\eta_i)$。
 >
 > 由于物理坐标和自然坐标完全重合（$x=\xi, y=\eta$），映射是恒等变换，形心 $(\xi,\eta)=(0,0)$ 对应物理坐标 $(x,y)=(0,0)$。
@@ -715,6 +717,8 @@ $$\boxed{x=\sum N_i(\xi,\eta)x_i},\quad \boxed{u=\sum N_i(\xi,\eta)u_i}$$
 $$\boxed{[J]=\begin{pmatrix}\dfrac{\partial x}{\partial\xi}&\dfrac{\partial y}{\partial\xi}\\[6pt]\dfrac{\partial x}{\partial\eta}&\dfrac{\partial y}{\partial\eta}\end{pmatrix}=\begin{pmatrix}\sum\dfrac{\partial N_i}{\partial\xi}x_i&\sum\dfrac{\partial N_i}{\partial\xi}y_i\\\sum\dfrac{\partial N_i}{\partial\eta}x_i&\sum\dfrac{\partial N_i}{\partial\eta}y_i\end{pmatrix}}$$
 
 单元刚度矩阵中的积分变换：$\boxed{\displaystyle\int\int f(x,y)\,dxdy=\int_{-1}^{1}\int_{-1}^{1}f(\xi,\eta)|\det[J]|\,d\xi d\eta}$
+
+> **用途**：Jacobian 矩阵是坐标变换的"缩放因子"，把物理面积 $dxdy$ 转换为自然面积 $d\xi d\eta$。刚度矩阵和荷载向量的积分都需要乘上 $|\det[J]|$ 来修正。
 
 > **算例**（HW4 Q3）：同一正方形单元，$1(1,1)$，$2(-1,1)$，$3(-1,-1)$，$4(1,-1)$。
 >
