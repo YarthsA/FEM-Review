@@ -110,12 +110,12 @@
 
 | 习题 | Markdown 题目 | 参考解答 |
 |------|---------------|----------|
-| 习题一（张量） | [`exercise_01`](../../md_output/exercises/exercise_01.md) | [`past/comprehensive/exercise_01_solution`](../04-Homework-Solutions/past/comprehensive/exercise_01_solution.md) |
-| 习题二（变分法） | [`exercise_02`](../../md_output/exercises/exercise_02.md) | [`past/comprehensive/exercise_02_solution`](../04-Homework-Solutions/past/comprehensive/exercise_02_solution.md) |
-| 习题三（加权残值法） | [`exercise_03`](../../md_output/exercises/exercise_03.md) | [`past/comprehensive/exercise_03_solution`](../04-Homework-Solutions/past/comprehensive/exercise_03_solution.md) |
-| 习题四（变分+FEM） | [`exercise_04`](../../md_output/exercises/exercise_04.md) | [`past/comprehensive/exercise_04_solution`](../04-Homework-Solutions/past/comprehensive/exercise_04_solution.md) |
-| 习题五（FEM公式） | [`exercise_05`](../../md_output/exercises/exercise_05.md) | [`past/comprehensive/exercise_05_solution`](../04-Homework-Solutions/past/comprehensive/exercise_05_solution.md) |
-| 习题六（单元构造） | [`exercise_06`](../../md_output/exercises/exercise_06.md) | [`past/comprehensive/exercise_06_solution`](../04-Homework-Solutions/past/comprehensive/exercise_06_solution.md) |
+| 习题一（张量） | [`past/comprehensive/exercise_01`](../04-Homework-Solutions/past/comprehensive/exercise_01.md) | [`past/comprehensive/exercise_01_solution`](../04-Homework-Solutions/past/comprehensive/exercise_01_solution.md) |
+| 习题二（变分法） | [`past/comprehensive/exercise_02`](../04-Homework-Solutions/past/comprehensive/exercise_02.md) | [`past/comprehensive/exercise_02_solution`](../04-Homework-Solutions/past/comprehensive/exercise_02_solution.md) |
+| 习题三（加权残值法） | [`past/comprehensive/exercise_03`](../04-Homework-Solutions/past/comprehensive/exercise_03.md) | [`past/comprehensive/exercise_03_solution`](../04-Homework-Solutions/past/comprehensive/exercise_03_solution.md) |
+| 习题四（变分+FEM） | [`past/comprehensive/exercise_04`](../04-Homework-Solutions/past/comprehensive/exercise_04.md) | [`past/comprehensive/exercise_04_solution`](../04-Homework-Solutions/past/comprehensive/exercise_04_solution.md) |
+| 习题五（FEM公式） | [`past/comprehensive/exercise_05`](../04-Homework-Solutions/past/comprehensive/exercise_05.md) | [`past/comprehensive/exercise_05_solution`](../04-Homework-Solutions/past/comprehensive/exercise_05_solution.md) |
+| 习题六（单元构造） | [`past/comprehensive/exercise_06`](../04-Homework-Solutions/past/comprehensive/exercise_06.md) | [`past/comprehensive/exercise_06_solution`](../04-Homework-Solutions/past/comprehensive/exercise_06_solution.md) |
 
 ### 考试资料
 
