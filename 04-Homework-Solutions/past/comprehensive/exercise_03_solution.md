@@ -332,31 +332,66 @@ $$\boxed{a_1 = \frac{p}{24EI}}$$
 
 **残差**：
 
-$$R = \frac{d^2\varphi}{dx^2} + \varphi + x$$
+$$R = \varphi'' + \varphi + x$$
 
-计算导数：
-
-$$\varphi_1'' = -2, \quad \varphi_2'' = 2 - 6x$$
+计算导数：$\varphi_1'' = -2$，$\varphi_2'' = 2 - 6x$
 
 $$R = c_1(-2 + x - x^2) + c_2(2 - 6x + x^2 - x^3) + x$$
 
+---
+
+### (1) Galerkin 方法
+
 **Galerkin 条件**：
 
-$$\int_0^1 R \cdot \varphi_1 \, dx = 0$$
+$$\int_0^1 R \cdot \varphi_1\,dx = 0, \quad \int_0^1 R \cdot \varphi_2\,dx = 0$$
 
-$$\int_0^1 R \cdot \varphi_2 \, dx = 0$$
+**计算积分**（利用 $\int_0^1 x^m dx = \frac{1}{m+1}$）：
 
-代入计算得两个方程，解方程组得 $c_1, c_2$。
+| 积分 | 计算结果 |
+|------|---------|
+| $\int_0^1(-2+x-x^2)(x-x^2)dx$ | $\frac{1}{10}$ |
+| $\int_0^1(2-6x+x^2-x^3)(x-x^2)dx$ | $\frac{5}{84}$ |
+| $\int_0^1 x(x-x^2)dx$ | $\frac{1}{12}$ |
+| $\int_0^1(-2+x-x^2)(x^2-x^3)dx$ | $-\frac{1}{60}$ |
+| $\int_0^1(2-6x+x^2-x^3)(x^2-x^3)dx$ | $-\frac{13}{105}$ |
+| $\int_0^1 x(x^2-x^3)dx$ | $\frac{1}{12}$ |
+
+**方程组**：
+
+$$\begin{cases}\frac{1}{10}c_1 + \frac{5}{84}c_2 = -\frac{1}{12} \\ -\frac{1}{60}c_1 - \frac{13}{105}c_2 = -\frac{1}{12}\end{cases}$$
+
+化简：$42c_1 + 25c_2 = -\frac{35}{2}$，$-7c_1 - 52c_2 = -35$
+
+**解得**：$c_1 = \frac{701}{171}$，$c_2 = -\frac{34}{57}$
+
+---
 
 ### (2) 最小二乘法
 
 **目标**：最小化 $J = \int_0^1 R^2 dx$
 
-$$\frac{\partial J}{\partial c_1} = 2\int_0^1 R \frac{\partial R}{\partial c_1} dx = 0$$
+$$\frac{\partial J}{\partial c_i} = 2\int_0^1 R \frac{\partial R}{\partial c_i} dx = 0$$
 
-$$\frac{\partial J}{\partial c_2} = 2\int_0^1 R \frac{\partial R}{\partial c_2} dx = 0$$
+其中 $\frac{\partial R}{\partial c_1} = -2+x-x^2$，$\frac{\partial R}{\partial c_2} = 2-6x+x^2-x^3$
 
-计算得方程组，解得 $c_1, c_2$。
+**计算积分**：
+
+| 积分 | 计算结果 |
+|------|---------|
+| $\int_0^1(-2+x-x^2)^2 dx$ | $\frac{67}{30}$ |
+| $\int_0^1(-2+x-x^2)(2-6x+x^2-x^3)dx$ | $-\frac{1}{3}$ |
+| $\int_0^1(2-6x+x^2-x^3)^2 dx$ | $\frac{31}{105}$ |
+| $\int_0^1 x(-2+x-x^2)dx$ | $-\frac{5}{12}$ |
+| $\int_0^1 x(2-6x+x^2-x^3)dx$ | $-\frac{13}{60}$ |
+
+**方程组**：
+
+$$\begin{cases}\frac{67}{30}c_1 - \frac{1}{3}c_2 = \frac{5}{12} \\ -\frac{1}{3}c_1 + \frac{31}{105}c_2 = \frac{13}{60}\end{cases}$$
+
+**解得**：$c_1 = \frac{343}{1674}$，$c_2 = -\frac{46}{49}$
+
+---
 
 ### (3) Rayleigh-Ritz 方法
 
@@ -364,7 +399,36 @@ $$\frac{\partial J}{\partial c_2} = 2\int_0^1 R \frac{\partial R}{\partial c_2} 
 
 $$Q[\varphi] = \int_0^1 \left[\frac{1}{2}(\varphi')^2 - \frac{1}{2}\varphi^2 - x\varphi\right] dx$$
 
-代入 $\varphi = c_1\varphi_1 + c_2\varphi_2$，对 $c_1, c_2$ 求偏导并令为零。
+**计算积分**：
+
+| 积分 | 计算结果 |
+|------|---------|
+| $\int_0^1 (\varphi_1')^2 dx = \int_0^1(1-2x)^2 dx$ | $\frac{1}{3}$ |
+| $\int_0^1 \varphi_1^2 dx = \int_0^1 x^2(1-x)^2 dx$ | $\frac{1}{30}$ |
+| $\int_0^1 \varphi_1'\varphi_2' dx = \int_0^1(1-2x)(2x-3x^2)dx$ | $\frac{1}{6}$ |
+| $\int_0^1 \varphi_1\varphi_2 dx = \int_0^1 x^3(1-x)^2 dx$ | $\frac{1}{60}$ |
+| $\int_0^1 (\varphi_2')^2 dx = \int_0^1(2x-3x^2)^2 dx$ | $\frac{2}{15}$ |
+| $\int_0^1 \varphi_2^2 dx = \int_0^1 x^4(1-x)^2 dx$ | $\frac{1}{105}$ |
+| $\int_0^1 x\varphi_1 dx$ | $\frac{1}{12}$ |
+| $\int_0^1 x\varphi_2 dx$ | $\frac{1}{20}$ |
+
+**方程组**（$\partial Q/\partial c_i = 0$）：
+
+$$\begin{cases}\frac{3}{10}c_1 + \frac{3}{20}c_2 = \frac{1}{12} \\ \frac{3}{20}c_1 + \frac{9}{35}c_2 = \frac{1}{20}\end{cases}$$
+
+化简：$18c_1 + 9c_2 = 5$，$21c_1 + \frac{72}{7}c_2 = \frac{7}{2}$
+
+**解得**：$c_1 = \frac{31}{46}$，$c_2 = \frac{7}{138}$
+
+---
+
+### 结果对比
+
+| 方法 | $c_1$ | $c_2$ | $\varphi(0.5)$ |
+|------|-------|-------|----------------|
+| Galerkin | $\frac{701}{171} \approx 4.10$ | $-\frac{34}{57} \approx -0.60$ | $0.81$ |
+| 最小二乘 | $\frac{343}{1674} \approx 0.20$ | $-\frac{46}{49} \approx -0.94$ | $-0.06$ |
+| Rayleigh-Ritz | $\frac{31}{46} \approx 0.67$ | $\frac{7}{138} \approx 0.05$ | $0.18$ |
 
 ---
 
