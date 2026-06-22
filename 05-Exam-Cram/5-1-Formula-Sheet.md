@@ -766,7 +766,7 @@ $$\boxed{\int_0^l \sin\frac{m\pi x}{l}\sin\frac{n\pi x}{l}\,dx = \begin{cases}l/
 
 $$\boxed{\int_0^l \cos^2\frac{n\pi x}{l}\,dx = \frac{l}{2}}$$
 
-$$\boxed{\int_0^l \sin\frac{n\pi x}{l}\,dx = \frac{2l}{n\pi}(1-(-1)^n) = \begin{cases}4l/(n\pi) & n\text{ 奇数} \\ 0 & n\text{ 偶数}\end{cases}}$$
+$$\boxed{\int_0^l \sin\frac{n\pi x}{l}\,dx = \frac{l}{n\pi}[1-(-1)^n] = \begin{cases}2l/(n\pi) & n\text{ 奇数} \\ 0 & n\text{ 偶数}\end{cases}}$$
 
 **推导依据**：半角公式 $\sin^2\theta = \frac{1-\cos 2\theta}{2}$，$\cos^2\theta = \frac{1+\cos 2\theta}{2}$
 

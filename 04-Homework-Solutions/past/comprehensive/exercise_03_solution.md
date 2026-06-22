@@ -1,4 +1,4 @@
-# 习题三 解答
+﻿# 习题三 解答
 
 ---
 
@@ -6,7 +6,7 @@
 
 **题目**：考虑图中所示的矩形截面杆，中部受一对夹持力 P 作用，求由 P 引起的杆长变化 $\Delta$。
 
-![矩形截面杆](../../../../md_output/exercises/exercise_03/images/b5f5e5b7954a8c6ffc14f215ef2a345661cba28da506ed74dda5a42a0cf721c5.jpg)
+![矩形截面杆](exercise_03/images/b5f5e5b7954a8c6ffc14f215ef2a345661cba28da506ed74dda5a42a0cf721c5.jpg)
 
 **解答**：
 
@@ -181,7 +181,7 @@ $$\boxed{\frac{d^2}{dx^2}(py'') - \frac{d}{dx}(qy') + ry = s}$$
 
 **题目**：受均布荷载的悬臂梁。(1) 用挠度方程求出精确解；(2) 写出两种以上的许可位移场（试函数）；(3) 分别用最小势能原理（Rayleigh-Ritz 法）、Galerkin 加权残值法、残值最小二乘法求挠度曲线。
 
-![悬臂梁](../../../../md_output/exercises/exercise_03/images/bbfeeb9f78e116822479211dbf49ea83f3864faeeaf88e9812250ac4ed55cbe1.jpg)
+![悬臂梁](exercise_03/images/bbfeeb9f78e116822479211dbf49ea83f3864faeeaf88e9812250ac4ed55cbe1.jpg)
 
 **解答**：
 

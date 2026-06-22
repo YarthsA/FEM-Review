@@ -1,4 +1,4 @@
-# 习题五 解答
+﻿# 习题五 解答
 
 ---
 
@@ -170,7 +170,7 @@ $$[k]^e = t\Delta [B]^T[D][B]$$
 
 **题目**：推导图示矩形单元的单元刚度矩阵。
 
-![矩形单元](../../../../md_output/exercises/exercise_05/images/10d85f05df99fed56a8c5604feb788b8a30d9efb4930a27c965c6017785a0ac3.jpg)
+![矩形单元](exercise_05/images/10d85f05df99fed56a8c5604feb788b8a30d9efb4930a27c965c6017785a0ac3.jpg)
 
 **解答**：
 

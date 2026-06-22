@@ -105,3 +105,21 @@
 | HowardWoolley 答案书 | ⚠️ 缺失 | — |
 | 名词简答 | [`变分原理名词简答宫婷.pdf`](../06-References/pdfs-originals/变分原理名词简答宫婷.pdf) | [`06-References/变分原理名词简答-宫婷`](../06-References/变分原理名词简答-宫婷.md) |
 | 有限元复习 | ⚠️ 缺失 | — |
+
+### 往年习题集（exercise）
+
+| 习题 | Markdown 题目 | 参考解答 |
+|------|---------------|----------|
+| 习题一（张量） | [`exercise_01`](../../md_output/exercises/exercise_01.md) | [`past/comprehensive/exercise_01_solution`](../04-Homework-Solutions/past/comprehensive/exercise_01_solution.md) |
+| 习题二（变分法） | [`exercise_02`](../../md_output/exercises/exercise_02.md) | [`past/comprehensive/exercise_02_solution`](../04-Homework-Solutions/past/comprehensive/exercise_02_solution.md) |
+| 习题三（加权残值法） | [`exercise_03`](../../md_output/exercises/exercise_03.md) | [`past/comprehensive/exercise_03_solution`](../04-Homework-Solutions/past/comprehensive/exercise_03_solution.md) |
+| 习题四（变分+FEM） | [`exercise_04`](../../md_output/exercises/exercise_04.md) | [`past/comprehensive/exercise_04_solution`](../04-Homework-Solutions/past/comprehensive/exercise_04_solution.md) |
+| 习题五（FEM公式） | [`exercise_05`](../../md_output/exercises/exercise_05.md) | [`past/comprehensive/exercise_05_solution`](../04-Homework-Solutions/past/comprehensive/exercise_05_solution.md) |
+| 习题六（单元构造） | [`exercise_06`](../../md_output/exercises/exercise_06.md) | [`past/comprehensive/exercise_06_solution`](../04-Homework-Solutions/past/comprehensive/exercise_06_solution.md) |
+
+### 考试资料
+
+| 资料 | 路径 |
+|------|------|
+| 考试范围大纲 | [`05-Exam-Cram/5-2-Exam-Scope.md`](../05-Exam-Cram/5-2-Exam-Scope.md) |
+| 考前公式速查 | [`05-Exam-Cram/5-1-Formula-Sheet.md`](../05-Exam-Cram/5-1-Formula-Sheet.md) |
