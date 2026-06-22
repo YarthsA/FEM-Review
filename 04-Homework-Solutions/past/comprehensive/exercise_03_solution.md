@@ -280,7 +280,7 @@ $$\int_0^l R \cdot \varphi_1\,dx = (24EI a_1 - p)\int_0^l (x^4 - 4lx^3 + 6l^2x^2
 
 $$\boxed{a_1 = \frac{p}{24EI}}$$
 
-**近似解**：$w_B = \frac{p}{24EI}(x^4 - 4lx^3 + 6l^2x^2)$，$w_B(l) = \frac{p}{24EI}\cdot 3l^4 = \frac{pl^4}{8EI$
+**近似解**：$w_B = \frac{p}{24EI}(x^4 - 4lx^3 + 6l^2x^2)$，$w_B(l) = \frac{p}{24EI}\cdot 3l^4 = \frac{pl^4}{8EI}$
 
 **与精确解完全一致！** 因为试函数 $\varphi_1$ 恰好就是精确解的形式。
 
