@@ -28,21 +28,36 @@ FEM-Review/
 │
 ├── 04-Homework-Solutions/     ← 作业题目与详解
 │   ├── 2026w/                       # 本学年（题目+详解配对）
-│   │   ├── HW1-Problem.md          # 作业题目
-│   │   ├── HW1-Solution.md         # 完整解答
-│   │   ├── HW2-Problem.md          # 作业题目
-│   │   ├── HW2-Solution.md         # 完整解答
-│   │   ├── HW3-Problem.md          # 作业题目
-│   │   ├── HW3-Solution.md         # 完整解答
-│   │   ├── HW4-Problem.md          # 作业题目
-│   │   └── HW4-Solution.md         # 完整解答
-│   └── past/                        # 往年作业 — 参考与补充练习
+│   │   ├── HW1-Problem.md + HW1-Solution.md
+│   │   ├── HW2-Problem.md + HW2-Solution.md
+│   │   ├── HW3-Problem.md + HW3-Solution.md
+│   │   └── HW4-Problem.md + HW4-Solution.md
+│   └── past/                        # 往年资料（自包含，含图片）
 │       ├── HW2/                     # 往年 HW2 题目 + LIU Sai 答案
 │       ├── HW3/                     # 往年 HW3（两版）+ LIU Sai 答案
-│       └── comprehensive/           # HowardWoolley 完整答案本 + HW1.1/1.2
+│       └── comprehensive/           # 往年习题集（原题 + 解答 + 图片）
+│           ├── exercise_01.md       # 习题一：张量运算
+│           ├── exercise_01_solution.md
+│           ├── exercise_01/images/
+│           ├── exercise_02.md       # 习题二：变分法
+│           ├── exercise_02_solution.md
+│           ├── exercise_02/images/
+│           ├── exercise_03.md       # 习题三：加权残值法
+│           ├── exercise_03_solution.md
+│           ├── exercise_03/images/
+│           ├── exercise_04.md       # 习题四：变分+FEM
+│           ├── exercise_04_solution.md
+│           ├── exercise_04/images/
+│           ├── exercise_05.md       # 习题五：FEM 公式
+│           ├── exercise_05_solution.md
+│           ├── exercise_05/images/
+│           ├── exercise_06.md       # 习题六：单元构造
+│           ├── exercise_06_solution.md
+│           └── exercise_06/images/
 │
-├── 05-Exam-Cram/              ← 考前公式速查
-│   └── 5-1-Formula-Sheet.md       # 一页纸公式速查 + 证明模板
+├── 05-Exam-Cram/              ← 考前冲刺
+│   ├── 5-1-Formula-Sheet.md        # 公式速查 + 证明模板
+│   └── 5-2-Exam-Scope.md           # 考试范围大纲
 │
 ├── 06-References/            ← 参考资料
 │   ├── 往年参考答案-LIU-Sai.md       # 往年作业答案 + 概念定义
@@ -104,7 +119,7 @@ FEM-Review/
 
 ## 考试范围
 
-> 基于课件截图整理
+> 完整考试范围大纲见 [05-Exam-Cram/5-2-Exam-Scope.md](05-Exam-Cram/5-2-Exam-Scope.md)
 
 ### 一、Tensor（张量）
 
@@ -178,6 +193,7 @@ FEM-Review/
 
 ## 补充资料
 
+- **往年习题集**：[past/comprehensive/](04-Homework-Solutions/past/comprehensive/) — 6 套习题（张量、变分法、加权残值法、FEM 公式、单元构造）含原题、解答和图片
 - **往年参考答案**：[LIU Sai 答案](06-References/往年参考答案-LIU-Sai.md) — 往年作业答案及概念定义
 - **变分原理术语简答**：[宫婷笔记](06-References/变分原理名词简答-宫婷.md) — 术语简答题集
 
@@ -192,4 +208,4 @@ FEM-Review/
 
 ---
 
-> 整理于 2026 年 6 月 · *上海交通大学 · 变分法与有限元分析*
+> 整理于 2026 年 6 月 · 最后更新：2026-06-23 · *上海交通大学 · 变分法与有限元分析*
