@@ -187,7 +187,7 @@ $$\boxed{u = N_i(x,y)u_i + N_j(x,y)u_j + N_m(x,y)u_m = [N]\{\delta\}_e}$$
 
 **形函数的显式表达式**：
 
-$$N_i = \frac{1}{2\Delta_e}\left[\begin{vmatrix} y_j & 1 \\ y_m & 1 \end{vmatrix} x - \begin{vmatrix} x_j & 1 \\ x_m & 1 \end{vmatrix} y + \begin{vmatrix} x_j & y_j \\ x_m & y_m \end{vmatrix}\right] \equiv \frac{1}{2\Delta_e}(a_i x + b_i y + c_i)$$
+$$N_i = \frac{1}{2\Delta_e}\left[\begin{vmatrix} y_j & 1 \\ y_m & 1 \end{vmatrix} x - \begin{vmatrix} x_j & 1 \\ x_m & 1 \end{vmatrix} y + \begin{vmatrix} x_j & y_j \\ x_m & y_m \end{vmatrix}\right] \equiv \frac{1}{2\Delta_e}(a_i  + b_i x + c_i y)$$
 
 $N_j, N_m$ 的表达式通过**轮换下标**获得。引入记号：
 
@@ -624,6 +624,17 @@ v(x,y) = N_1 v_1 + N_2 v_2 + N_3 v_3
 \end{cases}$$
 
 其中 $N_s = \dfrac{1}{2A}(a_s + b_s x + c_s y),\;(s=1,2,3)$
+
+**形函数矩阵 $[N]$ 的显式形式**：
+
+$$\boxed{[N]_{(2\times 6)} = \begin{pmatrix}
+N_1 & 0 & N_2 & 0 & N_3 & 0 \\
+0 & N_1 & 0 & N_2 & 0 & N_3
+\end{pmatrix}}$$
+
+也可写为分块形式 $[N] = \begin{bmatrix} N_1\mathbf{I}_2 & N_2\mathbf{I}_2 & N_3\mathbf{I}_2 \end{bmatrix}$，其中 $\mathbf{I}_2$ 是 $2\times 2$ 单位矩阵。验证不难：
+
+$$\begin{cases} u(x,y) = [N]\mathbf{q}^e = N_1 u_1 + N_2 u_2 + N_3 u_3 \\ v(x,y) = [N]\mathbf{q}^e = N_1 v_1 + N_2 v_2 + N_3 v_3 \end{cases}$$
 
 #### (B) 单元应变场——$[B]$ 矩阵的构造
 

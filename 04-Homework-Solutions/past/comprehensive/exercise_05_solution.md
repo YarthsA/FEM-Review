@@ -275,15 +275,29 @@ $$x = \sum_{i=1}^4 N_i x_i, \quad y = \sum_{i=1}^4 N_i y_i$$
 
 $$J = \begin{bmatrix} \frac{\partial x}{\partial \xi} & \frac{\partial y}{\partial \xi} \\ \frac{\partial x}{\partial \eta} & \frac{\partial y}{\partial \eta} \end{bmatrix}$$
 
-计算偏导数：
+**展开计算**：以 $\partial x/\partial\xi$ 为例
 
-$$\frac{\partial x}{\partial \xi} = \sum_{i=1}^4 \frac{\partial N_i}{\partial \xi} x_i$$
+$$\frac{\partial N_i}{\partial\xi} = \frac{\xi_i}{4}(1+\eta\eta_i), \quad i=1,2,3,4$$
 
-对于平行四边形单元，$\frac{\partial N_i}{\partial \xi}$ 和 $\frac{\partial N_i}{\partial \eta}$ 是常数（因为形函数是双线性的，偏导数是线性函数的系数）。
+代入得：
 
-因此 $J$ 的每个元素都是常数。
+$$\frac{\partial x}{\partial\xi} = \sum_{i=1}^4 \frac{\partial N_i}{\partial\xi} x_i
+= \frac14\Big[-(1-\eta)x_1 + (1-\eta)x_2 + (1+\eta)x_3 - (1+\eta)x_4\Big]$$
 
-**结论**：平行四边形单元的 Jacobi 矩阵是常数矩阵。 $\blacksquare$
+**问题**：单独看每个 $\partial N_i/\partial\xi$ 不是常数（含 $\eta$），但求和后是否含 $\eta$ 取决于节点坐标。
+
+将 $\eta$ 的项（$-\frac14\eta x_1 + \frac14\eta x_2 + \frac14\eta x_3 - \frac14\eta x_4$）提取，合并得 $\frac{\eta}{4}\big[(x_2-x_1) - (x_3-x_4)\big]$。要使该交叉项为零（即 $\partial x/\partial\xi$ 与 $\eta$ 无关），需要：
+
+$$x_2 - x_1 = x_3 - x_4$$
+
+对 $\partial x/\partial\eta$、$\partial y/\partial\xi$、$\partial y/\partial\eta$ 做同样展开，可得平行四边形的完整条件：
+
+$$\boxed{x_2 - x_1 = x_3 - x_4,\quad y_2 - y_1 = y_3 - y_4}$$
+$$\boxed{x_4 - x_1 = x_3 - x_2,\quad y_4 - y_1 = y_3 - y_2}$$
+
+即对边平行且相等。在此条件下，J 中所有 $\xi,\eta$ 交叉项消去，**每个元素为常数**。
+
+**结论**：平行四边形单元的 Jacobi 矩阵是常数矩阵。$\blacksquare$
 
 ---
 

@@ -278,18 +278,27 @@ $$\boxed{\delta Q = 0 \;\Longleftrightarrow\; \text{Euler 方程} + \text{自然
 
 力学中：$\delta\Pi=0$（最小势能原理）$\Longleftrightarrow$ 平衡方程 + 边界条件
 
-### 3.9 虚功原理 Principle of virtual work
+### 3.9 虚功原理 / 虚位移原理 / 虚应力原理 Principle of virtual work
 
-**可能位移**：满足几何方程和位移 BC 的位移场
-**可能应力**：满足平衡方程和力 BC 的应力场
-**虚位移** $\delta u_i$：满足位移 BC 的任意微小位移变分，$\delta\varepsilon_{ij}=\frac12(\delta u_{i,j}+\delta u_{j,i})$
-**虚应力** $\delta\sigma_{ij}$：满足力 BC 的任意微小应力变分，$\delta\sigma_{ij,j}=0$
+**三类原理的定义与关系**：
 
-**虚功方程**（核心公式）：
+| 原理 | 定义 | 等价于 |
+|------|------|--------|
+| **虚功原理**（Principle of virtual work） | 对任一可能应力场和任一可能位移场，外力虚功等于内力虚功 | 平衡方程 + 几何方程 + 本构关系（三者同时满足时的恒等式） |
+| **虚位移原理**（Principle of virtual displacement） | 取真实应力场和虚位移场代入虚功方程，等价于平衡方程 + 力边界条件 | $\boxed{\sigma_{ij,j}+f_i=0}$ + $\boxed{\sigma_{ij}n_j=\bar{p}_i}$ |
+| **虚应力原理**（Principle of virtual stress） | 取真实位移场和虚应力场代入虚功方程，等价于几何方程 + 位移边界条件 | $\boxed{\varepsilon_{ij}=\frac12(u_{i,j}+u_{j,i})}$ + $\boxed{u_i=\bar{u}_i}$ |
+
+**基本概念**：
+- **可能位移**（Admissible displacement）：满足几何方程 $\varepsilon_{ij}=\frac12(u_{i,j}+u_{j,i})$ 和位移边界条件 $u_i=\bar{u}_i$ 的位移场
+- **可能应力**（Admissible stress）：满足平衡方程 $\sigma_{ij,j}+f_i=0$ 和力边界条件 $\sigma_{ij}n_j=\bar{p}_i$ 的应力场
+- **虚位移** $\delta u_i$（Virtual displacement）：在满足齐次位移边界条件 $(\delta u_i|_{S_u}=0)$ 的前提下，在真实位移上施加的任意微小位移变分。由几何方程得虚应变 $\delta\varepsilon_{ij}=\frac12(\delta u_{i,j}+\delta u_{j,i})$
+- **虚应力** $\delta\sigma_{ij}$（Virtual stress）：在满足齐次力边界条件 $(\delta\sigma_{ij}n_j|_{S_\sigma}=0)$ 的前提下，在真实应力上施加的任意微小应力变分。由平衡方程得 $\delta\sigma_{ij,j}=0$
+
+**核心公式——虚功方程**（已知应力平衡时恒成立，不依赖本构关系）：
 
 $$\boxed{\int_V F_i\,\delta u_i\,dV + \int_{S_\sigma} \bar{p}_i\,\delta u_i\,dS = \int_V \sigma_{ij}\,\delta\varepsilon_{ij}\,dV}$$
 
-左端 = 外力虚功，右端 = 内力虚功（应变能变分）。适用于任何小变形体，不依赖本构关系。
+左端 = 外力虚功，右端 = 内力虚功（应变能变分）。
 
 **虚位移原理**（$\delta u_i$ 任意 → 检验 $\sigma_{ij}$）：
 
